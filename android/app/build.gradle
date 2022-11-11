@@ -135,7 +135,7 @@ apply plugin: "com.android.application"
       compileSdkVersion rootProject.ext.compileSdkVersion
   
       defaultConfig {
-          applicationId "com.Mentis.com"
+          applicationId "mentis.react.native"
           minSdkVersion rootProject.ext.minSdkVersion
           targetSdkVersion rootProject.ext.targetSdkVersion
           versionCode 1

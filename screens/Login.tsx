@@ -37,13 +37,11 @@ const Login = () => {
           </Pressable>
         </Pressable>
       </View>
-      <View style={styles.logoView}>
-        <Image
-          style={styles.logoIcon}
-          resizeMode="cover"
-          source={require("../assets/logo.png")}
-        />
-      </View>
+      <Image
+        style={styles.logoIcon}
+        resizeMode="cover"
+        source={require("../assets/logo.png")}
+      />
     </View>
   );
 };
@@ -54,22 +52,26 @@ const styles = StyleSheet.create({
   },
   rectangleView: {
     position: "absolute",
-    top: 0,
-    left: 0,
+    marginTop: -30,
+    marginLeft: -156,
+    top: "50%",
+    left: "50%",
     borderRadius: 16,
-    backgroundColor: "#b9b9b9",
-    width: 281,
+    backgroundColor: "#fff",
+    width: 312,
     height: 60,
   },
   loginWithEmail: {
     position: "absolute",
-    top: 12,
-    left: 8,
+    marginTop: -18,
+    marginLeft: -132.5,
+    top: "50%",
+    left: "50%",
     fontSize: 18,
     lineHeight: 25,
     fontWeight: "600",
     fontFamily: "Manrope",
-    color: "#181818",
+    color: "#334166",
     textAlign: "center",
     display: "flex",
     alignItems: "center",
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
   },
   loginEmailPressable: {
     position: "relative",
-    width: 281,
+    width: 312,
     height: 60,
     flexShrink: 0,
   },
@@ -91,46 +93,32 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: "500",
     fontFamily: "Manrope",
-    color: "#b9b9b9",
+    color: "#fff",
     textAlign: "center",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: 268,
     height: 35,
-    textShadowColor: "rgba(0, 0, 0, 0.25)",
-    textShadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    textShadowRadius: 4,
   },
   lineView: {
     position: "absolute",
-    transform: [
-      {
-        translateY: -1,
-      },
-    ],
+    marginTop: -1,
     top: "50%",
     left: 156.5,
     borderStyle: "solid",
-    borderColor: "#b9b9b9",
+    borderColor: "#fff",
     borderTopWidth: 1,
     width: 82,
     height: 1,
   },
   lineView1: {
     position: "absolute",
-    transform: [
-      {
-        translateY: -1,
-      },
-    ],
+    marginTop: -1,
     top: "50%",
     left: 30.5,
     borderStyle: "solid",
-    borderColor: "#b9b9b9",
+    borderColor: "#fff",
     borderTopWidth: 1,
     width: 82,
     height: 1,
@@ -156,7 +144,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: "500",
     fontFamily: "Manrope",
-    color: "#b9b9b9",
+    color: "#fff",
     textAlign: "center",
     display: "flex",
     alignItems: "flex-end",
@@ -171,38 +159,27 @@ const styles = StyleSheet.create({
   },
   inputsView: {
     position: "absolute",
+    marginLeft: -203,
     bottom: 0,
-    left: 0,
+    left: "50%",
     flexDirection: "column",
     paddingHorizontal: 45,
     paddingVertical: 42,
     boxSizing: "border-box",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
   },
   logoIcon: {
-    position: "relative",
-    width: 176.43,
-    height: 178,
-    flexShrink: 0,
-  },
-  logoView: {
     position: "absolute",
+    marginLeft: -93.5,
     top: 0,
-    left: 88,
-    width: 199,
-    height: 266,
-    flexDirection: "column",
-    paddingHorizontal: 0,
-    paddingTop: 33,
-    paddingBottom: 34,
-    boxSizing: "border-box",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    left: "50%",
+    width: 200,
+    height: 200,
   },
   loginView: {
     position: "relative",
-    backgroundColor: "#181818",
+    backgroundColor: "#334166",
     flex: 1,
     width: "100%",
     height: 812,

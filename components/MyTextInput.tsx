@@ -25,14 +25,16 @@ const MyTextInput = ({ secureText, type }: MyTextInputType) => {
 const styles = StyleSheet.create({
   rectangleView: {
     position: "absolute",
-    top: 0,
-    left: 0,
+    marginTop: -37.5,
+    marginLeft: -156,
+    top: "50%",
+    left: "50%",
     borderRadius: 16,
-    backgroundColor: "#181818",
+    backgroundColor: "#334166",
     borderStyle: "solid",
-    borderColor: "#b9b9b9",
+    borderColor: "#fff",
     borderWidth: 1,
-    width: 281,
+    width: 312,
     height: 60,
   },
   emailInputTextInput: {
@@ -48,22 +50,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 17,
     fontFamily: "Manrope",
-    color: "#b9b9b9",
+    color: "#fff",
     textAlign: "center",
   },
   frameView: {
     position: "absolute",
-    transform: [
-      {
-        translateY: -46,
-      },
-      {
-        translateX: -116,
-      },
-    ],
-    top: "50%",
-    left: "50%",
-    backgroundColor: "#181818",
+    top: -8.5,
+    left: 23,
+    backgroundColor: "#334166",
     flexDirection: "row",
     paddingHorizontal: 5,
     paddingVertical: 0,
@@ -73,7 +67,7 @@ const styles = StyleSheet.create({
   },
   emailView: {
     position: "relative",
-    width: 281,
+    width: 312,
     height: 75,
     flexShrink: 0,
   },
