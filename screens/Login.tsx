@@ -1,41 +1,75 @@
-import * as React from "react";
+import React,  { useState } from "react";
 import { Pressable, StyleSheet, View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import firebase from 'firebase/compat/app';
+
+import { SignInWithEmail } from '../modules/auth';
+import { Providers } from '../config/firebase';
+
 import MyTextInput from "../components/MyTextInput";
 import OutlineButton from "../components/OutlineButton";
+import FilledButton from "../components/FilledButton";
+
+import config from '../config/config';
+
+type FormError = {
+  emailError: string,
+  passwordError: string
+}
 
 const Login = () => {
   const navigation = useNavigation();
 
+  const [authenticating, setAuthenticating] = useState<boolean>(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [formError, setFormError] = useState<FormError>({emailError: "", passwordError: ""})
+
+  const signInWithEmail = () => {
+      let fError = {emailError: "", passwordError: ""} as FormError;
+      
+
+      const emailExp: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+
+      //setAuthenticating(true);
+
+      SignInWithEmail(email, password)
+          .then(result => {
+            navigation.navigate("Disclaimer")
+          })
+          .catch(error => {
+              fError.passwordError =  "Unable to login, check email & password";
+
+              if(!emailExp.test(email)){
+                fError.emailError = "Invalid email";
+              }
+        
+              if (password.length < 6){
+                fError.passwordError = "Password has to be at least 6 characters";
+              }
+              setFormError(fError);
+          });
+        
+
+      
+      //setAuthenticating(false);
+  }
+
   return (
     <View style={styles.loginView}>
       <View style={styles.inputsView}>
-        <MyTextInput type="Email" />
-        <MyTextInput secureText type="Password" />
-        <Pressable style={[styles.loginEmailPressable, styles.mt9]}>
-          <View style={styles.rectangleView} />
-          <Text style={styles.loginWithEmail}>Login with Email</Text>
-        </Pressable>
+        <MyTextInput type="Email" inputError={formError.emailError} hook={setEmail}/>
+        <MyTextInput secureText type="Password" inputError={formError.passwordError} hook={setPassword}/>
+        <FilledButton  text="Login with Email" onPress={signInWithEmail}/>
         <View style={[styles.frameView, styles.mt9]}>
           <Text style={styles.oRText}>OR</Text>
           <View style={styles.lineView} />
           <View style={styles.lineView1} />
         </View>
-        <OutlineButton />
-        <Pressable
-          style={[styles.signUpPressable1, styles.mt9]}
-          onPress={() => navigation.navigate("SignUp")}
-        >
-          <Pressable
-            style={styles.signUpPressable}
-            onPress={() => navigation.navigate("SignUp")}
-          >
-            <Text style={styles.signUpTxt}>
-              {`Dont have an account? `}
-              <Text style={styles.signUpText}>Sign up</Text>
-            </Text>
-          </Pressable>
-        </Pressable>
+        <OutlineButton text="Login with Google" onPress={() => {console.log("Google Click")}}/>
       </View>
       <Image
         style={styles.logoIcon}
@@ -49,41 +83,6 @@ const Login = () => {
 const styles = StyleSheet.create({
   mt9: {
     marginTop: 9,
-  },
-  rectangleView: {
-    position: "absolute",
-    marginTop: -30,
-    marginLeft: -156,
-    top: "50%",
-    left: "50%",
-    borderRadius: 16,
-    backgroundColor: "#fff",
-    width: 312,
-    height: 60,
-  },
-  loginWithEmail: {
-    position: "absolute",
-    marginTop: -18,
-    marginLeft: -132.5,
-    top: "50%",
-    left: "50%",
-    fontSize: 18,
-    lineHeight: 25,
-    fontWeight: "600",
-    fontFamily: "Manrope",
-    color: "#334166",
-    textAlign: "center",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 264,
-    height: 36,
-  },
-  loginEmailPressable: {
-    position: "relative",
-    width: 312,
-    height: 60,
-    flexShrink: 0,
   },
   oRText: {
     position: "absolute",
@@ -160,6 +159,7 @@ const styles = StyleSheet.create({
   inputsView: {
     position: "absolute",
     marginLeft: -203,
+    marginBottom: 30,
     bottom: 0,
     left: "50%",
     flexDirection: "column",

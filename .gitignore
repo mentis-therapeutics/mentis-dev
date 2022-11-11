@@ -1,4 +1,6 @@
-node_modules
-auth
-ios
-android
+node_modules/
+auth/
+ios/
+android/
+.env
+config/config.tsx
