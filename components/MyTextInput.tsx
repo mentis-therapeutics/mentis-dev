@@ -1,22 +1,26 @@
 import * as React from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import { StyleSheet, View, TextInput, TextInputProps, Text } from "react-native";
+
+
+export const emailTextInputProps : TextInputProps = {autoComplete: "email", textContentType:'emailAddress', autoCapitalize: "none", spellCheck: false, autoCorrect: false};
+export const passwordTextInputProps : TextInputProps = {autoComplete: "password", textContentType:'password', autoCapitalize: "none", spellCheck: false, secureTextEntry: true};
 
 type MyTextInputType = {
-  secureText?: boolean;
-  type?: string;
-  inputError?: string
+  type: string;
+  inputError: string;
   hook(value: string): void;
+  props?: TextInputProps;
 };
 
-const MyTextInput = ({ secureText, type, inputError, hook }: MyTextInputType) => {
-  return (
+const MyTextInput = ({ type, inputError, hook, props }: MyTextInputType) => {
+    return (
     <View style={styles.emailView}>
       <View style={styles.rectangleView} />
       <TextInput
         style={styles.emailInputTextInput}
         keyboardType="default"
-        secureTextEntry={secureText}
         onChangeText={(value : string) => {hook(value);}}
+        {...props}
       />
       <View style={styles.frameView}>
         <Text style={styles.emailText}>{type}</Text>
