@@ -3,8 +3,14 @@ import { useState } from "react";
 import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 import { CheckBox as RNKCheckBox } from "@ui-kitten/components";
 
+import { cognitoPool } from "../utils/cognito_pool";
+
 const Disclaimer = () => {
   const [checkboxchecked, setCheckboxchecked] = useState(undefined);
+
+  const onSubmit = () => {
+
+  }
 
   return (
     <View style={styles.disclaimerView}>
@@ -26,7 +32,7 @@ const Disclaimer = () => {
             I have read and agree to the terms.
           </Text>
         </Pressable>
-        <Pressable style={[styles.continuePressable, styles.mt20]}>
+        <Pressable style={[styles.continuePressable, styles.mt20]} onPress={onSubmit}>
           <View style={styles.rectangleView1} />
           <Text style={styles.continueText}>Continue</Text>
         </Pressable>

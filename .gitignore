@@ -3,4 +3,5 @@ auth/
 ios/
 android/
 .env
-config/config.tsx
+
+env-vars.tsx

@@ -1,11 +1,14 @@
 const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import Login from "./screens/Login";
-import DataInput from "./screens/DataInput";
-import Disclaimer from "./screens/Disclaimer";
-import SignUp from "./screens/SignUp";
+import Login from "./screens/auth/Login";
+import ForgotPassword from "./screens/auth/ForgotPassword";
+import Signup from "./screens/auth/Signup";
 import Menu from "./screens/Menu";
+import Disclaimer from "./screens/Disclaimer";
+import DataInput from "./screens/DataInput";
+import CreatePassword from "./screens/auth/CreatePassword";
+import ResetPassword from "./screens/auth/ResetPassword";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -49,10 +52,10 @@ const App = () => {
   };
   return (
     <>
-      <IconRegistry icons={[MaterialIconsPack]} />
+     <IconRegistry icons={[MaterialIconsPack]} />
       <ApplicationProvider {...eva} theme={eva.light}>
         <NavigationContainer>
-          {hideSplashScreen ? (
+        {hideSplashScreen ? (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen
                 name="Login"
@@ -60,8 +63,18 @@ const App = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="DataInput"
-                component={DataInput}
+                name="ForgotPassword"
+                component={ForgotPassword}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Signup"
+                component={Signup}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Menu"
+                component={Menu}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -70,13 +83,18 @@ const App = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="SignUp"
-                component={SignUp}
+                name="DataInput"
+                component={DataInput}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Menu"
-                component={Menu}
+                name="CreatePassword"
+                component={CreatePassword}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ResetPassword"
+                component={ResetPassword}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

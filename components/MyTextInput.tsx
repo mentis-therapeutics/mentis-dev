@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   emailText: {
     position: "relative",
-    fontSize: 12,
+    fontSize: 16,
     lineHeight: 17,
     fontFamily: "Manrope",
     color: "#fff",
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   frameView: {
     position: "absolute",
-    top: -8.5,
+    top: -5,
     left: 23,
     backgroundColor: "#334166",
     flexDirection: "row",
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   emailErrorText: {
     position: "relative",
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 17,
     fontFamily: "Manrope",
     color: "#ff0000",
