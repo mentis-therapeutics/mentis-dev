@@ -2,55 +2,41 @@ import * as React from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 
 type ButtonConf = {
-  text: string;
-  onPress(): void;
+    label: string;
+    onPress(): void;
 };
 
-const FilledButton = ({ text, onPress }: ButtonConf) => {
+const FilledButton = ({ label, onPress }: ButtonConf) => {
   return (
-    <Pressable style={styles.button} onPress={onPress} >
-      <View style={styles.rectangleView} />
-      <Text style={styles.text}>{text}</Text>
+    <Pressable style={[styles.primaryCTAPressable, styles.mt10]} onPress={onPress}>
+      <Text style={styles.labelText}>{label}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  rectangleView: {
-    position: "absolute",
-    marginTop: -30,
-    marginLeft: -156,
-    top: "50%",
-    left: "50%",
-    borderRadius: 16,
-    backgroundColor: "#fff",
-    width: 312,
-    height: 60,
-  },
-  text: {
-    position: "absolute",
-    marginTop: -12,
-    marginLeft: -132.5,
-    top: "50%",
-    left: "50%",
+    mt10: {
+        marginTop: 10,
+    },
+    labelText: {
+    position: "relative",
     fontSize: 18,
     lineHeight: 25,
     fontWeight: "600",
     fontFamily: "Manrope",
     color: "#334166",
     textAlign: "center",
-    display: "flex",
+    },
+    primaryCTAPressable: {
+    alignSelf: "stretch",
+    borderRadius: 20,
+    backgroundColor: "#fff",
+    height: 50,
+    flexShrink: 0,
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: 264,
-    height: 36,
-  },
-  button: {
-    position: "relative",
-    width: 312,
-    height: 60,
-    flexShrink: 0,
-  }
+    },
 });
 
 export default FilledButton;

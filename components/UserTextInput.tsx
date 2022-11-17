@@ -5,15 +5,15 @@ import { Image, StyleSheet, View, TextInput, TextInputProps, Text, ImageSourcePr
 export const emailTextInputProps : TextInputProps = {autoComplete: "email", textContentType:'emailAddress', autoCapitalize: "none", spellCheck: false, autoCorrect: false};
 export const passwordTextInputProps : TextInputProps = {autoComplete: "password", textContentType:'password', autoCapitalize: "none", spellCheck: false, secureTextEntry: true};
 
-type MyTextInputType = {
+type IUserTextInput = {
   labelText: string;
-  helpText: string;
+  helpText?: string;
   hook(value: string): void;
   icon?: ImageSourcePropType,
   props?: TextInputProps;
 };
 
-const UserTextInput = ({ labelText, helpText, hook, icon, props }: MyTextInputType) => {
+const UserTextInput = ({ labelText, helpText, hook, icon, props }: IUserTextInput) => {
     return (
         <View style={[styles.userInputField, styles.mt10]}>
       <View style={styles.mainLaoutView}>
