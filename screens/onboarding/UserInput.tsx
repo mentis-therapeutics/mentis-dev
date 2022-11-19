@@ -8,11 +8,18 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { logout } from "../../auth/actions";
+import { useAuthDispatch, useAuthState } from "../../auth/context";
 import FilledButton from "../../components/FilledButton";
 import UserTextInput from "../../components/UserTextInput";
 
 const UserInput = () => {
     const navigation = useNavigation();
+
+    const { user } = useAuthState();
+    const dispatch = useAuthDispatch();
+
+
 
     return (
     <View style={styles.userInputView}>
@@ -30,6 +37,7 @@ const UserInput = () => {
         </ScrollView>
         <View style={styles.baseView}>
         <View style={styles.frameView}>
+            <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
             <FilledButton label="Submit" onPress={() => navigation.navigate("Home")}/>
         </View>
         <Image

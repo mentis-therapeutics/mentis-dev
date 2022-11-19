@@ -1,6 +1,7 @@
 const Stack = createNativeStackNavigator();
 import * as React from "react";
 
+
 import { NavigationContainer } from "@react-navigation/native";
 import {HeaderBackButton} from '@react-navigation/elements';
 
@@ -17,77 +18,8 @@ import {
   StyleSheet,
 } from "react-native";
 
-import Login from "./screens/auth/Login";
-import ForgotPassword from "./screens/auth/ForgotPassword";
-import Signup from "./screens/auth/Signup";
-import CreatePassword from "./screens/auth/CreatePassword";
-import ResetPassword from "./screens/auth/ResetPassword";
-
-import UserInput from "./screens/onboarding/UserInput";
-import Disclaimer from "./screens/onboarding/Disclaimer";
-import { goBack } from "@react-navigation/routers/lib/typescript/src/CommonActions";
-
-function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
-
-function LoginStack() {
-return (
-    <Stack.Navigator
-    initialRouteName="LoginRoute"
-    screenOptions={ ({ route, navigation}) => ({
-        headerStyle: {
-            backgroundColor: '#334166',
-        },
-        headerLeft: (props) => (
-            <HeaderBackButton
-                {...props}
-                style={{marginLeft: 5, padding: 5}}
-                onPress={() => {
-                    navigation.goBack()
-                }}  
-            />
-        ),
-        headerBackVisible: false,
-        headerTintColor: "#fff",
-        headerShadowVisible: false,
-        headerTitle: (props) => <></>,
-    })}>
-    <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}/>
-    <Stack.Screen
-        name="Signup"
-        component={Signup}
-        options={{}}/>
-    <Stack.Screen
-        name="ResetPassword"
-        component={ResetPassword}
-        options={{ }}/>
-    <Stack.Screen
-        name="CreatePassword"
-        component={CreatePassword}
-        options={{}}/>
-    <Stack.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{}}/>
-    <Stack.Screen
-        name="Disclaimer"
-        component={Disclaimer}
-        options={{ headerShown: false }}/>
-    <Stack.Screen
-        name="UserInput"
-        component={UserInput}
-        options={{}}/>
-    </Stack.Navigator>
-);
-}
+import { AuthProvider } from "./auth/context";
+import { NavManager } from "./components/NavManager";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -119,12 +51,12 @@ const App = () => {
   };
   return (
     <>
-     <IconRegistry icons={[MaterialIconsPack]} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NavigationContainer>
-            <LoginStack/>
-        </NavigationContainer>
-      </ApplicationProvider>
+     <AuthProvider>
+        <IconRegistry icons={[MaterialIconsPack]} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+            <NavManager/>
+        </ApplicationProvider>
+      </AuthProvider>
     </>
   );
 };
