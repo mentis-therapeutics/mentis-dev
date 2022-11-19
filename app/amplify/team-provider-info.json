@@ -1,0 +1,32 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mentis-staging-214641-authRole",
+      "UnauthRoleArn": "arn:aws:iam::190956789893:role/amplify-mentis-staging-214641-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::190956789893:role/amplify-mentis-staging-214641-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mentis-staging-214641-deployment",
+      "UnauthRoleName": "amplify-mentis-staging-214641-unauthRole",
+      "StackName": "amplify-mentis-staging-214641",
+      "StackId": "arn:aws:cloudformation:us-east-1:190956789893:stack/amplify-mentis-staging-214641/a7663120-6853-11ed-9b3e-0ae9e1f94235",
+      "AmplifyAppId": "d3o9jaavrbd0a5"
+    },
+    "categories": {
+      "auth": {
+        "mentis": {
+          "userPoolId": "us-east-1_AqpQRLh1A",
+          "userPoolName": "mentis",
+          "webClientId": "5clndjh0joflesataqe6snvf1",
+          "nativeClientId": "5clndjh0joflesataqe6snvf1",
+          "identityPoolId": "us-east-1:c94ae5e6-f47e-4fb3-9266-edd30ad21596",
+          "identityPoolName": "Mentis",
+          "allowUnauthenticatedIdentities": true,
+          "authRoleArn": "arn:aws:iam::190956789893:role/Cognito_MentisAuth_Role",
+          "authRoleName": "Cognito_MentisAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::190956789893:role/Cognito_MentisUnauth_Role",
+          "unauthRoleName": "Cognito_MentisUnauth_Role"
+        }
+      }
+    }
+  }
+}

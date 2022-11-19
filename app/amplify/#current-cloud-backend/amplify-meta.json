@@ -1,0 +1,88 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mentis-staging-214641-authRole",
+      "UnauthRoleArn": "arn:aws:iam::190956789893:role/amplify-mentis-staging-214641-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::190956789893:role/amplify-mentis-staging-214641-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mentis-staging-214641-deployment",
+      "UnauthRoleName": "amplify-mentis-staging-214641-unauthRole",
+      "StackName": "amplify-mentis-staging-214641",
+      "StackId": "arn:aws:cloudformation:us-east-1:190956789893:stack/amplify-mentis-staging-214641/a7663120-6853-11ed-9b3e-0ae9e1f94235",
+      "AmplifyAppId": "d3o9jaavrbd0a5"
+    }
+  },
+  "auth": {
+    "mentis": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "output": {
+        "UserPoolId": "us-east-1_AqpQRLh1A",
+        "UserPoolName": "mentis",
+        "AppClientID": "5clndjh0joflesataqe6snvf1",
+        "AppClientIDWeb": "5clndjh0joflesataqe6snvf1",
+        "IdentityPoolId": "us-east-1:c94ae5e6-f47e-4fb3-9266-edd30ad21596",
+        "IdentityPoolName": "Mentis"
+      },
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_NUMBERS"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [],
+        "verificationMechanisms": []
+      },
+      "lastPushTimeStamp": "2022-11-19T22:04:03.026Z"
+    }
+  },
+  "api": {
+    "mentis": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "mentis",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmentis"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "zirrgztswbfprkmddz3juvyhzi",
+        "GraphQLAPIEndpointOutput": "https://u2quxxvd6nfqxaik6b3s32hcd4.appsync-api.us-east-1.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentis-staging-214641-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apimentis"
+      },
+      "lastPushTimeStamp": "2022-11-19T22:25:00.719Z",
+      "lastPushDirHash": "FBj6tVtLXSL7p/6MiORrDNiObvQ="
+    }
+  }
+}

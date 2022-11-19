@@ -2,10 +2,8 @@ import React,  { useState, useEffect } from "react";
 import { Pressable, StyleSheet, View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { Auth } from 'aws-amplify'
-
 import UserTextInput, {emailTextInputProps, passwordTextInputProps} from "../../components/UserTextInput";
-import OutlineButton from "../../components/OutlineButton";
+
 import FilledButton from "../../components/FilledButton";
 
 import {CognitoUser, AuthenticationDetails, CognitoUserPool, CognitoUserSession} from 'amazon-cognito-identity-js';

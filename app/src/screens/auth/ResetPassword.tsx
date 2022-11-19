@@ -1,69 +1,89 @@
-import React,  { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Pressable, Text, StyleSheet, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import UserTextInput, { passwordTextInputProps } from "../../components/UserTextInput";
 import FilledButton from "../../components/FilledButton";
 
-import { AuthenticationDetails, CognitoUser, UserAgent } from "amazon-cognito-identity-js";
+import { emailReg, passReg } from "../../utils/regex";
 
-import { passReg } from "../../utils/regex";
 import { cognitoPool } from "../../utils/cognito_pool";
+
+import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { useAuthDispatch, useAuthState } from "../../auth/context";
-import { createPassword, login } from "../../auth/actions";
-import { Auth } from "aws-amplify";
+
+import { confirmPassword, login } from "../../auth/actions";
 
 type FormError = {
-    passwordError: string
+    codeError: string,
+    passwordError: string,
     confirmPasswordError: string,
-}
+  }
 
-const CreatePassword = ({route, nav}) => {
-    const navigation = useNavigation();
-    
+const ResetPassword = () => {
+
     const dispatch = useAuthDispatch();
-
     const { user } = useAuthState();
 
+    const navigation = useNavigation();
+
+    const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
-    const [confPassword, setConfPassword] = useState('');
+    const [confirmPass, setConfirmPassword] = useState('');
+    const [formError, setFormError] = useState<FormError>({codeError: "", passwordError: "", confirmPasswordError: ""})
 
-    const [formError, setFormError] = useState<FormError>({passwordError: "", confirmPasswordError: ""})
 
-
-    async function onSubmit () {
-        let fError = {passwordError: "", confirmPasswordError: ""}
+    const onSubmit = () => {
+        let fError: FormError = {codeError: "", passwordError: "", confirmPasswordError: ""};
         let errorRaised = false;
 
-        if (!passReg.test(password)) {
-            fError.passwordError = "Password must be more than 8 chars and contain one uppercase & one number";
+        /*if (!passReg.test(password)) {
+            setFormError({...formError, passwordError : "Password must be more than 8 chars. Contain one uppercase & one number"});
             errorRaised = true;
-        }
+        }*/
 
-        if (password != confPassword) {
+        if (password != confirmPass) {
             fError.confirmPasswordError = "Passwords dont match";
             errorRaised = true;
         }
 
-        if (errorRaised){ setFormError(fError); return }
+        if (errorRaised) {setFormError(fError); return;}
 
-        if (!user) return;
+        if (!user) return
 
-        createPassword(user, password, dispatch);
+        confirmPassword(user, code, password, dispatch)
+        .then(
+        (result) => {
+
+            const authDetails = new AuthenticationDetails({
+                Username: user.getUsername(),
+                Password: password,
+            });
+    
+            login(user, authDetails, dispatch, navigation)
+
+        }, 
+        (error => {
+            setFormError(fError);
+        }));
+
+        
+
     }
-  
+
     return (
-    <View style={styles.createPasswordView}>
+    <View style={styles.resetPasswordView}>
         <View style={styles.bodyView}>
             <Pressable style={styles.fillerPressable} />
-            <Text style={[styles.createANewPassword, styles.mt10]}>
-                Create a new password
+            <Text style={[styles.resetYourPassword, styles.mt10]}>
+                Reset your password
             </Text>
             <Text style={[styles.yourPasswordMustBeDifferen, styles.mt10]}>
                 Please create a new password for your account.
             </Text>
-            <UserTextInput labelText="Password" helpText={formError.passwordError} hook={setPassword} props={passwordTextInputProps}/>
-            <UserTextInput labelText="Confirm Password" helpText={formError.confirmPasswordError} hook={setConfPassword} props={passwordTextInputProps}/>
-            <FilledButton label="Submit" onPress={onSubmit}/>
+            <UserTextInput labelText="Verification Code" helpText={formError.codeError} hook={setCode} props={{autoCapitalize: "none", spellCheck: false}}/>
+            <UserTextInput labelText="New Password" helpText={formError.passwordError} hook={setPassword} props={passwordTextInputProps}/>
+            <UserTextInput labelText="Confirm Password" helpText={formError.confirmPasswordError} hook={setConfirmPassword} props={passwordTextInputProps}/>
+            <FilledButton label="Submit" onPress={onSubmit} />
         </View>
     </View>
     );
@@ -140,7 +160,7 @@ const styles = StyleSheet.create({
         flex: 1,
         position: "relative",
       },
-      createANewPassword: {
+      resetYourPassword: {
         alignSelf: "stretch",
         position: "relative",
         fontSize: 24,
@@ -162,7 +182,7 @@ const styles = StyleSheet.create({
         fontFamily: "Manrope",
         color: "#fff",
         textAlign: "left",
-        marginBottom: 20
+        marginBottom: 20,
       },
       helperText: {
         position: "relative",
@@ -380,7 +400,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-end",
       },
-      createPasswordView: {
+      resetPasswordView: {
         position: "relative",
         backgroundColor: "#334166",
         flex: 1,
@@ -390,6 +410,180 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
       },
+  mt9: {
+    marginTop: 9,
+  },
+  signUpText: {
+    fontSize: 24,
+  },
+  signUpText1: {
+  },
+  text: {
+    fontSize: 10,
+  },
+  text1: {
+    margin: 0,
+  },
+  signUpTxt: {
+    lineBreak: "anywhere",
+    width: "100%",
+  },
+  signUpPressable: {
+    position: "relative",
+    width: 310,
+    height: 110,
+    flexShrink: 0,
+  },
+  signUpText2: {
+    position: "absolute",
+    top: 13,
+    left: 12.5,
+    fontWeight: "600",
+    fontFamily: "Manrope",
+    color: "#fff",
+    textAlign: "left",
+    display: "flex",
+    alignItems: "flex-end",
+    width: 297,
+    height: 83,
+  },
+  forgotPasswordText: {
+    fontSize: 24,
+    color: "#fff",
+  },
+  forgotPasswordText1: {
+  },
+  dontWorryIt: {
+    fontSize: 16,
+    color: "#fff",
+  },
+  termsConditions: {
+  },
+  privacyPolicyText: {
+  },
+  tCTxtText: {
+    width: "100%",
+  },
+  tCText: {
+    position: "absolute",
+    top: -7,
+    left: -0.5,
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: "500",
+    fontFamily: "Manrope",
+    color: "#fff",
+    textAlign: "left",
+    display: "flex",
+    alignItems: "flex-end",
+    width: 321,
+    height: 42,
+  },
+  tCPressable: {
+    position: "relative",
+    width: 304,
+    height: 44,
+    flexShrink: 0,
+  },
+  loginText: {
+  },
+  loginTxtText: {
+    width: "100%",
+  },
+  loginText1: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "500",
+    fontFamily: "Manrope",
+    color: "#fff",
+    textAlign: "center",
+    display: "flex",
+    alignItems: "flex-end",
+    width: 268,
+    height: 35,
+  },
+  loginPressable: {
+    position: "relative",
+    width: 268,
+    height: 35,
+    flexShrink: 0,
+  },
+  inputsView: {
+    position: "absolute",
+    bottom: 30,
+    left: 0,
+    width: 375,
+    flexDirection: "column",
+    paddingHorizontal: 45,
+    paddingTop: 42,
+    paddingBottom: 25,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  icon: {
+    width: "100%",
+    height: "100%",
+    flexShrink: 0,
+    overflow: "hidden",
+  },
+  arrowLeftPressable: {
+    position: "relative",
+    width: 35,
+    height: 35,
+  },
+  headerBarView: {
+    position: "absolute",
+    top: 30,
+    left: 0,
+    width: 67,
+    height: 56,
+    flexDirection: "row",
+    paddingLeft: 17,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  mentisText: {
+    position: "absolute",
+    top: 13,
+    left: 5,
+    fontSize: 40,
+    lineHeight: 56,
+    fontFamily: "Manrope",
+    color: "#fff",
+    textAlign: "center",
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    width: 257,
+    height: 46,
+  },
+  frameView: {
+    position: "absolute",
+    top: 46,
+    left: 52,
+    width: 268,
+    height: 56,
+  },
+  frameView1: {
+    position: "relative",
+    width: 373,
+    height: 165,
+    flexShrink: 0,
+  },
+  signupView: {
+    position: "relative",
+    backgroundColor: "#334166",
+    flex: 1,
+    width: "100%",
+    height: 812,
+    overflow: "hidden",
+  },
 });
 
-export default CreatePassword;
+export default ResetPassword;
