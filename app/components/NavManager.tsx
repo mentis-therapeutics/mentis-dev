@@ -23,6 +23,7 @@ import UserInput from "../screens/onboarding/UserInput";
 import Disclaimer from "../screens/onboarding/Disclaimer";
 import { goBack } from "@react-navigation/routers/lib/typescript/src/CommonActions";
 import { AuthProvider, useAuthState } from "../auth/context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const AuthStackNavigator = createNativeStackNavigator();
@@ -111,10 +112,12 @@ export const NavManager = () => {
     const { session } = useAuthState();
 
     return (
-    <NavigationContainer>
-        {
-            session ? <OnboaridngStack/> : <AuthStack/>
-        }
-    </NavigationContainer>
+        //<SafeAreaView>
+            <NavigationContainer>
+            {
+                session ? <OnboaridngStack/> : <AuthStack/>
+            }
+            </NavigationContainer>
+        //</SafeAreaView>
     );
 };
