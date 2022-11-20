@@ -1,5 +1,5 @@
 
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import {HeaderBackButton} from '@react-navigation/elements';
@@ -21,10 +21,17 @@ import ResetPassword from "../screens/auth/ResetPassword";
 
 import UserInput from "../screens/onboarding/UserInput";
 import Disclaimer from "../screens/onboarding/Disclaimer";
+
+import Home from "../screens/Home";
+import Progress from "../screens/Progress";
+import Sessions from "../screens/Sessions";
+
 import { goBack } from "@react-navigation/routers/lib/typescript/src/CommonActions";
 import { AuthProvider, useAuthState } from "../auth/context";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { DataStore } from "@aws-amplify/datastore";
 
+import { UserData } from "../models"
 
 const AuthStackNavigator = createNativeStackNavigator();
 function AuthStack() {
@@ -77,7 +84,7 @@ const OnboaridngStackNavigator = createNativeStackNavigator();
 function OnboaridngStack() {
 return (
     <OnboaridngStackNavigator.Navigator
-    initialRouteName="LoginRoute"
+    initialRouteName="OnboardingRoute"
     screenOptions={ ({ route, navigation}) => ({
         headerStyle: {
             backgroundColor: '#334166',
@@ -107,15 +114,73 @@ return (
     </OnboaridngStackNavigator.Navigator>
 );
 }
+
+const AppStackNavigator = createNativeStackNavigator();
+function AppStack() {
+return (
+    <AppStackNavigator.Navigator
+    initialRouteName="AppRoute"
+    screenOptions={ ({ route, navigation}) => ({
+        headerStyle: {
+            backgroundColor: '#334166',
+        },
+        headerLeft: (props) => (
+            <HeaderBackButton
+                {...props}
+                style={{marginLeft: 5, padding: 5}}
+                onPress={() => {
+                    navigation.goBack()
+                }}  
+            />
+        ),
+        headerBackVisible: false,
+        headerTintColor: "#fff",
+        headerShadowVisible: false,
+        headerTitle: (props) => <></>,
+    })}>
+    <AppStackNavigator.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}/>
+    </AppStackNavigator.Navigator>
+);
+}
+
+
     
 export const NavManager = () => {
     const { session } = useAuthState();
+
+    let onboarded = false;
+
+    async function fetchOnboardedState() {
+        const data = await DataStore.query(UserData)
+        console.log(data)
+        return false
+    }
+
+    useEffect(() => {
+        // Check onboarded state
+        fetchOnboardedState()
+        .then( (result) => {
+            onboarded = result;
+        });
+        //onboarded = true;
+    },[session])
 
     return (
         //<SafeAreaView>
             <NavigationContainer>
             {
-                session ? <OnboaridngStack/> : <AuthStack/>
+                session 
+                ?
+                    onboarded
+                    ?
+                    <OnboaridngStack/>
+                    :
+                    <AppStack/>
+                :
+                <AuthStack/>
             }
             </NavigationContainer>
         //</SafeAreaView>

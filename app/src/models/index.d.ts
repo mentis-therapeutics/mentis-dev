@@ -52,6 +52,7 @@ type EagerUserData = {
   readonly Email?: string | null;
   readonly Phone?: string | null;
   readonly AccountType?: AccountType | keyof typeof AccountType | null;
+  readonly onboarded?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -67,6 +68,7 @@ type LazyUserData = {
   readonly Email?: string | null;
   readonly Phone?: string | null;
   readonly AccountType?: AccountType | keyof typeof AccountType | null;
+  readonly onboarded?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

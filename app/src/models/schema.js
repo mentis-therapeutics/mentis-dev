@@ -125,6 +125,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "onboarded": {
+                    "name": "onboarded",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -164,15 +171,6 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
-                            },
-                            {
-                                "allow": "private",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
                             }
                         ]
                     }
@@ -193,5 +191,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "6937f42cc9d7e0deb183815b3304d0b3"
+    "version": "312aef56b9f13b580b59dac3d0c23d4d"
 };

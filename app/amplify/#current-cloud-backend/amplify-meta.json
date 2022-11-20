@@ -77,12 +77,12 @@
         "GraphQLAPIIdOutput": "zirrgztswbfprkmddz3juvyhzi",
         "GraphQLAPIEndpointOutput": "https://u2quxxvd6nfqxaik6b3s32hcd4.appsync-api.us-east-1.amazonaws.com/graphql"
       },
+      "lastPushTimeStamp": "2022-11-20T11:52:21.309Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentis-staging-214641-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apimentis"
       },
-      "lastPushTimeStamp": "2022-11-19T22:25:00.719Z",
-      "lastPushDirHash": "FBj6tVtLXSL7p/6MiORrDNiObvQ="
+      "lastPushDirHash": "pmaz6MoFYmAQitdL3ovkGlBGvms="
     }
   }
 }

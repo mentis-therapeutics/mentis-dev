@@ -77,7 +77,7 @@
         "GraphQLAPIIdOutput": "zirrgztswbfprkmddz3juvyhzi",
         "GraphQLAPIEndpointOutput": "https://u2quxxvd6nfqxaik6b3s32hcd4.appsync-api.us-east-1.amazonaws.com/graphql"
       },
-      "lastPushTimeStamp": "2022-11-19T22:36:59.747Z",
+      "lastPushTimeStamp": "2022-11-20T12:16:33.479Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentis-staging-214641-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apimentis"

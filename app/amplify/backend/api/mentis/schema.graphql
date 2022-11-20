@@ -11,11 +11,13 @@ enum AccountType {
   THERAPIST
 }
 
-type UserData @model @auth(rules: [{allow: owner}, {allow: private}]) {
+type UserData @model @auth(rules: [{allow: owner}]) {
   id: ID!
   FirstName: String
   LastName: String
   Email: AWSEmail
   Phone: AWSPhone
   AccountType: AccountType
+  onboarded: Boolean
 }
+ 
