@@ -13,12 +13,42 @@ import { useAuthDispatch, useAuthState } from "../../auth/context";
 import FilledButton from "../../components/FilledButton";
 import UserTextInput from "../../components/UserTextInput";
 
-const UserInput = () => {
-    const navigation = useNavigation();
+import { DataStore } from 'aws-amplify'
 
-    const { user } = useAuthState();
+import { AccountType, UserData } from "../../models"
+
+const UserInput = () => {
+
+    const { session } = useAuthState()
     const dispatch = useAuthDispatch();
 
+    async function setUserData() {
+        const original = await DataStore.query(UserData);
+
+        // Create or Update
+        console.log(original)
+        if (original.length > 0){
+            await DataStore.save(
+                UserData.copyOf(original[0], updated => {
+                    updated.FirstName = "Sam";
+                    updated.LastName = "Coleman";
+                    updated.AccountType = AccountType.USER;
+                    updated.onboarded = true;
+                })
+            );
+        }else{
+            await DataStore.save(
+                new UserData({
+                    FirstName : "Sam",
+                    LastName : "Coleman",
+                    AccountType : AccountType.USER,
+                    onboarded : true,
+                })
+            );
+        }
+
+        dispatch({type:'ONBOARDED'});
+    }
 
 
     return (
@@ -37,8 +67,7 @@ const UserInput = () => {
         </ScrollView>
         <View style={styles.baseView}>
         <View style={styles.frameView}>
-            <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
-            <FilledButton label="Submit" onPress={() => navigation.navigate("Home")}/>
+            <FilledButton label="Submit" onPress={() => setUserData()}/>
         </View>
         <Image
             style={[styles.sunEmoteIcon, styles.mt20]}

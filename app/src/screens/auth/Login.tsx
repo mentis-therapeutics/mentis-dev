@@ -34,14 +34,7 @@ const Login = () => {
 
     // -------------------- EFFECTS -------------------- //
     useEffect(() => {
-        async function loadSession() {
-            let user = await getStoredUser()
-            if (!user) return;
-    
-            let session = await getSession(user, dispatch); 
-            if (!session) return;
-        }
-        loadSession();
+        getSession(dispatch); 
     }, []);
 
     // -------------------- ACTIONS -------------------- //
@@ -54,10 +47,10 @@ const Login = () => {
             Pool: cognitoPool,
         });
 
-        const authDetails = new AuthenticationDetails({
-            Username: email,
+        const authDetails = {
+            email: email,
             Password: password,
-        });
+        };
         /*
         Auth.signIn(email, password)
         .then(user => {
@@ -78,7 +71,7 @@ const Login = () => {
         });
         */
         
-        login(user, authDetails, dispatch, navigation)
+        login({email, password}, dispatch, navigation)
         .then( (error) => {
             setFormError({emailError: "", passwordError: "Unable to login, check email & password"});
         });

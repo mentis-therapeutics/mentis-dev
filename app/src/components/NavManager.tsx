@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import {HeaderBackButton} from '@react-navigation/elements';
@@ -27,9 +27,10 @@ import Progress from "../screens/Progress";
 import Sessions from "../screens/Sessions";
 
 import { goBack } from "@react-navigation/routers/lib/typescript/src/CommonActions";
-import { AuthProvider, useAuthState } from "../auth/context";
+import { AuthProvider, useAuthDispatch, useAuthState } from "../auth/context";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { DataStore } from "@aws-amplify/datastore";
+
+import { DataStore, Hub } from 'aws-amplify'
 
 import { UserData } from "../models"
 
@@ -149,38 +150,41 @@ return (
 
     
 export const NavManager = () => {
-    const { session } = useAuthState();
+    const { onboarded, session, user } = useAuthState();
+    const dispatch = useAuthDispatch();
 
-    let onboarded = false;
+    async function fetchOnboardedState() {   
+        if (!session) return;
 
-    async function fetchOnboardedState() {
-        const data = await DataStore.query(UserData)
+        let data = await DataStore.query(UserData);
+
         console.log(data)
-        return false
+
+        if (data.length == 0) return;
+
+        if (data[0].onboarded) {dispatch({type:'ONBOARDED'})};
     }
 
     useEffect(() => {
         // Check onboarded state
         fetchOnboardedState()
-        .then( (result) => {
-            onboarded = result;
-        });
-        //onboarded = true;
-    },[session])
+    }, [session])
 
     return (
         //<SafeAreaView>
+        // This creates flickering on login. Need to resolve
             <NavigationContainer>
             {
-                session 
+        
+                session
                 ?
                     onboarded
                     ?
-                    <OnboaridngStack/>
-                    :
                     <AppStack/>
+                    :
+                    <OnboaridngStack/>
                 :
-                <AuthStack/>
+                    <AuthStack/>
             }
             </NavigationContainer>
         //</SafeAreaView>

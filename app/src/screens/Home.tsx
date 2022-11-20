@@ -3,23 +3,30 @@ import { ScrollView, Text, StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import SessionInfoModal from "../components/SessionInfoModal";
 import NavigationBar from "../components/NavigationBar";
+import FilledButton from "../components/FilledButton";
+import { logout } from "../auth/actions";
+import { useAuthDispatch, useAuthState } from "../auth/context";
 
 const Home = () => {
+    const { user } = useAuthState()
+    const dispatch = useAuthDispatch()
+
   return (
-    <View style={styles.homeClient}>
-      <Header />
-      <ScrollView
-        style={styles.bodyScrollView}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.bodyScrollViewContent}
-      >
-        <Text style={styles.helloSamText}>Hello, Sam</Text>
-        <Text style={[styles.upNext, styles.mt25]}>{`Up Next .. `}</Text>
-        <SessionInfoModal session1Of2="Session 1 of 2" />
-        <View style={[styles.fillerView, styles.mt25]} />
-      </ScrollView>
-      <NavigationBar />
-    </View>
+        <View style={styles.homeClient}>
+        <Header />
+        <ScrollView
+            style={styles.bodyScrollView}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.bodyScrollViewContent}
+        >
+            <Text style={styles.helloSamText}>Hello, Sam</Text>
+            <Text style={[styles.upNext, styles.mt25]}>{`Up Next .. `}</Text>
+            <SessionInfoModal session1Of2="Session 1 of 2" />
+            <View style={[styles.fillerView, styles.mt25]} />
+            <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
+        </ScrollView>
+        <NavigationBar />
+        </View>
   );
 };
 

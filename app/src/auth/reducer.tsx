@@ -21,22 +21,24 @@ export const getStoredUser = () : Promise<CognitoUser | null> => {
 
 export type IAuth = {
     user: CognitoUser | null;
-	session: CognitoUserSession | null;
+	session: boolean;
 	loading: boolean;
 	errorMessage: string | null,
+    onboarded: boolean,
 }
 
 export type IAction = {
-    type: 'LOGIN_NEWPASS' | 'REQUEST_LOGIN' | 'LOGIN_SUCCESS' | 'LOGOUT' | 'LOGIN_ERROR';
-    payload?: {user?: CognitoUser | null; session?: CognitoUserSession | null;}
+    type: 'LOGIN_NEWPASS' | 'REQUEST_LOGIN' | 'LOGIN_SUCCESS' | 'LOGOUT' | 'LOGIN_ERROR' | "ONBOARDED";
+    payload?: {user?: CognitoUser | null; session?: boolean;}
     error?: string | null
 }
 
 export const initialState : IAuth = {
 	user: null,
-	session: null,
+	session: false,
 	loading: false,
 	errorMessage: null,
+    onboarded: false,
 };
 
 export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
@@ -56,15 +58,16 @@ export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
 		case 'LOGIN_SUCCESS':
 			return {
 				...initialState,
-				user: action.payload!.user!,
-				session: action.payload!.session!,
+				session: true,
 				loading: false,
 			};
 		case 'LOGOUT':
 			return {
 				...initialState,
 				user: null,
-				session: null,
+				session: false,
+                errorMessage: null,
+                onboarded: false,
 			};
 		case 'LOGIN_ERROR':
 			return {
@@ -72,7 +75,11 @@ export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
 				loading: false,
 				errorMessage: action.error!,
 			};
-
+        case 'ONBOARDED':
+            return {
+                ...initialState,
+                onboarded: true
+            }
 		default:
 			throw new Error(`Unhandled action type: ${action.type}`);
 	}

@@ -14,12 +14,22 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { AuthProvider } from "./auth/context";
-import { NavManager } from "./components/NavManager";
+import { AuthProvider } from "./src/auth/context";
+import { NavManager } from "./src/components/NavManager";
+
+import {Amplify, AuthModeStrategyType} from "aws-amplify";
+import awsmobile from "./aws-exports";
+
+Amplify.configure({...awsmobile,
+    DataStore: {
+        authModeStrategyType: AuthModeStrategyType.DEFAULT
+      }
+})
+
+
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-
 
   return (
     <>
