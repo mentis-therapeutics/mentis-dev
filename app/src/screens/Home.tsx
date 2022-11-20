@@ -34,16 +34,23 @@ const Home = () => {
             scalesPageToFit={true}
             bounces={false}
             javaScriptEnabled
-            style={{ height: 500, width: 300 }}
+            style={{ height: 500, width: 500 }}
             source={{
                 html: `
                     <!DOCTYPE html>
                     <html>
-                        <head></head> // <--add header styles if needed
-                        <body>
-                        <div id="baseDiv"><div class="calendly-inline-widget" data-url="https://calendly.com/mentis-sam" style="min-width:320px;height:630px;"></div>
-                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script></div> //<--- add your iframe here
-                        </body>
+                        <div class="calendly-inline-widget" style="min-width:320px;height:580px;" data-auto-load="false">
+                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
+                        <script>
+                        Calendly.initInlineWidget({
+                        url: 'https://calendly.com/mentis-sam/30min?hide_landing_page_details=1', 
+                        prefill: {
+                            name: "Sam Coleman",
+                            email: "john@doe2.com",
+                        }
+                    });
+                        </script>
+                        </div>
                     </html>
                 `,
             }}
