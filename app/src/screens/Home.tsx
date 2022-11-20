@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useEffect} from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import SessionInfoModal from "../components/SessionInfoModal";
@@ -7,9 +7,15 @@ import FilledButton from "../components/FilledButton";
 import { logout } from "../auth/actions";
 import { useAuthDispatch, useAuthState } from "../auth/context";
 
+import { WebView } from "react-native-webview"
+
 const Home = () => {
     const { user } = useAuthState()
     const dispatch = useAuthDispatch()
+
+    useEffect(() => {
+        
+    }, [])
 
   return (
         <View style={styles.homeClient}>
@@ -24,6 +30,25 @@ const Home = () => {
             <SessionInfoModal session1Of2="Session 1 of 2" />
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
+            <WebView
+            scalesPageToFit={true}
+            bounces={false}
+            javaScriptEnabled
+            style={{ height: 500, width: 300 }}
+            source={{
+                html: `
+                    <!DOCTYPE html>
+                    <html>
+                        <head></head> // <--add header styles if needed
+                        <body>
+                        <div id="baseDiv"><div class="calendly-inline-widget" data-url="https://calendly.com/mentis-sam" style="min-width:320px;height:630px;"></div>
+                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script></div> //<--- add your iframe here
+                        </body>
+                    </html>
+                `,
+            }}
+            automaticallyAdjustContentInsets={false}
+            />
         </ScrollView>
         <NavigationBar />
         </View>
