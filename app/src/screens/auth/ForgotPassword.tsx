@@ -31,14 +31,7 @@ const ForgotPassword = () => {
             Pool: cognitoPool,
         });
 
-        const error = await forgotPassword(user, dispatch)
-        .then(
-        (result) => {
-            navigation.navigate('ResetPassword');
-        },
-        (error) => {
-            console.log(error)
-        });
+        forgotPassword(email, dispatch, navigation)
     }
     
     return (

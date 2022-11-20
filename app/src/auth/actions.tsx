@@ -8,37 +8,15 @@ import {DataStore, Hub, Auth} from 'aws-amplify'
 import { UserData } from "../models";
 
 export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<void> => {
-    const user = await Auth.currentAuthenticatedUser();
-    console.log('user:', user)
-    if (user) {
-        dispatch({type: 'LOGIN_SUCCESS'})
-    } 
-    /*
-    return new Promise( (resolve, reject) => {
-        dispatch({type: 'REQUEST_LOGIN'});
-        user.getSession( async (err, session) => {
-            if (err) {
-                dispatch({type: 'LOGIN_ERROR', error: err})
-                console.log(err);
-                reject(null);
-            }
-            if (!session) {
-                dispatch({type: 'LOGIN_ERROR', error: "Session null"})
-                console.log("Session null");
-                reject(null);
-            }
-            if (session.isValid()) {
-                
-                dispatch({type: 'LOGIN_SUCCESS', payload: {user: user, session: session}})
-                resolve(session);
-            }else{
-                dispatch({type: 'LOGIN_ERROR', error: "Session invalid"})
-                console.log("Session invalid");
-                reject(null);
-            }
-        });
-    })
-    */
+    try {
+        const user = await Auth.currentAuthenticatedUser();
+        console.log('user:', user)
+        if (user) {
+            dispatch({type: 'LOGIN_SUCCESS'})
+        }   
+    }catch{
+        //console.log('No one logged in')
+    }
 }
 
 const waitForDataStoreLoad = async () => {
@@ -57,16 +35,21 @@ export const login = async (authDetails: {email: string, password: string}, disp
 
         dispatch({type: 'REQUEST_LOGIN'});
         try {
-            await Auth.signIn(authDetails.email, authDetails.password);
-            /* Once the user successfully signs in, update the form state to show the signed in state */
-            DataStore.configure();
-            await DataStore.clear();
-            await DataStore.start();
-            await waitForDataStoreLoad();
-
-            const user = await Auth.currentAuthenticatedUser();
-
+            const user = await Auth.signIn(authDetails.email, authDetails.password);
+            
             if (user) {
+                if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+                    dispatch({ type: 'LOGIN_NEWPASS', payload:{user}});
+                    navigation.navigate("CreatePassword");
+                    return
+                }
+
+                /* Once the user successfully signs in, update the form state to show the signed in state */
+                DataStore.configure();
+                await DataStore.clear();
+                await DataStore.start();
+                await waitForDataStoreLoad();
+
                 dispatch({ type: 'LOGIN_SUCCESS'});
                 return
             }
@@ -117,7 +100,19 @@ export const login = async (authDetails: {email: string, password: string}, disp
 
 
 
-export const createPassword = (user: CognitoUser, password: string, dispatch : React.Dispatch<IAction>) : Promise<string | null>  => {
+export const createPassword = async (user: any, password: string, dispatch : React.Dispatch<IAction>) => {
+    dispatch({type: 'REQUEST_LOGIN'});
+    Auth.completeNewPassword( user, password, [])
+    .then( (data) => {
+        dispatch({ type: 'LOGIN_SUCCESS'});
+    })
+    .catch( (err) => {
+        dispatch({ type: 'LOGIN_ERROR', error:err});
+        console.log(err)
+    })
+
+
+    /*
     return new Promise( (resolve, reject) => {
         dispatch({type: 'REQUEST_LOGIN'});
         user.completeNewPasswordChallenge(password, {}, {
@@ -131,9 +126,15 @@ export const createPassword = (user: CognitoUser, password: string, dispatch : R
             }
         });
     });
+    */
 }
 
-export const confirmPassword = (user: CognitoUser, code: string, password: string, dispatch : React.Dispatch<IAction>) : Promise<string | null> => {
+export const confirmPassword = async (user: string, code: string, password: string, dispatch : React.Dispatch<IAction>) => {
+    Auth.forgotPasswordSubmit(user, code, password)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+    
+    /*
     return new Promise( (resolve, reject) => {
         dispatch({type: 'REQUEST_LOGIN'});
         user.confirmPassword(code, password, {
@@ -147,9 +148,21 @@ export const confirmPassword = (user: CognitoUser, code: string, password: strin
             },
         });
     });
+    */
 }
 
-export const forgotPassword = (user: CognitoUser, dispatch : React.Dispatch<IAction>) : Promise<string | null> => {
+export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAction>, navigation) => {
+    //dispatch({type: 'REQUEST_LOGIN'});
+    Auth.forgotPassword(user)
+    .then( (res) => {
+        dispatch({ type: 'LOGIN_NEWPASS', payload:{user}});
+        navigation.navigate("ResetPassword")
+    })
+    .catch( (err) => {
+        //dispatch({ type: 'LOGIN_ERROR', error:err});
+        console.log(err)
+    })
+    /*
     return new Promise( (resolve, reject) => {
         dispatch({type: 'REQUEST_LOGIN'});
         user.forgotPassword({
@@ -162,12 +175,12 @@ export const forgotPassword = (user: CognitoUser, dispatch : React.Dispatch<IAct
             },
         })
     });
+    */
 }
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
     // TODO: Should clear cache but causes annoying sync issues
     await DataStore.clear()
-
     await Auth.signOut();
     //user.signOut();
 	dispatch({ type: 'LOGOUT' });

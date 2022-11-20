@@ -32,7 +32,7 @@ const ResetPassword = () => {
     const [formError, setFormError] = useState<FormError>({codeError: "", passwordError: "", confirmPasswordError: ""})
 
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         let fError: FormError = {codeError: "", passwordError: "", confirmPasswordError: ""};
         let errorRaised = false;
 
@@ -50,24 +50,8 @@ const ResetPassword = () => {
 
         if (!user) return
 
-        confirmPassword(user, code, password, dispatch)
-        .then(
-        (result) => {
-
-            const authDetails = new AuthenticationDetails({
-                Username: user.getUsername(),
-                Password: password,
-            });
-    
-            login(user, authDetails, dispatch, navigation)
-
-        }, 
-        (error => {
-            setFormError(fError);
-        }));
-
-        
-
+        await confirmPassword(user, code, password, dispatch)
+        await login({email: user, password}, dispatch, navigation)
     }
 
     return (

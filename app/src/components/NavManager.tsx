@@ -158,8 +158,6 @@ export const NavManager = () => {
 
         let data = await DataStore.query(UserData);
 
-        console.log(data)
-
         if (data.length == 0) return;
 
         if (data[0].onboarded) {dispatch({type:'ONBOARDED'})};
