@@ -1,7 +1,6 @@
 node_modules/
-ios/
-android/
 .env
+.vscode/
 env-vars.tsx
 
 .vscode

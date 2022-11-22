@@ -41,7 +41,7 @@ const Sessions = () => {
         <Text style={[styles.historyText, styles.mt25]}>History</Text>
         <View style={[styles.fillerView, styles.mt25]} />
       </ScrollView>
-      <NavigationBar />
+  
     </View>
   );
 };

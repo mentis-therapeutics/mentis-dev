@@ -151,7 +151,7 @@ const Progress = () => {
         <SessionExpandingModal />
         <View style={[styles.fillerView, styles.mt25]} />
       </ScrollView>
-      <NavigationBarInverted />
+
     </View>
   );
 };

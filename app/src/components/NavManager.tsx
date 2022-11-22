@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import {HeaderBackButton} from '@react-navigation/elements';
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import {
   View,
   Text,
@@ -116,10 +118,10 @@ return (
 );
 }
 
-const AppStackNavigator = createNativeStackNavigator();
+const AppTabNavigator = createBottomTabNavigator();
 function AppStack() {
 return (
-    <AppStackNavigator.Navigator
+    <AppTabNavigator.Navigator
     initialRouteName="AppRoute"
     screenOptions={ ({ route, navigation}) => ({
         headerStyle: {
@@ -139,11 +141,19 @@ return (
         headerShadowVisible: false,
         headerTitle: (props) => <></>,
     })}>
-    <AppStackNavigator.Screen
+    <AppTabNavigator.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false }}/>
-    </AppStackNavigator.Navigator>
+    <AppTabNavigator.Screen
+        name="Progress"
+        component={Progress}
+        options={{ headerShown: false }}/>
+    <AppTabNavigator.Screen
+        name="Sessions"
+        component={Sessions}
+        options={{ headerShown: false }}/>
+    </AppTabNavigator.Navigator>
 );
 }
 

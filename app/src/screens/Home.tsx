@@ -9,13 +9,19 @@ import { useAuthDispatch, useAuthState } from "../auth/context";
 
 import { WebView } from "react-native-webview"
 
+import Daily, { DailyMediaView } from '@daily-co/react-native-daily-js';
+
+// ...
+
+// Start joining a call
+//const call = Daily.createCallObject();
+//call.join({ url: 'https://mentis-therapeutics.daily.co/allhands' });
+
 const Home = () => {
     const { user } = useAuthState()
     const dispatch = useAuthDispatch()
 
-    useEffect(() => {
-        
-    }, [])
+    
 
   return (
         <View style={styles.homeClient}>
@@ -30,6 +36,8 @@ const Home = () => {
             <SessionInfoModal session1Of2="Session 1 of 2" />
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
+
+            {/*
             <WebView
             scalesPageToFit={true}
             bounces={false}
@@ -56,8 +64,9 @@ const Home = () => {
             }}
             automaticallyAdjustContentInsets={false}
             />
+
+            */}
         </ScrollView>
-        <NavigationBar />
         </View>
   );
 };

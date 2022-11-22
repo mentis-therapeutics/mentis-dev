@@ -27,7 +27,6 @@ Amplify.configure({...awsmobile,
 })
 
 
-
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 

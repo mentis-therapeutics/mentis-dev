@@ -1,0 +1,21 @@
+{
+  "name": "react-native-zoom-video-sdk",
+  "version": "1.5.2",
+  "summary": "A react-native wrapper for Zoom Video SDK",
+  "homepage": "https://marketplace.zoom.us/docs/sdk",
+  "license": "SEE LICENSE IN README",
+  "authors": "Zoom Video Communications, Inc.",
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source": {
+    "git": "https://marketplace.zoom.us",
+    "tag": "1.5.2"
+  },
+  "source_files": "ios/**/*.{h,m,mm}",
+  "dependencies": {
+    "React-Core": [
+
+    ]
+  }
+}

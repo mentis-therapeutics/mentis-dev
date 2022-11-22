@@ -40,77 +40,9 @@ const Login = () => {
     // -------------------- ACTIONS -------------------- //
 
     async function onLogin () {
-        if (!emailReg.test(email)) {setFormError({emailError:"Invalid Email", passwordError: ""}); return}
-
-        const user = new CognitoUser({
-            Username: email,
-            Pool: cognitoPool,
-        });
-
-        const authDetails = {
-            email: email,
-            Password: password,
-        };
-        /*
-        Auth.signIn(email, password)
-        .then(user => {
-            /*if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                dispatch({ type: 'LOGIN_NEWPASS', payload:{user} })
-                navigation.navigate("CreatePassword");
-            } else {
-                // other situations
-            }
-        }).catch(e => {
-            if (e.name === 'PasswordResetRequiredException') {
-                dispatch({ type: 'LOGIN_NEWPASS', payload:{user} })
-                navigation.navigate("CreatePassword");
-            } else {
-                // other situations
-            }
-            
-        });
-        */
-        
+        if (!emailReg.test(email)) {setFormError({emailError:"Invalid Email", passwordError: ""}); return;}
+ 
         login({email, password}, dispatch, navigation)
-        .then( (error) => {
-            setFormError({emailError: "", passwordError: "Unable to login, check email & password"});
-        });
-    
-
-
-
-
-
-
-        
-        /*
-        dispatch({type: 'REQUEST_LOGIN'});
-        user.authenticateUser(authDetails, {
-            onSuccess: async session => { 
-                dispatch({ type: 'LOGIN_SUCCESS', payload:{user, session}});
-                //navigation.navigate('Disclaimer');
-            },
-            onFailure: error => {
-                dispatch({ type: 'LOGIN_ERROR', error:error});
-                // TODO: add proper checking to this
-                console.log(error);
-                setFormError({emailError: "", passwordError: "Unable to login, check email & password"});
-            },
-            /*
-            mfaRequired: function(codeDeliveryDetails) {
-                // MFA is required to complete user authentication.
-                // Get the code from user and call
-                //user.sendMFACode(mfaCode, this)
-            },
-            
-            newPasswordRequired: function(userAttributes, requiredAttributes) {
-                dispatch({ type: 'UPDATE_USER', payload:{user}});
-                console.log('New password Required');
-                navigation.navigate("CreatePassword");
-            }
-        });
-        */
-
   }
 
     return (

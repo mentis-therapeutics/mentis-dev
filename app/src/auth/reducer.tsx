@@ -20,7 +20,7 @@ export const getStoredUser = () : Promise<CognitoUser | null> => {
 }
 
 export type IAuth = {
-    user: CognitoUser | null;
+    user: string | null;
 	session: boolean;
 	loading: boolean;
 	errorMessage: string | null,
@@ -29,7 +29,7 @@ export type IAuth = {
 
 export type IAction = {
     type: 'LOGIN_NEWPASS' | 'REQUEST_LOGIN' | 'LOGIN_SUCCESS' | 'LOGOUT' | 'LOGIN_ERROR' | "ONBOARDED";
-    payload?: {user?: CognitoUser | null; session?: boolean;}
+    payload?: {user?: string | null; session?: boolean;}
     error?: string | null
 }
 
