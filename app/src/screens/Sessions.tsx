@@ -1,50 +1,58 @@
 import * as React from "react";
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
+import FilledButton from "../components/FilledButton";
 import JoinSessionModal from "../components/JoinSessionModal";
 import NavigationBar from "../components/NavigationBar";
 import SessionInfoModal from "../components/SessionInfoModal";
 
 const Sessions = () => {
-  return (
-    <View style={styles.sessionsClient}>
-      <View style={styles.headerView}>
-        <View style={styles.unsafeHeaderHeight} />
-        <View style={styles.safeHeaderView}>
-          <View style={styles.leftView}>
+
+    const joinSession = () => {
+
+    }
+
+    return (
+        <View style={styles.sessionsClient}>
+        <View style={styles.headerView}>
+            <View style={styles.unsafeHeaderHeight} />
+            <View style={styles.safeHeaderView}>
+            <View style={styles.leftView}>
+                <Image
+                style={styles.vectorIcon}
+                resizeMode="cover"
+                source={require("../assets/vector.png")}
+                />
+            </View>
             <Image
-              style={styles.vectorIcon}
-              resizeMode="cover"
-              source={require("../assets/vector.png")}
+                style={styles.logoSvgIcon}
+                resizeMode="cover"
+                source={require("../assets/logo-svg.png")}
             />
-          </View>
-          <Image
-            style={styles.logoSvgIcon}
-            resizeMode="cover"
-            source={require("../assets/logo-svg.png")}
-          />
-          <View style={styles.rightView}>
-            <Image
-              style={styles.vectorIcon1}
-              resizeMode="cover"
-              source={require("../assets/vector1.png")}
-            />
-          </View>
+            <View style={styles.rightView}>
+                <Image
+                style={styles.vectorIcon1}
+                resizeMode="cover"
+                source={require("../assets/vector1.png")}
+                />
+            </View>
+            </View>
         </View>
-      </View>
-      <ScrollView
-        style={styles.bodyScrollView}
-        contentContainerStyle={styles.bodyScrollViewContent}
-      >
-        <Text style={styles.upcomingText}>Upcoming</Text>
-        <JoinSessionModal />
-        <SessionInfoModal session1Of2="Session 2 of 2" />
-        <Text style={[styles.historyText, styles.mt25]}>History</Text>
-        <View style={[styles.fillerView, styles.mt25]} />
-      </ScrollView>
-  
-    </View>
-  );
-};
+        <ScrollView
+            style={styles.bodyScrollView}
+            contentContainerStyle={styles.bodyScrollViewContent}
+        >
+            <Text style={styles.upcomingText}>Upcoming</Text>
+            <JoinSessionModal />
+            <SessionInfoModal session1Of2="Session 2 of 2" />
+            <Text style={[styles.historyText, styles.mt25]}>History</Text>
+            <View style={[styles.fillerView, styles.mt25]} />
+
+            <FilledButton label="Join Session" onPress={() => {joinSession()}} />
+        </ScrollView>
+    
+        </View>
+    );
+    };
 
 const styles = StyleSheet.create({
   mt25: {

@@ -7,12 +7,15 @@ import {HeaderBackButton} from '@react-navigation/elements';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+
 import {
   View,
   Text,
   Pressable,
   TouchableOpacity,
   StyleSheet,
+  Image,
+  ImageSourcePropType,
 } from "react-native";
 
 import Login from "../screens/auth/Login";
@@ -35,6 +38,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { DataStore, Hub } from 'aws-amplify'
 
 import { UserData } from "../models"
+import VideoCall from "../screens/VideoCall";
+
+import { createIconSet, createIconSetFromIcoMoon } from 'react-native-vector-icons';
+
+import { Home as HomeIcon, Routing, Headphone } from "iconsax-react-native"
+
 
 const AuthStackNavigator = createNativeStackNavigator();
 function AuthStack() {
@@ -117,29 +126,31 @@ return (
     </OnboaridngStackNavigator.Navigator>
 );
 }
-
 const AppTabNavigator = createBottomTabNavigator();
 function AppStack() {
 return (
     <AppTabNavigator.Navigator
     initialRouteName="AppRoute"
-    screenOptions={ ({ route, navigation}) => ({
-        headerStyle: {
-            backgroundColor: '#334166',
+    screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let icon : any;
+
+          if (route.name === 'Home') {
+            icon = <HomeIcon color={ focused ? "#fff" : 'gray'} variant="Linear" size={30} />// <Icon name="home"/>
+          } else if (route.name === 'Progress') {
+            icon = <Routing color={ focused ? "#fff" : 'gray'}  variant="Linear" size={30} />
+          } else {
+            icon = <Headphone color={ focused ? "#fff" : 'gray'}  variant="Linear" size={30} />
+          }
+          // You can return any component that you like here!
+          return icon;
         },
-        headerLeft: (props) => (
-            <HeaderBackButton
-                {...props}
-                style={{marginLeft: 5, padding: 5}}
-                onPress={() => {
-                    navigation.goBack()
-                }}  
-            />
-        ),
-        headerBackVisible: false,
-        headerTintColor: "#fff",
-        headerShadowVisible: false,
-        headerTitle: (props) => <></>,
+        tabBarStyle: {
+            backgroundColor: "#334166",
+            borderTopWidth: 0
+        },
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: 'gray',
     })}>
     <AppTabNavigator.Screen
         name="Home"
@@ -151,7 +162,7 @@ return (
         options={{ headerShown: false }}/>
     <AppTabNavigator.Screen
         name="Sessions"
-        component={Sessions}
+        component={VideoCall}
         options={{ headerShown: false }}/>
     </AppTabNavigator.Navigator>
 );
@@ -198,3 +209,12 @@ export const NavManager = () => {
         //</SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    icon: {
+      alignSelf: "stretch",
+      position: "relative",
+      overflow: "hidden",
+      width: "100%",
+      height: "100%",
+}})

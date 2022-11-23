@@ -36,7 +36,6 @@ const Home = () => {
             <SessionInfoModal session1Of2="Session 1 of 2" />
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
-
             {/*
             <WebView
             scalesPageToFit={true}

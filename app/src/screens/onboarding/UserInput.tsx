@@ -19,7 +19,7 @@ import { AccountType, UserData } from "../../models"
 
 const UserInput = () => {
 
-    const { session } = useAuthState()
+    const { session, user } = useAuthState()
     const dispatch = useAuthDispatch();
 
     async function setUserData() {
@@ -67,7 +67,7 @@ const UserInput = () => {
         </ScrollView>
         <View style={styles.baseView}>
         <View style={styles.frameView}>
-            <FilledButton label="Submit" onPress={() => setUserData()}/>
+            <FilledButton label="Submit" onPress={() => logout(user, dispatch)}/>
         </View>
         <Image
             style={[styles.sunEmoteIcon, styles.mt20]}

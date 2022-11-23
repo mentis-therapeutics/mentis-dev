@@ -1,0 +1,49 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Iconsax.ttf",
+      "sha1": "517735bab38d32f628dd63acf160742f7e009e20"
+    },
+    {
+      "path": "src/assets/fonts/Manrope.ttf",
+      "sha1": "7e862264836329a059f38d0fc66b22a4936402e8"
+    },
+    {
+      "path": "src/assets/fonts/Manrope_extrabold.ttf",
+      "sha1": "98f54dbb2530a2599e8e1f97eaa3b97fb1799aeb"
+    },
+    {
+      "path": "src/assets/fonts/Manrope_medium.ttf",
+      "sha1": "fcafcd59b8a4a2fd66b28434307e2bb0d8f0f1c9"
+    },
+    {
+      "path": "src/assets/fonts/Manrope_regular.ttf",
+      "sha1": "b8cef4edf34d2851c5d66e99757aeef0aea63bf2"
+    },
+    {
+      "path": "src/assets/fonts/Manrope_semibold.ttf",
+      "sha1": "96b5b6af6b63a1f74978e1e10ff3471304a7de46"
+    },
+    {
+      "path": "src/assets/fonts/Mentis.ttf",
+      "sha1": "b5361362f5f7771902506c4fc629a370820a1112"
+    },
+    {
+      "path": "src/assets/fonts/icomoon.ttf",
+      "sha1": "0d044188378aac0e6da96bf3c4012ea63ac0383d"
+    },
+    {
+      "path": "src/assets/fonts/iconsax.js",
+      "sha1": "a72d8d902cf6688e2020f81c81e6186b5eb3fc98"
+    },
+    {
+      "path": "src/assets/fonts/selection.json",
+      "sha1": "0cfbe7b3aaad851509748dc0f0d739cfb3c5b2f8"
+    },
+    {
+      "path": "src/assets/fonts/style.css",
+      "sha1": "7d890d12b0d9280cdb88fb845348e83be086e80e"
+    }
+  ]
+}
