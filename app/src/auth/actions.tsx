@@ -14,9 +14,11 @@ export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<v
         if (user) {
             dispatch({type: 'LOGIN_SUCCESS'})
         }   
-    }catch{
-        //console.log('No one logged in')
+    }catch (err) {
+        dispatch({ type: 'LOGIN_ERROR', error:err});
+        console.log(err)
     }
+        //console.log('No one logged in')
 }
 
 const waitForDataStoreLoad = async () => {

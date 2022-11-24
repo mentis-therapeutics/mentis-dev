@@ -3,7 +3,8 @@
   #import <React/RCTBridge.h>
   #import <React/RCTBundleURLProvider.h>
   #import <React/RCTRootView.h>
-  
+  #import <RNSpotifyRemote.h>
+
   #import <React/RCTAppSetupUtils.h>
   
   #if RCT_NEW_ARCH_ENABLED
@@ -15,6 +16,9 @@
   #import <ReactCommon/RCTTurboModuleManager.h>
   
   #import <react/config/ReactNativeConfig.h>
+  #import <React/RCTBundleURLProvider.h>
+
+
   
   static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   
@@ -28,7 +32,12 @@
   #endif
   
   @implementation AppDelegate
-  
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+  {
+    return [[RNSpotifyRemoteAuth sharedInstance] application:application openURL:URL options:options];
+  }
+
   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   {
     RCTAppSetupPrepareApp(application);

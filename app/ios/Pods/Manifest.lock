@@ -311,6 +311,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.17.11):
     - React-Core
+  - RNEventEmitter (1.0.21):
+    - React
   - RNGestureHandler (2.8.0):
     - React-Core
   - RNReanimated (2.9.1):
@@ -343,7 +345,9 @@ PODS:
   - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
-  - RNSVG (13.5.0):
+  - RNSpotifyRemote (0.3.10):
+    - React-Core
+  - RNSVG (13.6.0):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -393,9 +397,11 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNEventEmitter (from `../node_modules/react-native-events`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSpotifyRemote (from `../node_modules/react-native-spotify-remote`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -487,12 +493,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/amazon-cognito-identity-js"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNEventEmitter:
+    :path: "../node_modules/react-native-events"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSpotifyRemote:
+    :path: "../node_modules/react-native-spotify-remote"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -544,13 +554,15 @@ SPEC CHECKSUMS:
   ReactCommon: e30ec17dfb1d4c4f3419eac254350d6abca6d5a2
   RNAWSCognito: 8b90597e928a8e336af19c879aff0e9142afe9ff
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNEventEmitter: 557106956ec2f9ccda6940afeea563936385efd3
   RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
   RNReanimated: 2cf7451318bb9cc430abeec8d67693f9cf4e039c
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
-  RNSVG: 38ca962c970dbce1ca38991a5aebf26d163f9efb
+  RNSpotifyRemote: d99bc5dc5b59df472c51b3f8e6231259de26830a
+  RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   Yoga: 7ab6e3ee4ce47d7b789d1cb520163833e515f452
 
-PODFILE CHECKSUM: 13023dc1559773f2f3c975bc08231ed64831564c
+PODFILE CHECKSUM: 64238442b9de880437a12765d3aa00784ff19d3e
 
 COCOAPODS: 1.11.3

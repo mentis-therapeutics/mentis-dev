@@ -1,39 +1,43 @@
 
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Home as HomeIcon, Routing, Headphone } from 'iconsax-react-native'
 
 import Home from '../../screens/Home'
+import Calendly from '../../screens/Calendly'
 import Progress from '../../screens/Progress'
 import Sessions from '../../screens/Sessions'
+import SessionDetail from '../../screens/SessionDetail'
+import VideoCall from "../../screens/VideoCall";
+
+import { stackScreenOptions, tabScreenOptions } from "./navOptions";
+
+const SessionStackNavigator = createNativeStackNavigator()
+const SessionStack = () => {
+    return (
+    <SessionStackNavigator.Navigator
+            initialRouteName="OnboardingRoute"
+            screenOptions={stackScreenOptions}>
+        <SessionStackNavigator.Screen
+            name="SessionsPage"
+            component={Sessions}
+            options={{ headerShown: false }}/>
+        <SessionStackNavigator.Screen
+            name="SessionDetail"
+            component={SessionDetail}
+            options={{}}/>
+    </SessionStackNavigator.Navigator>
+    );
+}
+
 
 const AppTabNavigator = createBottomTabNavigator();
 export function AppStack() {
 return (
     <AppTabNavigator.Navigator
     initialRouteName="AppRoute"
-    screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let icon : any;
-
-          if (route.name === 'Home') {
-            icon = <HomeIcon color={ focused ? "#fff" : 'gray'} variant="Linear" size={30} />// <Icon name="home"/>
-          } else if (route.name === 'Progress') {
-            icon = <Routing color={ focused ? "#fff" : 'gray'}  variant="Linear" size={30} />
-          } else {
-            icon = <Headphone color={ focused ? "#fff" : 'gray'}  variant="Linear" size={30} />
-          }
-          // You can return any component that you like here!
-          return icon;
-        },
-        tabBarStyle: {
-            backgroundColor: "#334166",
-            borderTopWidth: 0
-        },
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: 'gray',
-    })}>
+    screenOptions={tabScreenOptions}>
     <AppTabNavigator.Screen
         name="Home"
         component={Home}
@@ -44,7 +48,7 @@ return (
         options={{ headerShown: false }}/>
     <AppTabNavigator.Screen
         name="Sessions"
-        component={Sessions}
+        component={VideoCall}
         options={{ headerShown: false }}/>
     </AppTabNavigator.Navigator>
 );

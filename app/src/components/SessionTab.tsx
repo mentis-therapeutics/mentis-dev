@@ -259,11 +259,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sessionTabView: {
+    flex: 3,
     alignSelf: "stretch",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: "#fff",
-    overflow: "hidden",
+    overflow: "visible",
     flexDirection: "column",
     paddingHorizontal: 30,
     paddingVertical: 25,

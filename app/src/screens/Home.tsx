@@ -7,15 +7,63 @@ import FilledButton from "../components/FilledButton";
 import { logout } from "../auth/actions";
 import { useAuthDispatch, useAuthState } from "../auth/context";
 
-import { WebView } from "react-native-webview"
+import {
+    auth as SpotifyAuth,
+    remote as SpotifyRemote,
+    ApiScope,
+    ApiConfig,
+  } from "react-native-spotify-remote";
+  
+  // Api Config object, replace with your own applications client id and urls
+  const spotifyConfig: ApiConfig = {
+    clientID: "674bc223be44498bb66abff0f1730300",
+    redirectURL: "com.mentisapp://oauthredirect", // 'spotify-ios-quick-start://spotify-login-callback',//"com.mentistestapp://oauthredirect",
+    //tokenRefreshURL: "SPOTIFY_TOKEN_REFRESH_URL",
+    //tokenSwapURL: "SPOTIFY_TOKEN_SWAP_URL",
+    scopes: [ApiScope.AppRemoteControlScope, ApiScope.UserFollowReadScope],
+    showDialog: true,
+  };
+  
+  // Initialize the library and connect the Remote
+  // then play an epic song
+  async function select() {
+    try {
+      console.log("Select")
+      const session = await SpotifyAuth.authorize(spotifyConfig);
 
-import Daily, { DailyMediaView } from '@daily-co/react-native-daily-js';
 
-// ...
+      await SpotifyRemote.connect(session.accessToken);
+      await SpotifyRemote.playUri("spotify:track:6IA8E2Q5ttcpbuahIejO74");
+      await SpotifyRemote.seek(58000);
+    } catch {
+      console.error("Couldn't authorize with or connect to Spotify");
+    }
+  }
 
-// Start joining a call
-//const call = Daily.createCallObject();
-//call.join({ url: 'https://mentis-therapeutics.daily.co/allhands' });
+  async function play() {
+    try {
+      console.log("Play")
+      await SpotifyRemote.resume();
+    } catch {
+      console.error("Couldn't authorize with or connect to Spotify");
+    }
+  }
+  async function pause() {
+    try {
+      console.log("Pause")
+      await SpotifyRemote.pause()
+    } catch {
+      console.error("Couldn't authorize with or connect to Spotify");
+    }
+  }
+  async function next() {
+    try {
+      console.log("Next")
+      await SpotifyRemote.skipToNext();
+    } catch {
+      console.error("Couldn't authorize with or connect to Spotify");
+    }
+  }
 
 const Home = () => {
     const { user } = useAuthState()
@@ -36,35 +84,11 @@ const Home = () => {
             <SessionInfoModal session1Of2="Session 1 of 2" />
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
-            {/*
-            <WebView
-            scalesPageToFit={true}
-            bounces={false}
-            javaScriptEnabled
-            style={{ height: 500, width: 500 }}
-            source={{
-                html: `
-                    <!DOCTYPE html>
-                    <html>
-                        <div class="calendly-inline-widget" style="min-width:320px;height:580px;" data-auto-load="false">
-                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
-                        <script>
-                        Calendly.initInlineWidget({
-                        url: 'https://calendly.com/mentis-sam/30min?hide_landing_page_details=1', 
-                        prefill: {
-                            name: "Sam Coleman",
-                            email: "john@doe2.com",
-                        }
-                    });
-                        </script>
-                        </div>
-                    </html>
-                `,
-            }}
-            automaticallyAdjustContentInsets={false}
-            />
 
-            */}
+            <FilledButton label="select" onPress={() => select()}/>
+            <FilledButton label="play" onPress={() => play()}/>
+            <FilledButton label="pause" onPress={() => pause()}/>
+            <FilledButton label="next" onPress={() => next()}/>
         </ScrollView>
         </View>
   );

@@ -17,12 +17,8 @@
 		1530451A292D879E0083631A /* Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15304514292D879E0083631A /* Manrope.ttf */; };
 		1530451B292D879E0083631A /* Manrope_extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15304515292D879E0083631A /* Manrope_extrabold.ttf */; };
 		1530451D292D879E0083631A /* Manrope_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15304517292D879E0083631A /* Manrope_medium.ttf */; };
-		1530451F292D91380083631A /* Iconsax.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1530451E292D91380083631A /* Iconsax.ttf */; };
-		15304521292D98360083631A /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15304520292D98360083631A /* icomoon.ttf */; };
-		15304523292D9BFD0083631A /* Mentis.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15304522292D9BFD0083631A /* Mentis.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Mentis-MentisTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Mentis-MentisTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		5DBCCEDFAAE149C79BF419C0 /* selection.json in Resources */ = {isa = PBXBuildFile; fileRef = 4AD7A7F1C2994578BE1EB6DC /* selection.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,19 +30,6 @@
 			remoteInfo = Mentis;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		15EABF77292C20A100DC56B1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* MentisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,20 +46,15 @@
 		15304514292D879E0083631A /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope.ttf; path = ../src/assets/fonts/Manrope.ttf; sourceTree = "<group>"; };
 		15304515292D879E0083631A /* Manrope_extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope_extrabold.ttf; path = ../src/assets/fonts/Manrope_extrabold.ttf; sourceTree = "<group>"; };
 		15304517292D879E0083631A /* Manrope_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope_medium.ttf; path = ../src/assets/fonts/Manrope_medium.ttf; sourceTree = "<group>"; };
-		1530451E292D91380083631A /* Iconsax.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Iconsax.ttf; path = ../src/assets/fonts/Iconsax.ttf; sourceTree = "<group>"; };
-		15304520292D98360083631A /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
-		15304522292D9BFD0083631A /* Mentis.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Mentis.ttf; path = ../src/assets/fonts/Mentis.ttf; sourceTree = "<group>"; };
+		158DA1A2292FA0BB005700EE /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpotifyiOS.framework; path = "../node_modules/react-native-spotify-remote/ios/external/SpotifySDK/SpotifyiOS.framework"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Mentis-MentisTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mentis-MentisTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Mentis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mentis.debug.xcconfig"; path = "Target Support Files/Pods-Mentis/Pods-Mentis.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Mentis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mentis.release.xcconfig"; path = "Target Support Files/Pods-Mentis/Pods-Mentis.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Mentis-MentisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mentis-MentisTests.debug.xcconfig"; path = "Target Support Files/Pods-Mentis-MentisTests/Pods-Mentis-MentisTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Mentis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mentis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		788950693FD547BAA9DC0217 /* iconsax.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = iconsax.js; path = ../src/assets/fonts/iconsax.js; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Mentis/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Mentis-MentisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mentis-MentisTests.release.xcconfig"; path = "Target Support Files/Pods-Mentis-MentisTests/Pods-Mentis-MentisTests.release.xcconfig"; sourceTree = "<group>"; };
-		BC2E89EE35784223B8ED908A /* style.css */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = style.css; path = ../src/assets/fonts/style.css; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		4AD7A7F1C2994578BE1EB6DC /* selection.json */ = {isa = PBXFileReference; name = "selection.json"; path = "../src/assets/fonts/selection.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,17 +97,11 @@
 		13775B3987A94B09980C9A98 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				15304522292D9BFD0083631A /* Mentis.ttf */,
-				15304520292D98360083631A /* icomoon.ttf */,
-				1530451E292D91380083631A /* Iconsax.ttf */,
 				15304515292D879E0083631A /* Manrope_extrabold.ttf */,
 				15304517292D879E0083631A /* Manrope_medium.ttf */,
 				15304513292D879E0083631A /* Manrope_regular.ttf */,
 				15304512292D879E0083631A /* Manrope_semibold.ttf */,
 				15304514292D879E0083631A /* Manrope.ttf */,
-				788950693FD547BAA9DC0217 /* iconsax.js */,
-				BC2E89EE35784223B8ED908A /* style.css */,
-				4AD7A7F1C2994578BE1EB6DC /* selection.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -150,6 +122,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				158DA1A2292FA0BB005700EE /* SpotifyiOS.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-Mentis.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-Mentis-MentisTests.a */,
@@ -236,7 +209,6 @@
 				5AF32467287A702F0038C340 /* Copy Font Resource */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				15EABF77292C20A100DC56B1 /* Embed Frameworks */,
 				16515EC2BF08265EE70C4CC8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -299,14 +271,10 @@
 				1530451D292D879E0083631A /* Manrope_medium.ttf in Resources */,
 				15304518292D879E0083631A /* Manrope_semibold.ttf in Resources */,
 				15304519292D879E0083631A /* Manrope_regular.ttf in Resources */,
-				15304523292D9BFD0083631A /* Mentis.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				15304521292D98360083631A /* icomoon.ttf in Resources */,
 				1530451A292D879E0083631A /* Manrope.ttf in Resources */,
 				1530451B292D879E0083631A /* Manrope_extrabold.ttf in Resources */,
-				1530451F292D91380083631A /* Iconsax.ttf in Resources */,
-				5DBCCEDFAAE149C79BF419C0 /* selection.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nfind -L ${SRCROOT}/../assets/fonts \\\n    -type f -not -name \".*\" \\\n    | xargs -t -I {} \\\n    cp {} ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nfind -L ${SRCROOT}/../fonts \\\n    -type f -not -name \".*\" \\\n    | xargs -t -I {} \\\n    cp {} ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
 		};
 		5C7E8CB9895BF8AD8C4FAC52 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

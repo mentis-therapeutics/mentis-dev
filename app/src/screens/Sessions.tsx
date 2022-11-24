@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import * as React from "react";
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import FilledButton from "../components/FilledButton";
@@ -6,9 +7,9 @@ import NavigationBar from "../components/NavigationBar";
 import SessionInfoModal from "../components/SessionInfoModal";
 
 const Sessions = () => {
-
+    const navigation = useNavigation()
     const joinSession = () => {
-
+        navigation.navigate('SessionDetail')
     }
 
     return (

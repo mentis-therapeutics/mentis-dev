@@ -7,31 +7,14 @@ import Signup from "../../screens/auth/Signup";
 import CreatePassword from "../../screens/auth/CreatePassword";
 import ResetPassword from "../../screens/auth/ResetPassword";
 
-import { ArrowLeft2 } from 'iconsax-react-native'
-import { Pressable } from "react-native";
+import { stackScreenOptions } from "./navOptions";
 
 const AuthStackNavigator = createNativeStackNavigator();
 export function AuthStack() {
     return (
         <AuthStackNavigator.Navigator
         initialRouteName="LoginRoute"
-        screenOptions={ ({ route, navigation}) => ({
-            headerStyle: {
-                backgroundColor: '#334166',
-            },
-            headerLeft: (props) => (
-                <Pressable {...props} onPress={() => {
-                    navigation.goBack()
-                }}  style={{alignSelf: "stretch",position: "relative",overflow: "hidden",width: "100%",height: "100%",}}>
-                    <ArrowLeft2/>
-                </Pressable>
-                
-            ),
-            headerBackVisible: false,
-            headerTintColor: "#fff",
-            headerShadowVisible: false,
-            headerTitle: (props) => <></>,
-        })}>
+        screenOptions={stackScreenOptions}>
         <AuthStackNavigator.Screen
             name="Login"
             component={Login}

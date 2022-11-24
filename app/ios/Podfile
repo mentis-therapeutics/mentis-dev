@@ -28,6 +28,10 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
     
 
     permissions_path = '../node_modules/react-native-permissions/ios'
+
+    pod 'RNEventEmitter', :path => "../node_modules/react-native-events"
+    pod 'RNSpotifyRemote', :path => '../node_modules/react-native-spotify-remote'
+
     #pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
     #pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
     #pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"

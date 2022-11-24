@@ -32,18 +32,15 @@ const Login = () => {
 
     const [formError, setFormError] = useState<FormError>({emailError: "", passwordError: ""})
 
-    // -------------------- EFFECTS -------------------- //
-    useEffect(() => {
-        getSession(dispatch); 
-    }, []);
-
-    // -------------------- ACTIONS -------------------- //
-
     async function onLogin () {
         if (!emailReg.test(email)) {setFormError({emailError:"Invalid Email", passwordError: ""}); return;}
  
         login({email, password}, dispatch, navigation)
   }
+
+    useEffect(() => {
+        getSession(dispatch); 
+    }, []);
 
     return (
     <View style={styles.loginView}>

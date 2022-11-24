@@ -9,11 +9,11 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>Mentis-001</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Mentis</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -48,9 +48,6 @@
 		<string>Manrope_medium.ttf</string>
 		<string>Manrope_semibold.ttf</string>
 		<string>Manrope_extrabold.ttf</string>
-		<string>Iconsax.tff</string>
-		<string>icomoon.tff</string>
-		<string>Mentis.tff</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -65,5 +62,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>spotify</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>org.reactjs.native.example.Mentis</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.mentisapp</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

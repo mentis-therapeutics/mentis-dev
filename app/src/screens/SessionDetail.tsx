@@ -2,7 +2,6 @@ import * as React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import Header from "../components/Header";
 import SessionTab from "../components/SessionTab";
-import NavigationBarInverted from "../components/NavigationBar";
 
 const SessionDetail = () => {
   return (
@@ -12,8 +11,7 @@ const SessionDetail = () => {
         <View style={styles.sessionInfoView}>
           <Text style={styles.bookedText}>Booked</Text>
           <Text style={[styles.saturday7thAug12pm1pm, styles.mt5]}>
-            <Text style={styles.saturday7thAug}>Saturday, 7th Aug</Text>
-            <Text style={styles.pm1pm}>12pm - 1pm</Text>
+            <Text style={styles.saturday7thAug}>Saturday, 7th Aug{'\n'}12pm - 1pm</Text>
           </Text>
           <Text style={[styles.resheduleOrCancel, styles.mt5]}>
             Reshedule or Cancel
@@ -23,17 +21,9 @@ const SessionDetail = () => {
           <View style={styles.frameView}>
             <Text style={styles.bookSessionsText}>Session Tasks</Text>
           </View>
-          <View style={styles.frameView1}>
-            <Image
-              style={styles.groupIcon}
-              resizeMode="cover"
-              source={require("../assets/group-38.png")}
-            />
-          </View>
         </View>
       </View>
       <SessionTab />
-      <NavigationBarInverted routeSVG={`{{uri:"route-svg@3x.png"}}`} />
     </View>
   );
 };
@@ -54,8 +44,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   saturday7thAug: {
-    marginBlockStart: 0,
-    marginBlockEnd: 0,
   },
   pm1pm: {
     margin: 0,
@@ -72,7 +60,7 @@ const styles = StyleSheet.create({
   resheduleOrCancel: {
     position: "relative",
     fontSize: 16,
-    textDecoration: "underline",
+    textDecorationLine: "underline",
     lineHeight: 22,
     fontFamily: "Manrope",
     color: "#fff",

@@ -1,24 +1,17 @@
-const Stack = createNativeStackNavigator();
-import * as React from "react";
+
+import React from "react";
 
 
-import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
+import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
 
 import { AuthProvider } from "./src/auth/context";
 import { NavManager } from "./src/components/NavManager";
 
 import {Amplify, AuthModeStrategyType} from "aws-amplify";
 import awsmobile from "./aws-exports";
+import { getSession } from "./src/auth/actions";
 
 Amplify.configure({...awsmobile,
     DataStore: {
@@ -28,7 +21,8 @@ Amplify.configure({...awsmobile,
 
 
 const App = () => {
-  const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
+
+
 
   return (
     <>
