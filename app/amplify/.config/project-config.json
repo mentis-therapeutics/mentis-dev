@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "mentis",
+  "projectName": "MentisNative",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

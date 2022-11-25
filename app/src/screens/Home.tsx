@@ -17,7 +17,7 @@ import {
   // Api Config object, replace with your own applications client id and urls
   const spotifyConfig: ApiConfig = {
     clientID: "674bc223be44498bb66abff0f1730300",
-    redirectURL: "com.mentisapp://oauthredirect", // 'spotify-ios-quick-start://spotify-login-callback',//"com.mentistestapp://oauthredirect",
+    redirectURL: "com.mentisapp://oauthredirect",
     //tokenRefreshURL: "SPOTIFY_TOKEN_REFRESH_URL",
     //tokenSwapURL: "SPOTIFY_TOKEN_SWAP_URL",
     scopes: [ApiScope.AppRemoteControlScope, ApiScope.UserFollowReadScope],

@@ -6,7 +6,6 @@ import FilledButton from "../../components/FilledButton";
 
 import { CognitoUser } from "amazon-cognito-identity-js";
 
-import { cognitoPool } from "../../utils/cognito_pool";
 
 
 import { emailReg } from "../../utils/regex";
@@ -25,11 +24,6 @@ const ForgotPassword = () => {
 
     async function onsubmit () {
         if (!emailReg.test(email)) {setEmailError("Invalid Email"); return}
-
-        const user = new CognitoUser({
-            Username: email,
-            Pool: cognitoPool,
-        });
 
         forgotPassword(email, dispatch, navigation)
     }

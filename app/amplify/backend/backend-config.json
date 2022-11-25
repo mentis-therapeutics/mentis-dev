@@ -1,6 +1,6 @@
 {
   "auth": {
-    "mentis": {
+    "mentisnative": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
@@ -9,13 +9,13 @@
     }
   },
   "api": {
-    "mentis": {
+    "mentisnative": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "mentis",
+          "resourceName": "mentisnative",
           "attributes": [
             "UserPoolId"
           ]
@@ -26,7 +26,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmentis"
+              "userPoolId": "authmentisnative"
             }
           },
           "additionalAuthenticationProviders": [

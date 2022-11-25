@@ -13,9 +13,10 @@ import { useAuthDispatch, useAuthState } from "../../auth/context";
 import FilledButton from "../../components/FilledButton";
 import UserTextInput from "../../components/UserTextInput";
 
-import { DataStore } from 'aws-amplify'
+import { DataStore, API, graphqlOperation } from 'aws-amplify'
 
-import { AccountType, UserData } from "../../models"
+import { AccountType, User } from "../../models"
+import { createUser } from "../../graphql/mutations"
 
 const UserInput = () => {
 
@@ -23,28 +24,46 @@ const UserInput = () => {
     const dispatch = useAuthDispatch();
 
     async function setUserData() {
-        const original = await DataStore.query(UserData);
+        /*
+        await API.graphql(
+            graphqlOperation(createUser,
+            {
+                input:{
+                    firstName : "Sam",
+                    lastName : "Coleman",
+                    accountType : AccountType.USER,
+                    onboarded : true,
+                }
+        })
+        )
+        */
+        
+        const original = await DataStore.query(User);
 
         // Create or Update
         console.log(original)
         if (original.length > 0){
             await DataStore.save(
-                UserData.copyOf(original[0], updated => {
-                    updated.FirstName = "Sam";
-                    updated.LastName = "Coleman";
-                    updated.AccountType = AccountType.USER;
+                User.copyOf(original[0], updated => {
+                    updated.firstName = "Sam";
+                    updated.lastName = "Coleman";
+                    updated.accountType = AccountType.USER;
                     updated.onboarded = true;
                 })
             );
         }else{
+           try{
             await DataStore.save(
-                new UserData({
-                    FirstName : "Sam",
-                    LastName : "Coleman",
-                    AccountType : AccountType.USER,
+                new User({
+                    firstName : "Sam",
+                    lastName : "Coleman",
+                    accountType : AccountType.USER,
                     onboarded : true,
-                })
-            );
+                }));
+           }catch (err) {
+            console.log(err)
+           }
+            
         }
 
         dispatch({type:'ONBOARDED'});
@@ -67,7 +86,7 @@ const UserInput = () => {
         </ScrollView>
         <View style={styles.baseView}>
         <View style={styles.frameView}>
-            <FilledButton label="Submit" onPress={() => logout(user, dispatch)}/>
+            <FilledButton label="Submit" onPress={() => setUserData()}/>
         </View>
         <Image
             style={[styles.sunEmoteIcon, styles.mt20]}

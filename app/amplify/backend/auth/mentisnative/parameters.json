@@ -1,18 +1,24 @@
 {
-  "authSelections": "identityPoolAndUserPool",
-  "resourceName": "mentis",
+  "authSelections": "userPoolOnly",
+  "resourceName": "mentisnative",
   "serviceType": "imported",
   "region": "us-east-1",
   "usernameAttributes": [
     "email",
     "phone_number"
   ],
-  "requiredAttributes": [],
+  "requiredAttributes": [
+    "email"
+  ],
   "passwordPolicyMinLength": 8,
   "passwordPolicyCharacters": [
+    "Requires Lowercase",
     "Requires Uppercase",
     "Requires Numbers"
   ],
   "mfaConfiguration": "OFF",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
   "mfaTypes": []
 }

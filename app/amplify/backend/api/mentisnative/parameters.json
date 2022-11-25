@@ -1,11 +1,12 @@
 {
-  "AppSyncApiName": "mentis",
+  "AppSyncApiName": "mentisnative",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "authmentis",
+      "authmentisnative",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "AuthModeLastUpdated": "2022-11-24T23:48:19.865Z"
 }

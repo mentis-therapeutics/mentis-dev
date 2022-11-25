@@ -10,7 +10,7 @@ import { AuthProvider } from "./src/auth/context";
 import { NavManager } from "./src/components/NavManager";
 
 import {Amplify, AuthModeStrategyType} from "aws-amplify";
-import awsmobile from "./aws-exports";
+import awsmobile from "./src/aws-exports";
 import { getSession } from "./src/auth/actions";
 
 Amplify.configure({...awsmobile,

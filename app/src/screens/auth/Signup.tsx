@@ -6,7 +6,6 @@ import FilledButton from "../../components/FilledButton";
 
 import { emailReg, passReg } from "../../utils/regex";
 
-import { cognitoPool } from "../../utils/cognito_pool";
 
 type FormError = {
     emailError: string,
@@ -44,6 +43,7 @@ const Signup = () => {
 
         if (errorRaised) { setFormError(fError); return; }
 
+        /*
         // FIXME: NEED TO WORK OUT DISPATCH USER AND SESSION DATA
         cognitoPool.signUp(email, password, [], [], (err, data) => {
             if (err) {
@@ -59,9 +59,10 @@ const Signup = () => {
                 }
                 return;
             }
-            
+      
             // Dispatch login
         });
+        */
         
     }
 

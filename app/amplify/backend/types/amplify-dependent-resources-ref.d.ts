@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "mentis": {
+        "mentisnative": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

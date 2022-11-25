@@ -7,7 +7,7 @@ import { useAuthDispatch, useAuthState } from "../auth/context";
 
 import { DataStore } from 'aws-amplify'
 
-import { UserData } from "../models"
+import { User } from "../models"
 
 import { AppStack } from "./nav/app";
 import { AuthStack } from "./nav/auth"
@@ -22,7 +22,9 @@ export const NavManager = () => {
     async function fetchOnboardedState() {   
         if (!session) return;
 
-        let data = await DataStore.query(UserData);
+        let data = await DataStore.query(User);
+
+        console.log(data[0])
 
         if (data.length == 0) return;
 

@@ -5,7 +5,6 @@ import { resolvePath } from "react-native-reanimated/lib/types/lib/reanimated2/a
 import { IAction } from "./reducer";
 
 import {DataStore, Hub, Auth} from 'aws-amplify'
-import { UserData } from "../models";
 
 export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<void> => {
     try {
@@ -47,7 +46,7 @@ export const login = async (authDetails: {email: string, password: string}, disp
                 }
 
                 /* Once the user successfully signs in, update the form state to show the signed in state */
-                DataStore.configure();
+            
                 await DataStore.clear();
                 await DataStore.start();
                 await waitForDataStoreLoad();

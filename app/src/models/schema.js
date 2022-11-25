@@ -1,5 +1,99 @@
 export const schema = {
     "models": {
+        "Stage": {
+            "name": "Stage",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "programID": {
+                    "name": "programID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sessions": {
+                    "name": "sessions",
+                    "isArray": true,
+                    "type": {
+                        "model": "Session"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "stageID"
+                        ]
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Stages",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProgram",
+                        "fields": [
+                            "programID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Session": {
             "name": "Session",
             "fields": {
@@ -10,17 +104,45 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "DateTime": {
-                    "name": "DateTime",
+                "stageID": {
+                    "name": "stageID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dateTime": {
+                    "name": "dateTime",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Description": {
-                    "name": "Description",
+                "length": {
+                    "name": "length",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "scheduled": {
+                    "name": "scheduled",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -49,6 +171,15 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byStage",
+                        "fields": [
+                            "stageID"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -63,23 +194,14 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
-                            },
-                            {
-                                "allow": "private",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
                             }
                         ]
                     }
                 }
             ]
         },
-        "UserData": {
-            "name": "UserData",
+        "Program": {
+            "name": "Program",
             "fields": {
                 "id": {
                     "name": "id",
@@ -88,49 +210,44 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "FirstName": {
-                    "name": "FirstName",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "LastName": {
-                    "name": "LastName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Email": {
-                    "name": "Email",
-                    "isArray": false,
-                    "type": "AWSEmail",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Phone": {
-                    "name": "Phone",
-                    "isArray": false,
-                    "type": "AWSPhone",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "AccountType": {
-                    "name": "AccountType",
-                    "isArray": false,
+                "stages": {
+                    "name": "stages",
+                    "isArray": true,
                     "type": {
-                        "enum": "AccountType"
+                        "model": "Stage"
                     },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "programID"
+                        ]
+                    }
                 },
-                "onboarded": {
-                    "name": "onboarded",
-                    "isArray": false,
-                    "type": "Boolean",
+                "users": {
+                    "name": "users",
+                    "isArray": true,
+                    "type": {
+                        "model": "UserProgram"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "program"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -150,7 +267,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "UserData",
+            "pluralName": "Programs",
             "attributes": [
                 {
                     "type": "model",
@@ -176,6 +293,219 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "User": {
+            "name": "User",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "firstName": {
+                    "name": "firstName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastName": {
+                    "name": "lastName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "AWSPhone",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "accountType": {
+                    "name": "accountType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "AccountType"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "onboarded": {
+                    "name": "onboarded",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "program": {
+                    "name": "program",
+                    "isArray": true,
+                    "type": {
+                        "model": "UserProgram"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "user"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "UserProgram": {
+            "name": "UserProgram",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "programId": {
+                    "name": "programId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userId": {
+                    "name": "userId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "program": {
+                    "name": "program",
+                    "isArray": false,
+                    "type": {
+                        "model": "Program"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "programId"
+                        ]
+                    }
+                },
+                "user": {
+                    "name": "user",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "userId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "UserPrograms",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProgram",
+                        "fields": [
+                            "programId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userId"
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {
@@ -191,5 +521,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "312aef56b9f13b580b59dac3d0c23d4d"
+    "version": "62031fff8b94c9ca177ad2909ce4b36b"
 };

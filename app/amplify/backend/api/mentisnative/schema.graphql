@@ -1,0 +1,42 @@
+type Stage @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  programID: ID! @index(name: "byProgram")
+  sessions: [Session] @hasMany(indexName: "byStage", fields: ["id"])
+  name: String
+}
+
+type Program @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  name: String
+  stages: [Stage] @hasMany(indexName: "byProgram", fields: ["id"])
+  users: [User] @manyToMany(relationName: "UserProgram")
+}
+
+type Session @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  stageID: ID! @index(name: "byStage")
+  name: Int
+  description: String
+  dateTime: AWSDateTime
+  length: AWSDateTime
+  scheduled: Boolean
+}
+
+enum AccountType {
+  SUPER_ADMIN
+  USER
+  SUPERVISOR
+  THERAPIST
+}
+
+type User @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: AWSEmail
+  phone: AWSPhone
+  accountType: AccountType
+  onboarded: Boolean
+  program: [Program] @manyToMany(relationName: "UserProgram")
+}
+ 
