@@ -9,13 +9,14 @@ const AccountType = {
   "THERAPIST": "THERAPIST"
 };
 
-const { Stage, Session, Program, User, UserProgram } = initSchema(schema);
+const { UserProgram, UserSession, Stage, Session, Program, User } = initSchema(schema);
 
 export {
+  UserProgram,
+  UserSession,
   Stage,
   Session,
   Program,
   User,
-  UserProgram,
   AccountType
 };

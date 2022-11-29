@@ -23,7 +23,8 @@
         "UserPoolId": "us-east-1_Htk7UZzw8",
         "UserPoolName": "mentis",
         "AppClientID": "1feh1o5fd63i3el6d500bmgvjk",
-        "AppClientIDWeb": "1feh1o5fd63i3el6d500bmgvjk"
+        "AppClientIDWeb": "1feh1o5fd63i3el6d500bmgvjk",
+        "HostedUIDomain": "mentis"
       },
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -80,12 +81,39 @@
         "GraphQLAPIIdOutput": "h2hdsy3k2jgdvki463u5nkjmcu",
         "GraphQLAPIEndpointOutput": "https://qz62k56vr5aatmikcl6csghjea.appsync-api.us-east-1.amazonaws.com/graphql"
       },
-      "lastPushTimeStamp": "2022-11-24T23:53:00.205Z",
+      "lastPushTimeStamp": "2022-11-29T20:06:24.551Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentisnative-staging-233538-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apimentisnative"
       },
-      "lastPushDirHash": "wt08enOBEJp/uV8egj8BMoolOk4="
+      "lastPushDirHash": "N/OtOoejE39vjIEGToskUcS4fgk="
+    }
+  },
+  "function": {
+    "calendlyHook": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-11-29T20:04:04.666Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-11-29T20:04:07.987Z",
+      "distZipFilename": "calendlyHook-45537a54543134787479-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-mentisnative-staging-233538-deployment",
+        "s3Key": "amplify-builds/calendlyHook-45537a54543134787479-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentisnative-staging-233538-deployment/amplify-cfn-templates/function/calendlyHook-cloudformation-template.json",
+        "logicalId": "functioncalendlyHook"
+      },
+      "lastPushTimeStamp": "2022-11-29T20:06:25.062Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:190956789893:function:calendlyHook-staging",
+        "Name": "calendlyHook-staging",
+        "LambdaExecutionRole": "mentisnativeLambdaRole0bbb0b93-staging"
+      },
+      "lastPushDirHash": "RB6RBcTv/cXnHodzVGsfVtHlvr4="
     }
   }
 }

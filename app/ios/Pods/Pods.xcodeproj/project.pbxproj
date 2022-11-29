@@ -5538,7 +5538,7 @@
 		EEDBF403E8E0B3885E65C2741B536BC5 /* React-RCTImage */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "React-RCTImage"; path = "libReact-RCTImage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E7C88DFCD460A4B46B913ADEB8A641 /* React-jsiexecutor */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "React-jsiexecutor"; path = "libReact-jsiexecutor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BDA69E3BCB0166D49FB679ABADCA00 /* fmt */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = fmt; path = libfmt.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5199B1AE7CA6F76A0FF7EE143C85C73 /* libPods-Mentis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mentis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5199B1AE7CA6F76A0FF7EE143C85C73 /* Pods-Mentis */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-Mentis"; path = "libPods-Mentis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F71EBF73F354B475D465FF6DE9A66707 /* React-RCTBlob */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "React-RCTBlob"; path = "libReact-RCTBlob.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F958876A082BF810B342435CE3FB5AF6 /* RCTTypeSafety */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = RCTTypeSafety; path = libRCTTypeSafety.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6D792B6328AAF68E46924D7F466631 /* AccessibilityResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccessibilityResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5891,7 +5891,7 @@
 				F4BDA69E3BCB0166D49FB679ABADCA00 /* fmt */,
 				3CA7A9404CCDD6BA22C97F8348CE3209 /* glog */,
 				2DF82EE18981E98BA2339ECE2AB5F350 /* JWT */,
-				F5199B1AE7CA6F76A0FF7EE143C85C73 /* libPods-Mentis.a */,
+				F5199B1AE7CA6F76A0FF7EE143C85C73 /* Pods-Mentis */,
 				811A4B5D9668A54F91887727FEB8E05F /* Pods-Mentis-MentisTests */,
 				1936453FF2A7E3A13063C4917C4D5598 /* RCT-Folly */,
 				F958876A082BF810B342435CE3FB5AF6 /* RCTTypeSafety */,
@@ -11842,7 +11842,7 @@
 			);
 			name = "Pods-Mentis";
 			productName = "Pods-Mentis";
-			productReference = F5199B1AE7CA6F76A0FF7EE143C85C73 /* libPods-Mentis.a */;
+			productReference = F5199B1AE7CA6F76A0FF7EE143C85C73 /* Pods-Mentis */;
 			productType = "com.apple.product-type.library.static";
 		};
 		B6D5DD49633DFF0657B8C3F08EB3ABA9 /* ReactCommon */ = {

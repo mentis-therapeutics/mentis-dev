@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 export enum AccountType {
   SUPER_ADMIN = "SUPER_ADMIN",
@@ -11,15 +11,91 @@ export enum AccountType {
 
 
 
+type EagerUserProgram = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserProgram, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programID: string;
+  readonly completionDate?: string | null;
+  readonly completed?: boolean | null;
+  readonly userSessions?: (UserSession | null)[] | null;
+  readonly enrolmentDate?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUserProgram = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserProgram, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programID: string;
+  readonly completionDate?: string | null;
+  readonly completed?: boolean | null;
+  readonly userSessions: AsyncCollection<UserSession>;
+  readonly enrolmentDate?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type UserProgram = LazyLoading extends LazyLoadingDisabled ? EagerUserProgram : LazyUserProgram
+
+export declare const UserProgram: (new (init: ModelInit<UserProgram>) => UserProgram) & {
+  copyOf(source: UserProgram, mutator: (draft: MutableModel<UserProgram>) => MutableModel<UserProgram> | void): UserProgram;
+}
+
+type EagerUserSession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserSession, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userprogramID: string;
+  readonly sessionID: string;
+  readonly userID: string;
+  readonly booked?: boolean | null;
+  readonly complete?: boolean | null;
+  readonly datetime?: string | null;
+  readonly meetingURL?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUserSession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserSession, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userprogramID: string;
+  readonly sessionID: string;
+  readonly userID: string;
+  readonly booked?: boolean | null;
+  readonly complete?: boolean | null;
+  readonly datetime?: string | null;
+  readonly meetingURL?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type UserSession = LazyLoading extends LazyLoadingDisabled ? EagerUserSession : LazyUserSession
+
+export declare const UserSession: (new (init: ModelInit<UserSession>) => UserSession) & {
+  copyOf(source: UserSession, mutator: (draft: MutableModel<UserSession>) => MutableModel<UserSession> | void): UserSession;
+}
+
 type EagerStage = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Stage, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly programID: string;
-  readonly sessions?: (Session | null)[] | null;
   readonly name?: string | null;
+  readonly description?: string | null;
+  readonly session?: (Session | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,9 +106,9 @@ type LazyStage = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly programID: string;
-  readonly sessions: AsyncCollection<Session>;
   readonly name?: string | null;
+  readonly description?: string | null;
+  readonly session: AsyncCollection<Session>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -49,12 +125,13 @@ type EagerSession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly programID: string;
   readonly stageID: string;
-  readonly name?: number | null;
+  readonly name?: string | null;
+  readonly order?: number | null;
   readonly description?: string | null;
-  readonly dateTime?: string | null;
+  readonly userSessions?: (UserSession | null)[] | null;
   readonly length?: string | null;
-  readonly scheduled?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -65,12 +142,13 @@ type LazySession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly programID: string;
   readonly stageID: string;
-  readonly name?: number | null;
+  readonly name?: string | null;
+  readonly order?: number | null;
   readonly description?: string | null;
-  readonly dateTime?: string | null;
+  readonly userSessions: AsyncCollection<UserSession>;
   readonly length?: string | null;
-  readonly scheduled?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -88,8 +166,10 @@ type EagerProgram = {
   };
   readonly id: string;
   readonly name?: string | null;
-  readonly stages?: (Stage | null)[] | null;
-  readonly users?: (UserProgram | null)[] | null;
+  readonly description?: string | null;
+  readonly sessions?: (Session | null)[] | null;
+  readonly version?: string | null;
+  readonly userPrograms?: (UserProgram | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -101,8 +181,10 @@ type LazyProgram = {
   };
   readonly id: string;
   readonly name?: string | null;
-  readonly stages: AsyncCollection<Stage>;
-  readonly users: AsyncCollection<UserProgram>;
+  readonly description?: string | null;
+  readonly sessions: AsyncCollection<Session>;
+  readonly version?: string | null;
+  readonly userPrograms: AsyncCollection<UserProgram>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -123,9 +205,9 @@ type EagerUser = {
   readonly lastName?: string | null;
   readonly email?: string | null;
   readonly phone?: string | null;
-  readonly accountType?: AccountType | keyof typeof AccountType | null;
   readonly onboarded?: boolean | null;
-  readonly program?: (UserProgram | null)[] | null;
+  readonly userSessions?: (UserSession | null)[] | null;
+  readonly screened?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -140,9 +222,9 @@ type LazyUser = {
   readonly lastName?: string | null;
   readonly email?: string | null;
   readonly phone?: string | null;
-  readonly accountType?: AccountType | keyof typeof AccountType | null;
   readonly onboarded?: boolean | null;
-  readonly program: AsyncCollection<UserProgram>;
+  readonly userSessions: AsyncCollection<UserSession>;
+  readonly screened?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -151,38 +233,4 @@ export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser :
 
 export declare const User: (new (init: ModelInit<User>) => User) & {
   copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
-}
-
-type EagerUserProgram = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<UserProgram, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly programId?: string | null;
-  readonly userId?: string | null;
-  readonly program: Program;
-  readonly user: User;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyUserProgram = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<UserProgram, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly programId?: string | null;
-  readonly userId?: string | null;
-  readonly program: AsyncItem<Program>;
-  readonly user: AsyncItem<User>;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type UserProgram = LazyLoading extends LazyLoadingDisabled ? EagerUserProgram : LazyUserProgram
-
-export declare const UserProgram: (new (init: ModelInit<UserProgram>) => UserProgram) & {
-  copyOf(source: UserProgram, mutator: (draft: MutableModel<UserProgram>) => MutableModel<UserProgram> | void): UserProgram;
 }

@@ -1,25 +1,48 @@
-type Stage @model @auth(rules: [{allow: owner}]) {
+type UserProgram @model @auth(rules: [{allow: private}]) {
   id: ID!
   programID: ID! @index(name: "byProgram")
-  sessions: [Session] @hasMany(indexName: "byStage", fields: ["id"])
-  name: String
+  completionDate: AWSDateTime
+  completed: Boolean
+  userSessions: [UserSession] @hasMany(indexName: "byUserProgram", fields: ["id"])
+  enrolmentDate: AWSDateTime
 }
 
-type Program @model @auth(rules: [{allow: owner}]) {
+type UserSession @model @auth(rules: [{allow: private}]) {
   id: ID!
-  name: String
-  stages: [Stage] @hasMany(indexName: "byProgram", fields: ["id"])
-  users: [User] @manyToMany(relationName: "UserProgram")
+  userprogramID: ID! @index(name: "byUserProgram")
+  sessionID: ID! @index(name: "bySession")
+  userID: ID! @index(name: "byUser")
+  booked: Boolean
+  complete: Boolean
+  datetime: AWSDateTime
+  meetingURL: String
 }
 
-type Session @model @auth(rules: [{allow: owner}]) {
+type Stage @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
-  stageID: ID! @index(name: "byStage")
-  name: Int
+  name: String
   description: String
-  dateTime: AWSDateTime
+  session: [Session] @hasMany(indexName: "byStage", fields: ["id"])
+}
+
+type Program @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  name: String
+  description: String
+  sessions: [Session] @hasMany(indexName: "byProgram", fields: ["id"])
+  version: String
+  userPrograms: [UserProgram] @hasMany(indexName: "byProgram", fields: ["id"])
+}
+
+type Session @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  programID: ID! @index(name: "byProgram")
+  stageID: ID! @index(name: "byStage")
+  name: String
+  order: Int
+  description: String
+  userSessions: [UserSession] @hasMany(indexName: "bySession", fields: ["id"])
   length: AWSDateTime
-  scheduled: Boolean
 }
 
 enum AccountType {
@@ -29,14 +52,14 @@ enum AccountType {
   THERAPIST
 }
 
-type User @model @auth(rules: [{allow: owner}]) {
+type User @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   firstName: String
   lastName: String
   email: AWSEmail
   phone: AWSPhone
-  accountType: AccountType
   onboarded: Boolean
-  program: [Program] @manyToMany(relationName: "UserProgram")
+  userSessions: [UserSession] @hasMany(indexName: "byUser", fields: ["id"])
+  screened: Boolean
 }
  
