@@ -316,6 +316,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "length": {
+                    "name": "length",
+                    "isArray": false,
+                    "type": "AWSTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "type": {
                     "name": "type",
                     "isArray": false,
@@ -660,5 +667,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "0b05dec5c54ddb3d404776ce6910b595"
+    "version": "26c9ffa89a7c1ed2eec46fba4905e993"
 };

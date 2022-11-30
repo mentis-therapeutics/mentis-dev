@@ -190,6 +190,7 @@ export const onCreateSession = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -238,6 +239,7 @@ export const onUpdateSession = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -286,6 +288,7 @@ export const onDeleteSession = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -326,6 +329,7 @@ export const onCreateSessionTemplate = /* GraphQL */ `
       id
       name
       description
+      length
       type
       programTemplate {
         id
@@ -362,6 +366,7 @@ export const onUpdateSessionTemplate = /* GraphQL */ `
       id
       name
       description
+      length
       type
       programTemplate {
         id
@@ -398,6 +403,7 @@ export const onDeleteSessionTemplate = /* GraphQL */ `
       id
       name
       description
+      length
       type
       programTemplate {
         id
@@ -440,6 +446,7 @@ export const onCreateProgramTemplate = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt
@@ -476,6 +483,7 @@ export const onUpdateProgramTemplate = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt
@@ -512,6 +520,7 @@ export const onDeleteProgramTemplate = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt

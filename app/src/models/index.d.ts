@@ -106,6 +106,7 @@ type EagerSessionTemplate = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
+  readonly length?: string | null;
   readonly type?: SessionType | keyof typeof SessionType | null;
   readonly programTemplate?: ProgramTemplate | null;
   readonly createdAt?: string | null;
@@ -121,6 +122,7 @@ type LazySessionTemplate = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
+  readonly length?: string | null;
   readonly type?: SessionType | keyof typeof SessionType | null;
   readonly programTemplate: AsyncItem<ProgramTemplate | undefined>;
   readonly createdAt?: string | null;

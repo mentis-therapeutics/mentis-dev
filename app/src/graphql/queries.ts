@@ -210,6 +210,7 @@ export const getSession = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -260,6 +261,7 @@ export const listSessions = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt
@@ -307,6 +309,7 @@ export const syncSessions = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt
@@ -356,6 +359,7 @@ export const sessionsByProgramID = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt
@@ -384,6 +388,7 @@ export const getSessionTemplate = /* GraphQL */ `
       id
       name
       description
+      length
       type
       programTemplate {
         id
@@ -426,6 +431,7 @@ export const listSessionTemplates = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -469,6 +475,7 @@ export const syncSessionTemplates = /* GraphQL */ `
         id
         name
         description
+        length
         type
         programTemplate {
           id
@@ -507,6 +514,7 @@ export const getProgramTemplate = /* GraphQL */ `
           id
           name
           description
+          length
           type
           createdAt
           updatedAt

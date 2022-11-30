@@ -1,16 +1,36 @@
 import { useNavigation } from "@react-navigation/core";
-import * as React from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import FilledButton from "../components/FilledButton";
 import JoinSessionModal from "../components/JoinSessionModal";
 import NavigationBar from "../components/NavigationBar";
 import SessionInfoModal from "../components/SessionInfoModal";
+import SessionModal from "../components/SessionModal";
+
+import { DataStore } from "aws-amplify";
+import { LazySession, Program, Session } from "../models";
 
 const Sessions = () => {
     const navigation = useNavigation()
+
+    const [sessions, setSessions] = useState<LazySession[]>()
+
     const joinSession = () => {
         navigation.navigate('SessionDetail')
     }
+
+    useEffect(() => {
+        const sub = DataStore.observeQuery(Session, (c) =>
+            c.programID.eq("bf0b0ce4-a5b5-4c60-a05c-69191426d318")
+        ).subscribe(async ({ items }) => {
+            setSessions(items)
+        });
+  
+        return () => {
+            sub.unsubscribe();
+        };
+    }, [])
+     
 
     return (
         <View style={styles.sessionsClient}>
@@ -43,12 +63,21 @@ const Sessions = () => {
             contentContainerStyle={styles.bodyScrollViewContent}
         >
             <Text style={styles.upcomingText}>Upcoming</Text>
+
+            {sessions?.map((session) => <SessionModal key={session.id} session={session}/>)}
+        
+            {/*
+            <SessionModal session={}/>
+
             <JoinSessionModal />
-            <SessionInfoModal session1Of2="Session 2 of 2" />
+            <SessionInfoModal session1Of2="Session 2 of 2" />*/
+
+            }
+            
             <Text style={[styles.historyText, styles.mt25]}>History</Text>
             <View style={[styles.fillerView, styles.mt25]} />
 
-            <FilledButton label="Join Session" onPress={() => {joinSession()}} />
+            {/*<FilledButton label="Join Session" onPress={() => {joinSession()}} />*/}
         </ScrollView>
     
         </View>

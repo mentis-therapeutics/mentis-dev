@@ -46,12 +46,11 @@ export const login = async (authDetails: {email: string, password: string}, disp
 
                 /* Once the user successfully signs in, update the form state to show the signed in state */
             
-                //await DataStore.clear();
-                //await DataStore.start();
-                //await waitForDataStoreLoad();
+                await DataStore.clear();
+                await DataStore.start();
+                await waitForDataStoreLoad();
 
-                console.log(user)
-                dispatch({ type: 'LOGIN_SUCCESS'});
+                dispatch({ type: 'LOGIN_SUCCESS', payload:{user}});
                 return
             }
             return
@@ -98,7 +97,7 @@ export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAc
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
     // TODO: Should clear cache but causes annoying sync issues
-    //await DataStore.clear()
+    await DataStore.clear()
     await Auth.signOut();
 	dispatch({ type: 'LOGOUT' });
 }

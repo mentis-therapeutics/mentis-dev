@@ -28,6 +28,7 @@ type SessionTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups
   id: ID!
   name: String
   description: String
+  length: AWSTime
   type: SessionType
   #programtemplateID: ID! @index(name: "byProgramTemplate")
   programTemplate: ProgramTemplate @belongsTo
