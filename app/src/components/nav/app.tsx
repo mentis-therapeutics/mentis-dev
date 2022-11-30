@@ -48,7 +48,7 @@ return (
         options={{ headerShown: false }}/>
     <AppTabNavigator.Screen
         name="Sessions"
-        component={VideoCall}
+        component={Calendly}
         options={{ headerShown: false }}/>
     </AppTabNavigator.Navigator>
 );

@@ -2,140 +2,56 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getStage = /* GraphQL */ `
-  query GetStage($id: ID!) {
-    getStage(id: $id) {
-      id
-      programID
-      sessions {
-        items {
-          id
-          stageID
-          name
-          description
-          dateTime
-          length
-          scheduled
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      name
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const listStages = /* GraphQL */ `
-  query ListStages(
-    $filter: ModelStageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listStages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        programID
-        sessions {
-          nextToken
-          startedAt
-        }
-        name
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncStages = /* GraphQL */ `
-  query SyncStages(
-    $filter: ModelStageFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncStages(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        programID
-        sessions {
-          nextToken
-          startedAt
-        }
-        name
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getProgram = /* GraphQL */ `
   query GetProgram($id: ID!) {
     getProgram(id: $id) {
       id
-      name
-      stages {
+      enrollmentDate
+      completionDate
+      complete
+      userID
+      sessions {
         items {
           id
           programID
-          name
+          datetime
+          booked
+          booking
+          complete
+          meetingUUID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          sessionSessionTemplateId
           owner
         }
         nextToken
         startedAt
       }
-      users {
-        items {
-          id
-          programId
-          userId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programProgramTemplateId
       owner
     }
   }
@@ -149,20 +65,32 @@ export const listPrograms = /* GraphQL */ `
     listPrograms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
-        stages {
+        enrollmentDate
+        completionDate
+        complete
+        userID
+        sessions {
           nextToken
           startedAt
         }
-        users {
-          nextToken
-          startedAt
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
         }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        programProgramTemplateId
         owner
       }
       nextToken
@@ -185,20 +113,82 @@ export const syncPrograms = /* GraphQL */ `
     ) {
       items {
         id
-        name
-        stages {
+        enrollmentDate
+        completionDate
+        complete
+        userID
+        sessions {
           nextToken
           startedAt
         }
-        users {
-          nextToken
-          startedAt
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
         }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        programProgramTemplateId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const programsByUserID = /* GraphQL */ `
+  query ProgramsByUserID(
+    $userID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProgramFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    programsByUserID(
+      userID: $userID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        enrollmentDate
+        completionDate
+        complete
+        userID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
         owner
       }
       nextToken
@@ -210,17 +200,43 @@ export const getSession = /* GraphQL */ `
   query GetSession($id: ID!) {
     getSession(id: $id) {
       id
-      stageID
-      name
-      description
-      dateTime
-      length
-      scheduled
+      programID
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
+      sessionTemplate {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      sessionSessionTemplateId
       owner
     }
   }
@@ -234,17 +250,31 @@ export const listSessions = /* GraphQL */ `
     listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        stageID
-        name
-        description
-        dateTime
-        length
-        scheduled
+        programID
+        datetime
+        booked
+        booking
+        complete
+        meetingUUID
+        sessionTemplate {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        sessionSessionTemplateId
         owner
       }
       nextToken
@@ -267,12 +297,291 @@ export const syncSessions = /* GraphQL */ `
     ) {
       items {
         id
-        stageID
+        programID
+        datetime
+        booked
+        booking
+        complete
+        meetingUUID
+        sessionTemplate {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const sessionsByProgramID = /* GraphQL */ `
+  query SessionsByProgramID(
+    $programID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSessionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    sessionsByProgramID(
+      programID: $programID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        programID
+        datetime
+        booked
+        booking
+        complete
+        meetingUUID
+        sessionTemplate {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getSessionTemplate = /* GraphQL */ `
+  query GetSessionTemplate($id: ID!) {
+    getSessionTemplate(id: $id) {
+      id
+      name
+      description
+      type
+      programTemplate {
+        id
         name
         description
-        dateTime
-        length
-        scheduled
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      programTemplateSessionTemplatesId
+      owner
+    }
+  }
+`;
+export const listSessionTemplates = /* GraphQL */ `
+  query ListSessionTemplates(
+    $filter: ModelSessionTemplateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSessionTemplates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncSessionTemplates = /* GraphQL */ `
+  query SyncSessionTemplates(
+    $filter: ModelSessionTemplateFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncSessionTemplates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getProgramTemplate = /* GraphQL */ `
+  query GetProgramTemplate($id: ID!) {
+    getProgramTemplate(id: $id) {
+      id
+      name
+      description
+      version
+      sessionTemplates {
+        items {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const listProgramTemplates = /* GraphQL */ `
+  query ListProgramTemplates(
+    $filter: ModelProgramTemplateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProgramTemplates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncProgramTemplates = /* GraphQL */ `
+  query SyncProgramTemplates(
+    $filter: ModelProgramTemplateFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncProgramTemplates(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -293,18 +602,21 @@ export const getUser = /* GraphQL */ `
       lastName
       email
       phone
-      accountType
       onboarded
-      program {
+      screened
+      programs {
         items {
           id
-          programId
-          userId
+          enrollmentDate
+          completionDate
+          complete
+          userID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          programProgramTemplateId
           owner
         }
         nextToken
@@ -332,9 +644,9 @@ export const listUsers = /* GraphQL */ `
         lastName
         email
         phone
-        accountType
         onboarded
-        program {
+        screened
+        programs {
           nextToken
           startedAt
         }
@@ -369,347 +681,11 @@ export const syncUsers = /* GraphQL */ `
         lastName
         email
         phone
-        accountType
         onboarded
-        program {
+        screened
+        programs {
           nextToken
           startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUserProgram = /* GraphQL */ `
-  query GetUserProgram($id: ID!) {
-    getUserProgram(id: $id) {
-      id
-      programId
-      userId
-      program {
-        id
-        name
-        stages {
-          nextToken
-          startedAt
-        }
-        users {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      user {
-        id
-        firstName
-        lastName
-        email
-        phone
-        accountType
-        onboarded
-        program {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const listUserPrograms = /* GraphQL */ `
-  query ListUserPrograms(
-    $filter: ModelUserProgramFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserPrograms(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        programId
-        userId
-        program {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        user {
-          id
-          firstName
-          lastName
-          email
-          phone
-          accountType
-          onboarded
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUserPrograms = /* GraphQL */ `
-  query SyncUserPrograms(
-    $filter: ModelUserProgramFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUserPrograms(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        programId
-        userId
-        program {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        user {
-          id
-          firstName
-          lastName
-          email
-          phone
-          accountType
-          onboarded
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const stagesByProgramID = /* GraphQL */ `
-  query StagesByProgramID(
-    $programID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelStageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    stagesByProgramID(
-      programID: $programID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        programID
-        sessions {
-          nextToken
-          startedAt
-        }
-        name
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const sessionsByStageID = /* GraphQL */ `
-  query SessionsByStageID(
-    $stageID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelSessionFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    sessionsByStageID(
-      stageID: $stageID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        stageID
-        name
-        description
-        dateTime
-        length
-        scheduled
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const userProgramsByProgramId = /* GraphQL */ `
-  query UserProgramsByProgramId(
-    $programId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserProgramFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userProgramsByProgramId(
-      programId: $programId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        programId
-        userId
-        program {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        user {
-          id
-          firstName
-          lastName
-          email
-          phone
-          accountType
-          onboarded
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const userProgramsByUserId = /* GraphQL */ `
-  query UserProgramsByUserId(
-    $userId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserProgramFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userProgramsByUserId(
-      userId: $userId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        programId
-        userId
-        program {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        user {
-          id
-          firstName
-          lastName
-          email
-          phone
-          accountType
-          onboarded
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
         }
         createdAt
         updatedAt

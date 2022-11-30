@@ -2,6 +2,11 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const SessionType = {
+  "ONE": "ONE",
+  "GROUP": "GROUP"
+};
+
 const AccountType = {
   "SUPER_ADMIN": "SUPER_ADMIN",
   "USER": "USER",
@@ -9,14 +14,14 @@ const AccountType = {
   "THERAPIST": "THERAPIST"
 };
 
-const { UserProgram, UserSession, Stage, Session, Program, User } = initSchema(schema);
+const { Program, Session, SessionTemplate, ProgramTemplate, User } = initSchema(schema);
 
 export {
-  UserProgram,
-  UserSession,
-  Stage,
-  Session,
   Program,
+  Session,
+  SessionTemplate,
+  ProgramTemplate,
   User,
+  SessionType,
   AccountType
 };

@@ -1,4 +1,4 @@
-import React,  { useState, useEffect } from "react";
+import React,  { useState, useEffect, useSyncExternalStore } from "react";
 import { Pressable, StyleSheet, View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -37,6 +37,8 @@ const Login = () => {
  
         login({email, password}, dispatch, navigation)
   }
+
+  
 
     useEffect(() => {
         getSession(dispatch); 

@@ -7,63 +7,7 @@ import FilledButton from "../components/FilledButton";
 import { logout } from "../auth/actions";
 import { useAuthDispatch, useAuthState } from "../auth/context";
 
-import {
-    auth as SpotifyAuth,
-    remote as SpotifyRemote,
-    ApiScope,
-    ApiConfig,
-  } from "react-native-spotify-remote";
-  
-  // Api Config object, replace with your own applications client id and urls
-  const spotifyConfig: ApiConfig = {
-    clientID: "674bc223be44498bb66abff0f1730300",
-    redirectURL: "com.mentisapp://oauthredirect",
-    //tokenRefreshURL: "SPOTIFY_TOKEN_REFRESH_URL",
-    //tokenSwapURL: "SPOTIFY_TOKEN_SWAP_URL",
-    scopes: [ApiScope.AppRemoteControlScope, ApiScope.UserFollowReadScope],
-    showDialog: true,
-  };
-  
-  // Initialize the library and connect the Remote
-  // then play an epic song
-  async function select() {
-    try {
-      console.log("Select")
-      const session = await SpotifyAuth.authorize(spotifyConfig);
 
-
-      await SpotifyRemote.connect(session.accessToken);
-      await SpotifyRemote.playUri("spotify:track:6IA8E2Q5ttcpbuahIejO74");
-      await SpotifyRemote.seek(58000);
-    } catch {
-      console.error("Couldn't authorize with or connect to Spotify");
-    }
-  }
-
-  async function play() {
-    try {
-      console.log("Play")
-      await SpotifyRemote.resume();
-    } catch {
-      console.error("Couldn't authorize with or connect to Spotify");
-    }
-  }
-  async function pause() {
-    try {
-      console.log("Pause")
-      await SpotifyRemote.pause()
-    } catch {
-      console.error("Couldn't authorize with or connect to Spotify");
-    }
-  }
-  async function next() {
-    try {
-      console.log("Next")
-      await SpotifyRemote.skipToNext();
-    } catch {
-      console.error("Couldn't authorize with or connect to Spotify");
-    }
-  }
 
 const Home = () => {
     const { user } = useAuthState()
@@ -85,10 +29,6 @@ const Home = () => {
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
 
-            <FilledButton label="select" onPress={() => select()}/>
-            <FilledButton label="play" onPress={() => play()}/>
-            <FilledButton label="pause" onPress={() => pause()}/>
-            <FilledButton label="next" onPress={() => next()}/>
         </ScrollView>
         </View>
   );

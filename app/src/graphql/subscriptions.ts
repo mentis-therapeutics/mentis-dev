@@ -2,117 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateStage = /* GraphQL */ `
-  subscription OnCreateStage(
-    $filter: ModelSubscriptionStageFilterInput
-    $owner: String
-  ) {
-    onCreateStage(filter: $filter, owner: $owner) {
-      id
-      programID
-      sessions {
-        items {
-          id
-          stageID
-          name
-          description
-          dateTime
-          length
-          scheduled
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      name
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const onUpdateStage = /* GraphQL */ `
-  subscription OnUpdateStage(
-    $filter: ModelSubscriptionStageFilterInput
-    $owner: String
-  ) {
-    onUpdateStage(filter: $filter, owner: $owner) {
-      id
-      programID
-      sessions {
-        items {
-          id
-          stageID
-          name
-          description
-          dateTime
-          length
-          scheduled
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      name
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const onDeleteStage = /* GraphQL */ `
-  subscription OnDeleteStage(
-    $filter: ModelSubscriptionStageFilterInput
-    $owner: String
-  ) {
-    onDeleteStage(filter: $filter, owner: $owner) {
-      id
-      programID
-      sessions {
-        items {
-          id
-          stageID
-          name
-          description
-          dateTime
-          length
-          scheduled
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      name
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
 export const onCreateProgram = /* GraphQL */ `
   subscription OnCreateProgram(
     $filter: ModelSubscriptionProgramFilterInput
@@ -120,42 +9,52 @@ export const onCreateProgram = /* GraphQL */ `
   ) {
     onCreateProgram(filter: $filter, owner: $owner) {
       id
-      name
-      stages {
+      enrollmentDate
+      completionDate
+      complete
+      userID
+      sessions {
         items {
           id
           programID
-          name
+          datetime
+          booked
+          booking
+          complete
+          meetingUUID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          sessionSessionTemplateId
           owner
         }
         nextToken
         startedAt
       }
-      users {
-        items {
-          id
-          programId
-          userId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programProgramTemplateId
       owner
     }
   }
@@ -167,42 +66,52 @@ export const onUpdateProgram = /* GraphQL */ `
   ) {
     onUpdateProgram(filter: $filter, owner: $owner) {
       id
-      name
-      stages {
+      enrollmentDate
+      completionDate
+      complete
+      userID
+      sessions {
         items {
           id
           programID
-          name
+          datetime
+          booked
+          booking
+          complete
+          meetingUUID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          sessionSessionTemplateId
           owner
         }
         nextToken
         startedAt
       }
-      users {
-        items {
-          id
-          programId
-          userId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programProgramTemplateId
       owner
     }
   }
@@ -214,42 +123,52 @@ export const onDeleteProgram = /* GraphQL */ `
   ) {
     onDeleteProgram(filter: $filter, owner: $owner) {
       id
-      name
-      stages {
+      enrollmentDate
+      completionDate
+      complete
+      userID
+      sessions {
         items {
           id
           programID
-          name
+          datetime
+          booked
+          booking
+          complete
+          meetingUUID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          sessionSessionTemplateId
           owner
         }
         nextToken
         startedAt
       }
-      users {
-        items {
-          id
-          programId
-          userId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programProgramTemplateId
       owner
     }
   }
@@ -261,17 +180,43 @@ export const onCreateSession = /* GraphQL */ `
   ) {
     onCreateSession(filter: $filter, owner: $owner) {
       id
-      stageID
-      name
-      description
-      dateTime
-      length
-      scheduled
+      programID
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
+      sessionTemplate {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      sessionSessionTemplateId
       owner
     }
   }
@@ -283,17 +228,43 @@ export const onUpdateSession = /* GraphQL */ `
   ) {
     onUpdateSession(filter: $filter, owner: $owner) {
       id
-      stageID
-      name
-      description
-      dateTime
-      length
-      scheduled
+      programID
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
+      sessionTemplate {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      sessionSessionTemplateId
       owner
     }
   }
@@ -305,12 +276,254 @@ export const onDeleteSession = /* GraphQL */ `
   ) {
     onDeleteSession(filter: $filter, owner: $owner) {
       id
-      stageID
+      programID
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
+      sessionTemplate {
+        id
+        name
+        description
+        type
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programTemplateSessionTemplatesId
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      sessionSessionTemplateId
+      owner
+    }
+  }
+`;
+export const onCreateSessionTemplate = /* GraphQL */ `
+  subscription OnCreateSessionTemplate(
+    $filter: ModelSubscriptionSessionTemplateFilterInput
+    $owner: String
+  ) {
+    onCreateSessionTemplate(filter: $filter, owner: $owner) {
+      id
       name
       description
-      dateTime
-      length
-      scheduled
+      type
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      programTemplateSessionTemplatesId
+      owner
+    }
+  }
+`;
+export const onUpdateSessionTemplate = /* GraphQL */ `
+  subscription OnUpdateSessionTemplate(
+    $filter: ModelSubscriptionSessionTemplateFilterInput
+    $owner: String
+  ) {
+    onUpdateSessionTemplate(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      type
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      programTemplateSessionTemplatesId
+      owner
+    }
+  }
+`;
+export const onDeleteSessionTemplate = /* GraphQL */ `
+  subscription OnDeleteSessionTemplate(
+    $filter: ModelSubscriptionSessionTemplateFilterInput
+    $owner: String
+  ) {
+    onDeleteSessionTemplate(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      type
+      programTemplate {
+        id
+        name
+        description
+        version
+        sessionTemplates {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      programTemplateSessionTemplatesId
+      owner
+    }
+  }
+`;
+export const onCreateProgramTemplate = /* GraphQL */ `
+  subscription OnCreateProgramTemplate(
+    $filter: ModelSubscriptionProgramTemplateFilterInput
+    $owner: String
+  ) {
+    onCreateProgramTemplate(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      version
+      sessionTemplates {
+        items {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProgramTemplate = /* GraphQL */ `
+  subscription OnUpdateProgramTemplate(
+    $filter: ModelSubscriptionProgramTemplateFilterInput
+    $owner: String
+  ) {
+    onUpdateProgramTemplate(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      version
+      sessionTemplates {
+        items {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProgramTemplate = /* GraphQL */ `
+  subscription OnDeleteProgramTemplate(
+    $filter: ModelSubscriptionProgramTemplateFilterInput
+    $owner: String
+  ) {
+    onDeleteProgramTemplate(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      version
+      sessionTemplates {
+        items {
+          id
+          name
+          description
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+          owner
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -331,18 +544,21 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       email
       phone
-      accountType
       onboarded
-      program {
+      screened
+      programs {
         items {
           id
-          programId
-          userId
+          enrollmentDate
+          completionDate
+          complete
+          userID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          programProgramTemplateId
           owner
         }
         nextToken
@@ -368,18 +584,21 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       email
       phone
-      accountType
       onboarded
-      program {
+      screened
+      programs {
         items {
           id
-          programId
-          userId
+          enrollmentDate
+          completionDate
+          complete
+          userID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          programProgramTemplateId
           owner
         }
         nextToken
@@ -405,187 +624,25 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       email
       phone
-      accountType
       onboarded
-      program {
+      screened
+      programs {
         items {
           id
-          programId
-          userId
+          enrollmentDate
+          completionDate
+          complete
+          userID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
+          programProgramTemplateId
           owner
         }
         nextToken
         startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const onCreateUserProgram = /* GraphQL */ `
-  subscription OnCreateUserProgram(
-    $filter: ModelSubscriptionUserProgramFilterInput
-    $owner: String
-  ) {
-    onCreateUserProgram(filter: $filter, owner: $owner) {
-      id
-      programId
-      userId
-      program {
-        id
-        name
-        stages {
-          nextToken
-          startedAt
-        }
-        users {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      user {
-        id
-        firstName
-        lastName
-        email
-        phone
-        accountType
-        onboarded
-        program {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const onUpdateUserProgram = /* GraphQL */ `
-  subscription OnUpdateUserProgram(
-    $filter: ModelSubscriptionUserProgramFilterInput
-    $owner: String
-  ) {
-    onUpdateUserProgram(filter: $filter, owner: $owner) {
-      id
-      programId
-      userId
-      program {
-        id
-        name
-        stages {
-          nextToken
-          startedAt
-        }
-        users {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      user {
-        id
-        firstName
-        lastName
-        email
-        phone
-        accountType
-        onboarded
-        program {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const onDeleteUserProgram = /* GraphQL */ `
-  subscription OnDeleteUserProgram(
-    $filter: ModelSubscriptionUserProgramFilterInput
-    $owner: String
-  ) {
-    onDeleteUserProgram(filter: $filter, owner: $owner) {
-      id
-      programId
-      userId
-      program {
-        id
-        name
-        stages {
-          nextToken
-          startedAt
-        }
-        users {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      user {
-        id
-        firstName
-        lastName
-        email
-        phone
-        accountType
-        onboarded
-        program {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
       }
       createdAt
       updatedAt

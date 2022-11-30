@@ -1,7 +1,3 @@
-import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
-import React, { useState, useReducer } from 'react';
-import { resolvePath } from 'react-native-reanimated/lib/types/lib/reanimated2/animation/styleAnimation';
-
 
 
 export type IAuth = {

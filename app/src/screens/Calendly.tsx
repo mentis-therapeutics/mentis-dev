@@ -14,7 +14,10 @@ const Calendly = () => {
     }
 
     const injectedJavascript = `
-        
+    function recvMessage(event){
+        window.ReactNativeWebView.postMessage(answer);
+    }
+    window.addEventListener("message", recvMessage);
     `;
 
   return (
@@ -41,18 +44,12 @@ const Calendly = () => {
                 prefill: {
                     name: "Sam Coleman",
                     email: "john@doe2.com",
+                    customAnswers: {
+                        a1: "Yes",
+                        a2: "No"
+                    }
                 }
                 });
-
-                function recvMessage(event){
-                    window.ReactNativeWebView.postMessage(answer);
-                }
-                window.addEventListener("message", recvMessage);
-
-                function getValue() {
-                    let answer = document.getElementById("myId").value;
-                    window.ReactNativeWebView.postMessage(answer);              
-                 };
                 </script>
                 </div>
                 </body>

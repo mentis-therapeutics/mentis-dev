@@ -1,48 +1,44 @@
-type UserProgram @model @auth(rules: [{allow: private}]) {
-  id: ID!
-  programID: ID! @index(name: "byProgram")
-  completionDate: AWSDateTime
-  completed: Boolean
-  userSessions: [UserSession] @hasMany(indexName: "byUserProgram", fields: ["id"])
-  enrolmentDate: AWSDateTime
-}
-
-type UserSession @model @auth(rules: [{allow: private}]) {
-  id: ID!
-  userprogramID: ID! @index(name: "byUserProgram")
-  sessionID: ID! @index(name: "bySession")
-  userID: ID! @index(name: "byUser")
-  booked: Boolean
-  complete: Boolean
-  datetime: AWSDateTime
-  meetingURL: String
-}
-
-type Stage @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  name: String
-  description: String
-  session: [Session] @hasMany(indexName: "byStage", fields: ["id"])
-}
-
 type Program @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
-  name: String
-  description: String
+  enrollmentDate: AWSDateTime
+  completionDate: AWSDateTime
+  complete: Boolean
+  userID: ID! @index(name: "byUser")
   sessions: [Session] @hasMany(indexName: "byProgram", fields: ["id"])
-  version: String
-  userPrograms: [UserProgram] @hasMany(indexName: "byProgram", fields: ["id"])
+  programTemplate: ProgramTemplate @hasOne
 }
 
 type Session @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   programID: ID! @index(name: "byProgram")
-  stageID: ID! @index(name: "byStage")
+  datetime: AWSDateTime
+  booked: Boolean
+  booking: Boolean
+  complete: Boolean
+  meetingUUID: String
+  sessionTemplate: SessionTemplate @hasOne
+}
+
+enum SessionType {
+  ONE
+  GROUP
+}
+
+type SessionTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+  id: ID!
   name: String
-  order: Int
   description: String
-  userSessions: [UserSession] @hasMany(indexName: "bySession", fields: ["id"])
-  length: AWSDateTime
+  type: SessionType
+  #programtemplateID: ID! @index(name: "byProgramTemplate")
+  programTemplate: ProgramTemplate @belongsTo
+}
+
+type ProgramTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  name: String
+  description: String
+  version: String
+  sessionTemplates: [SessionTemplate] @hasMany
 }
 
 enum AccountType {
@@ -59,7 +55,7 @@ type User @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"]
   email: AWSEmail
   phone: AWSPhone
   onboarded: Boolean
-  userSessions: [UserSession] @hasMany(indexName: "byUser", fields: ["id"])
   screened: Boolean
+  programs: [Program] @hasMany(indexName: "byUser", fields: ["id"])
 }
  
