@@ -96,7 +96,6 @@ export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAc
 }
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
-    // TODO: Should clear cache but causes annoying sync issues
     await DataStore.clear()
     await Auth.signOut();
 	dispatch({ type: 'LOGOUT' });

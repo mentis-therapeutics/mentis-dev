@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, Image, View, ImageSourcePropType } from "react-native";
 import { Calendar, ArrowRight2, Headphone } from "iconsax-react-native";
 
-export enum ModalState { "UNBOOKED" , "BOOKED", "LIVE", "ERROR" }
+export enum ModalState { "UNBOOKED" , "BOOKED", "LIVE", "COMPLETE", "ERROR" }
 
 type ISessionModalRender = {
     state: ModalState,
     sessionName: String,
-    datetime?: String,
+    sessionDate?: String,
     therapist?: String
 };
 
-const SessionModalRender = ({state, sessionName, datetime, therapist} : ISessionModalRender) => {
+const SessionModalRender = ({state, sessionName, sessionDate, therapist} : ISessionModalRender) => {
     const [title, setTitle] = useState("");
     const [icon, setIcon] = useState<JSX.Element>(<></>)
     const [booked, setBooked] = useState(false);
@@ -26,12 +26,17 @@ const SessionModalRender = ({state, sessionName, datetime, therapist} : ISession
             setTitle("Session Booked")
             setIcon(<ArrowRight2 color="#334166" size={24}/>)
             setBooked(true)
-        } else {
+        } else if (state == ModalState.LIVE) {
             setTitle("Join Session")
             setIcon(<Headphone color="#334166" size={32}/>)
             setBooked(true)
+        } else if (state == ModalState.COMPLETE) {
+            setTitle("Session Complete")
+            setIcon(<ArrowRight2 color="#334166" size={24}/>)
+            setBooked(true)
         }
-    },[])
+
+    }, [state, sessionName, sessionDate, therapist])
 
 
     return (
@@ -45,11 +50,10 @@ const SessionModalRender = ({state, sessionName, datetime, therapist} : ISession
         <View style={styles.lowerSectionView}>
             {
                 booked ? 
-                
                 <>
                 <View style={styles.frameView2}>
                     <Text style={styles.subtitleText}>{sessionName}</Text>
-                    <Text style={styles.datetimeText}>{datetime}</Text>
+                    <Text style={styles.datetimeText}>{sessionDate}</Text>
                 </View>
                 <View style={styles.frameView3}>
                     <Text style={styles.sessionWithText}>Session with {"\n"} {therapist}</Text>

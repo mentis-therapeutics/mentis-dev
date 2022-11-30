@@ -24,6 +24,7 @@ const Sessions = () => {
             c.programID.eq("bf0b0ce4-a5b5-4c60-a05c-69191426d318")
         ).subscribe(async ({ items }) => {
             setSessions(items)
+            console.log(items)
         });
   
         return () => {

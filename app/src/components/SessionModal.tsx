@@ -21,15 +21,20 @@ const SessionModal = ({session} : ISessionModal) => {
             const now = new Date().getTime()
 
             const diff = now - bookedDate
-            const sessionLen = new Date(sessionLength).getTime()
+
+            const sessionLen = sessionLength.split(":")
+
+            // (Hours * 60 + Mins) * 60 * 1000 -> ms
+            const len = (Number(sessionLen[0]) * 60 + Number(sessionLen[1])) * 60 * 1000 
             
             // Make live for 10 mins before & after session
             // TODO: Does this work with timezones??
-            if (diff > - 10 * 60 * 60 && diff < sessionLen + 10 * 60 * 60) {
-                setState(ModalState.LIVE)
-                 
-            }else{
+            if (diff < (10 * 60 * 1000) * -1){
                 setState(ModalState.BOOKED)
+            }else if (diff > (10 * 60 * 1000) * -1 && diff < (len + 10 * 60 * 1000)) {
+                setState(ModalState.LIVE)
+            }else{
+                setState(ModalState.COMPLETE)
             }
         }else{
             setState(ModalState.UNBOOKED)
@@ -38,17 +43,13 @@ const SessionModal = ({session} : ISessionModal) => {
     }
 
     async function loadState () {
-        
         if (session.datetime) setSessionDate(session.datetime)
         setTherapist("John Smith")
 
-        // Query session name
-        if (sessionName == "") {
-            const sessionTemplate = await session.sessionTemplate;
-            if (sessionTemplate?.name)   setSessionName(sessionTemplate?.name)
-            if (sessionTemplate?.length) setSessionLength(sessionTemplate?.length)
-        }
-
+        const sessionTemplate = await session.sessionTemplate;
+        if (sessionTemplate?.name)   setSessionName(sessionTemplate?.name)
+        if (sessionTemplate?.length) setSessionLength(sessionTemplate?.length)
+        
         calcModalState()  
     }
     
@@ -56,13 +57,13 @@ const SessionModal = ({session} : ISessionModal) => {
     useEffect( () => {
         loadState()
 
-        // Every 15s recalc state, check if call becomes live
+        // Every 15s recalc state -> check if call becomes live
         const interval = setInterval(() => {
             calcModalState()
         }, 15 * 1000);
 
         return () => clearInterval(interval)
-    }, [])
+    }, [session])
 
 
 
