@@ -1,13 +1,10 @@
 import * as React from "react";
 import { ScrollView, Text, StyleSheet, Image, View } from "react-native";
-import Header from "../components/Header";
-import SessionExpandingModal from "../components/SessionExpandingModal";
 import NavigationBarInverted from "../components/NavigationBar";
 
 const Progress = () => {
   return (
     <View style={styles.progressClient}>
-      <Header />
       <ScrollView
         style={styles.bodyScrollView}
         showsHorizontalScrollIndicator={false}
@@ -148,7 +145,6 @@ const Progress = () => {
             </View>
           </View>
         </View>
-        <SessionExpandingModal />
         <View style={[styles.fillerView, styles.mt25]} />
       </ScrollView>
 

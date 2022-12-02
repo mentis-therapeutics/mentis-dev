@@ -1,6 +1,6 @@
 projects:
   mentisnative:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/mentisnative/build/schema.graphql
     includes:
       - src/graphql/**/*.ts
     excludes:

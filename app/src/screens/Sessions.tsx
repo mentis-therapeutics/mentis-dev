@@ -2,16 +2,14 @@ import { useNavigation } from "@react-navigation/core";
 import React, {useEffect, useState} from "react";
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import FilledButton from "../components/FilledButton";
-import JoinSessionModal from "../components/JoinSessionModal";
-import NavigationBar from "../components/NavigationBar";
-import SessionInfoModal from "../components/SessionInfoModal";
 import SessionModal from "../components/SessionModal";
 
 import { DataStore } from "aws-amplify";
 import { LazySession, Program, Session } from "../models";
+import { SessionStack } from "../components/nav/types";
 
 const Sessions = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<SessionStack.NavigatorProps>()
 
     const [sessions, setSessions] = useState<LazySession[]>()
 
@@ -21,7 +19,7 @@ const Sessions = () => {
 
     useEffect(() => {
         const sub = DataStore.observeQuery(Session, (c) =>
-            c.programID.eq("bf0b0ce4-a5b5-4c60-a05c-69191426d318")
+            c.programSessionsId.eq("")
         ).subscribe(async ({ items }) => {
             setSessions(items)
             console.log(items)
@@ -35,30 +33,6 @@ const Sessions = () => {
 
     return (
         <View style={styles.sessionsClient}>
-        <View style={styles.headerView}>
-            <View style={styles.unsafeHeaderHeight} />
-            <View style={styles.safeHeaderView}>
-            <View style={styles.leftView}>
-                <Image
-                style={styles.vectorIcon}
-                resizeMode="cover"
-                source={require("../assets/vector.png")}
-                />
-            </View>
-            <Image
-                style={styles.logoSvgIcon}
-                resizeMode="cover"
-                source={require("../assets/logo-svg.png")}
-            />
-            <View style={styles.rightView}>
-                <Image
-                style={styles.vectorIcon1}
-                resizeMode="cover"
-                source={require("../assets/vector1.png")}
-                />
-            </View>
-            </View>
-        </View>
         <ScrollView
             style={styles.bodyScrollView}
             contentContainerStyle={styles.bodyScrollViewContent}
@@ -67,20 +41,13 @@ const Sessions = () => {
 
             {sessions?.map((session) => <SessionModal key={session.id} session={session}/>)}
         
-            {/*
-            <SessionModal session={}/>
 
-            <JoinSessionModal />
-            <SessionInfoModal session1Of2="Session 2 of 2" />*/
-
-            }
             
             <Text style={[styles.historyText, styles.mt25]}>History</Text>
             <View style={[styles.fillerView, styles.mt25]} />
 
-            {/*<FilledButton label="Join Session" onPress={() => {joinSession()}} />*/}
+            <FilledButton label="Join Call" onPress={() => {navigation.navigate("VideoCall", {url: "https://mentis-therapeutics.daily.co/QNmdsVJrwP0zELnHvOU7"})}} />
         </ScrollView>
-    
         </View>
     );
     };

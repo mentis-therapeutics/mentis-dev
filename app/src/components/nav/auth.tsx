@@ -8,12 +8,13 @@ import CreatePassword from "../../screens/auth/CreatePassword";
 import ResetPassword from "../../screens/auth/ResetPassword";
 
 import { stackScreenOptions } from "./navOptions";
+import { AuthStack as AuthStackTypes } from "./types";
 
-const AuthStackNavigator = createNativeStackNavigator();
+const AuthStackNavigator = createNativeStackNavigator<AuthStackTypes.ParamList>();
 export function AuthStack() {
     return (
         <AuthStackNavigator.Navigator
-        initialRouteName="LoginRoute"
+        initialRouteName="Login"
         screenOptions={stackScreenOptions}>
         <AuthStackNavigator.Screen
             name="Login"
@@ -37,5 +38,5 @@ export function AuthStack() {
             options={{}}/>
         </AuthStackNavigator.Navigator>
     );
-    }
+}
     

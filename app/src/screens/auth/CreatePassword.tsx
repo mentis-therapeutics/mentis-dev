@@ -11,6 +11,7 @@ import { cognitoPool } from "../../utils/cognito_pool";
 import { useAuthDispatch, useAuthState } from "../../auth/context";
 import { createPassword, login } from "../../auth/actions";
 import { Auth } from "aws-amplify";
+import { AuthStack } from "../../components/nav/types";
 
 type FormError = {
     passwordError: string
@@ -18,7 +19,7 @@ type FormError = {
 }
 
 const CreatePassword = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<AuthStack.NavigatorProps>();
     
     const dispatch = useAuthDispatch();
 

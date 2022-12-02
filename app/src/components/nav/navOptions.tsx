@@ -35,4 +35,4 @@ export const tabScreenOptions = ({ route }) => ({
     },
     tabBarActiveTintColor: '#fff',
     tabBarInactiveTintColor: 'gray',
-})
+}) 

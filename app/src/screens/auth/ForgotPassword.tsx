@@ -11,12 +11,13 @@ import { CognitoUser } from "amazon-cognito-identity-js";
 import { emailReg } from "../../utils/regex";
 import { useAuthDispatch, useAuthState } from "../../auth/context";
 import { forgotPassword } from "../../auth/actions";
+import { AuthStack } from "../../components/nav/types";
 
 const ForgotPassword = () => {
     const dispatch = useAuthDispatch();
     const { user } = useAuthState();
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<AuthStack.NavigatorProps>();
 
     const [email, setEmail] = useState('');
 

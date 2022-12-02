@@ -1,19 +1,35 @@
 import React, {useEffect, useState} from "react";
-import { Text, StyleSheet, Image, View, ImageSourcePropType } from "react-native";
+import { Text, StyleSheet, Image, View, ImageSourcePropType, Pressable } from "react-native";
 import SessionModalRender, { ModalState } from "./render/SessionModalRender";
 import { Session } from "../models"
+import { useNavigation } from "@react-navigation/core";
 
 type ISessionModal = {
     session: Session
 };
 
 const SessionModal = ({session} : ISessionModal) => {
+    const navigator = useNavigation()
     
     const [state, setState]                 = useState(ModalState.UNBOOKED)
     const [sessionName, setSessionName]     = useState("")
     const [sessionDate, setSessionDate]     = useState("")
     const [sessionLength, setSessionLength] = useState("")
     const [therapist, setTherapist]         = useState("")
+
+    const onPress = () => {
+        switch(state) {
+            case ModalState.UNBOOKED:
+                navigator.navigate("Calendly")
+                break
+            case ModalState.BOOKED:
+                navigator.navigate("SessionDetail")
+                break
+            case ModalState.LIVE:
+                navigator.navigate("VideoCall")
+                break
+        }
+    }
 
     function calcModalState() {
         if (session.booked === true) {
@@ -73,7 +89,9 @@ const SessionModal = ({session} : ISessionModal) => {
 
 
     return (
-        <SessionModalRender {...{ state, sessionName, sessionDate, therapist}}  />
+        <Pressable onPress={onPress}>
+            <SessionModalRender {...{ state, sessionName, sessionDate, therapist}}  />
+        </Pressable>
     );
 };
 

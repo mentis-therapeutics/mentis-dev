@@ -1,7 +1,5 @@
 import React, {useEffect} from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
-import Header from "../components/Header";
-import SessionInfoModal from "../components/SessionInfoModal";
 import NavigationBar from "../components/NavigationBar";
 import FilledButton from "../components/FilledButton";
 import { logout } from "../auth/actions";
@@ -17,7 +15,6 @@ const Home = () => {
 
   return (
         <View style={styles.homeClient}>
-        <Header />
         <ScrollView
             style={styles.bodyScrollView}
             showsHorizontalScrollIndicator={false}
@@ -25,7 +22,6 @@ const Home = () => {
         >
             <Text style={styles.helloSamText}>Hello, Sam</Text>
             <Text style={[styles.upNext, styles.mt25]}>{`Up Next .. `}</Text>
-            <SessionInfoModal session1Of2="Session 1 of 2" />
             <View style={[styles.fillerView, styles.mt25]} />
             <FilledButton label="Logout" onPress={() => logout(user, dispatch)}/>
 

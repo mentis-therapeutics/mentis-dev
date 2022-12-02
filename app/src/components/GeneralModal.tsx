@@ -23,6 +23,9 @@ const GeneralModal = ({ bookSessions }: GeneralModalType) => {
 };
 
 const styles = StyleSheet.create({
+  mt25: {
+    marginTop: 25
+  },
   bookSessionsText: {
     position: "relative",
     fontSize: 24,

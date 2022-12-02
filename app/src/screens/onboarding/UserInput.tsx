@@ -13,7 +13,7 @@ import { useAuthDispatch, useAuthState } from "../../auth/context";
 import FilledButton from "../../components/FilledButton";
 import UserTextInput from "../../components/UserTextInput";
 
-import { DataStore, API, graphqlOperation } from 'aws-amplify'
+import { DataStore, API, graphqlOperation, Auth } from 'aws-amplify'
 
 import { AccountType, User } from "../../models"
 import { createUser } from "../../graphql/mutations"
@@ -24,48 +24,41 @@ const UserInput = () => {
     const dispatch = useAuthDispatch();
 
     async function setUserData() {
-        /*
-        await API.graphql(
-            graphqlOperation(createUser,
-            {
-                input:{
-                    firstName : "Sam",
-                    lastName : "Coleman",
-                    accountType : AccountType.USER,
-                    onboarded : true,
-                }
-        })
-        )
-        */
-        
         const original = await DataStore.query(User);
 
+
+        
         // Create or Update
         console.log(original)
         if (original.length > 0){
             await DataStore.save(
-                User.copyOf(original[0], updated => {
-                    updated.firstName = "Sam";
-                    updated.lastName = "Coleman";
-                    updated.accountType = AccountType.USER;
-                    updated.onboarded = true;
+                User.copyOf(original[0], (updated) => {
+                    updated.sub = user.attributes.sub
+                    updated.firstName = ""
+                    updated.lastName = ""
+                    updated.email = user.attributes.email
+                    //phone: AWSPhone
+                    updated.onboarded = true
+                    updated.screened = false
                 })
             );
         }else{
            try{
             await DataStore.save(
                 new User({
-                    firstName : "Sam",
-                    lastName : "Coleman",
-                    accountType : AccountType.USER,
-                    onboarded : true,
+                    sub: user.attributes.sub,
+                    firstName: "",
+                    lastName: "",
+                    email: user.attributes.email,
+                    //phone: AWSPhone
+                    onboarded: true,
+                    screened: false,
                 }));
            }catch (err) {
             console.log(err)
            }
             
-        }
-
+        }  
         dispatch({type:'ONBOARDED'});
     }
 

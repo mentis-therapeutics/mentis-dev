@@ -22,15 +22,15 @@ type EagerProgram = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly userID: string;
+  readonly sessions?: (Session | null)[] | null;
+  readonly programTemplate: ProgramTemplate;
   readonly enrollmentDate?: string | null;
   readonly completionDate?: string | null;
   readonly complete?: boolean | null;
-  readonly userID: string;
-  readonly sessions?: (Session | null)[] | null;
-  readonly programTemplate?: ProgramTemplate | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programProgramTemplateId?: string | null;
+  readonly programProgramTemplateId: string;
 }
 
 type LazyProgram = {
@@ -39,15 +39,15 @@ type LazyProgram = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly userID: string;
+  readonly sessions: AsyncCollection<Session>;
+  readonly programTemplate: AsyncItem<ProgramTemplate>;
   readonly enrollmentDate?: string | null;
   readonly completionDate?: string | null;
   readonly complete?: boolean | null;
-  readonly userID: string;
-  readonly sessions: AsyncCollection<Session>;
-  readonly programTemplate: AsyncItem<ProgramTemplate | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programProgramTemplateId?: string | null;
+  readonly programProgramTemplateId: string;
 }
 
 export declare type Program = LazyLoading extends LazyLoadingDisabled ? EagerProgram : LazyProgram
@@ -62,16 +62,17 @@ type EagerSession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly programID: string;
+  readonly program: Program;
+  readonly sessionTemplate: SessionTemplate;
   readonly datetime?: string | null;
   readonly booked?: boolean | null;
   readonly booking?: boolean | null;
   readonly complete?: boolean | null;
-  readonly meetingUUID?: string | null;
-  readonly sessionTemplate?: SessionTemplate | null;
+  readonly meetingUUID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly sessionSessionTemplateId?: string | null;
+  readonly programSessionsId?: string | null;
+  readonly sessionSessionTemplateId: string;
 }
 
 type LazySession = {
@@ -80,16 +81,17 @@ type LazySession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly programID: string;
+  readonly program: AsyncItem<Program>;
+  readonly sessionTemplate: AsyncItem<SessionTemplate>;
   readonly datetime?: string | null;
   readonly booked?: boolean | null;
   readonly booking?: boolean | null;
   readonly complete?: boolean | null;
-  readonly meetingUUID?: string | null;
-  readonly sessionTemplate: AsyncItem<SessionTemplate | undefined>;
+  readonly meetingUUID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly sessionSessionTemplateId?: string | null;
+  readonly programSessionsId?: string | null;
+  readonly sessionSessionTemplateId: string;
 }
 
 export declare type Session = LazyLoading extends LazyLoadingDisabled ? EagerSession : LazySession
@@ -104,14 +106,15 @@ type EagerSessionTemplate = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly programTemplate: ProgramTemplate;
   readonly name?: string | null;
   readonly description?: string | null;
   readonly length?: string | null;
+  readonly precedence?: number | null;
   readonly type?: SessionType | keyof typeof SessionType | null;
-  readonly programTemplate?: ProgramTemplate | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programTemplateSessionTemplatesId?: string | null;
+  readonly programTemplateSessionTemplatesId: string;
 }
 
 type LazySessionTemplate = {
@@ -120,14 +123,15 @@ type LazySessionTemplate = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly programTemplate: AsyncItem<ProgramTemplate>;
   readonly name?: string | null;
   readonly description?: string | null;
   readonly length?: string | null;
+  readonly precedence?: number | null;
   readonly type?: SessionType | keyof typeof SessionType | null;
-  readonly programTemplate: AsyncItem<ProgramTemplate | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programTemplateSessionTemplatesId?: string | null;
+  readonly programTemplateSessionTemplatesId: string;
 }
 
 export declare type SessionTemplate = LazyLoading extends LazyLoadingDisabled ? EagerSessionTemplate : LazySessionTemplate
@@ -142,10 +146,10 @@ type EagerProgramTemplate = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly sessionTemplates?: (SessionTemplate | null)[] | null;
   readonly name?: string | null;
   readonly description?: string | null;
   readonly version?: string | null;
-  readonly sessionTemplates?: (SessionTemplate | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -156,10 +160,10 @@ type LazyProgramTemplate = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly sessionTemplates: AsyncCollection<SessionTemplate>;
   readonly name?: string | null;
   readonly description?: string | null;
   readonly version?: string | null;
-  readonly sessionTemplates: AsyncCollection<SessionTemplate>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -176,13 +180,14 @@ type EagerUser = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly sub: string;
+  readonly programs?: (Program | null)[] | null;
   readonly firstName?: string | null;
   readonly lastName?: string | null;
   readonly email?: string | null;
   readonly phone?: string | null;
   readonly onboarded?: boolean | null;
   readonly screened?: boolean | null;
-  readonly programs?: (Program | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -193,13 +198,14 @@ type LazyUser = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly sub: string;
+  readonly programs: AsyncCollection<Program>;
   readonly firstName?: string | null;
   readonly lastName?: string | null;
   readonly email?: string | null;
   readonly phone?: string | null;
   readonly onboarded?: boolean | null;
   readonly screened?: boolean | null;
-  readonly programs: AsyncCollection<Program>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

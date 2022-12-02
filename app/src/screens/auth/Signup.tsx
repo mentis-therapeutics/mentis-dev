@@ -5,16 +5,17 @@ import UserTextInput, { emailTextInputProps, passwordTextInputProps } from "../.
 import FilledButton from "../../components/FilledButton";
 
 import { emailReg, passReg } from "../../utils/regex";
+import { AuthStack } from "../../components/nav/types";
 
 
 type FormError = {
     emailError: string,
     passwordError: string,
     confirmPasswordError: string,
-  }
+}
 
 const Signup = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<AuthStack.NavigatorProps>();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

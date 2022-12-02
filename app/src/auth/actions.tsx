@@ -10,7 +10,7 @@ export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<v
     try {
         const user = await Auth.currentAuthenticatedUser();
         if (user) {
-            dispatch({type: 'LOGIN_SUCCESS'})
+            dispatch({type: 'LOGIN_SUCCESS', payload:{user}})
         }   
     }catch (err) {
         dispatch({ type: 'LOGIN_ERROR', error:err});
@@ -20,7 +20,6 @@ export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<v
 }
 
 const waitForDataStoreLoad = async () => {
-	//promesa que se ejecuta cuando el datastore esta listo
 	await new Promise<void>((resolve) => {
 		Hub.listen('datastore', async (hubData) => {
 			const { event } = hubData.payload;
@@ -45,10 +44,11 @@ export const login = async (authDetails: {email: string, password: string}, disp
                 }
 
                 /* Once the user successfully signs in, update the form state to show the signed in state */
-            
+
                 await DataStore.clear();
                 await DataStore.start();
-                await waitForDataStoreLoad();
+                await waitForDataStoreLoad()
+            
 
                 dispatch({ type: 'LOGIN_SUCCESS', payload:{user}});
                 return
@@ -60,8 +60,6 @@ export const login = async (authDetails: {email: string, password: string}, disp
          }
 
 }
-
-
 
 export const createPassword = async (user: string, password: string, dispatch : React.Dispatch<IAction>) => {
     dispatch({type: 'REQUEST_LOGIN'});
@@ -96,7 +94,9 @@ export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAc
 }
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
+
     await DataStore.clear()
+    
     await Auth.signOut();
 	dispatch({ type: 'LOGOUT' });
 }

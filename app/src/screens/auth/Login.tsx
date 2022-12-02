@@ -6,14 +6,11 @@ import UserTextInput, {emailTextInputProps, passwordTextInputProps} from "../../
 
 import FilledButton from "../../components/FilledButton";
 
-import {CognitoUser, AuthenticationDetails, CognitoUserPool, CognitoUserSession} from 'amazon-cognito-identity-js';
-import {cognitoPool} from '../../utils/cognito_pool';
 
 import { emailReg, passReg } from "../../utils/regex";
 import { login, getSession } from "../../auth/actions";
 import { useAuthDispatch, useAuthState } from "../../auth/context";
-import { getStoredUser } from "../../auth/reducer";
-
+import { AuthStack } from "../../components/nav/types";
 
 
 type FormError = {
@@ -22,7 +19,7 @@ type FormError = {
 }
 
 const Login = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<AuthStack.NavigatorProps>();
     
     const dispatch = useAuthDispatch();
     const { session, loading, errorMessage } = useAuthState();

@@ -6,14 +6,10 @@ export const getProgram = /* GraphQL */ `
   query GetProgram($id: ID!) {
     getProgram(id: $id) {
       id
-      enrollmentDate
-      completionDate
-      complete
       userID
       sessions {
         items {
           id
-          programID
           datetime
           booked
           booking
@@ -24,6 +20,7 @@ export const getProgram = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          programSessionsId
           sessionSessionTemplateId
           owner
         }
@@ -32,13 +29,13 @@ export const getProgram = /* GraphQL */ `
       }
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -46,6 +43,9 @@ export const getProgram = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      enrollmentDate
+      completionDate
+      complete
       createdAt
       updatedAt
       _version
@@ -65,9 +65,6 @@ export const listPrograms = /* GraphQL */ `
     listPrograms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        enrollmentDate
-        completionDate
-        complete
         userID
         sessions {
           nextToken
@@ -85,6 +82,9 @@ export const listPrograms = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
         createdAt
         updatedAt
         _version
@@ -113,9 +113,6 @@ export const syncPrograms = /* GraphQL */ `
     ) {
       items {
         id
-        enrollmentDate
-        completionDate
-        complete
         userID
         sessions {
           nextToken
@@ -133,6 +130,9 @@ export const syncPrograms = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
         createdAt
         updatedAt
         _version
@@ -148,7 +148,7 @@ export const syncPrograms = /* GraphQL */ `
 `;
 export const programsByUserID = /* GraphQL */ `
   query ProgramsByUserID(
-    $userID: ID!
+    $userID: String!
     $sortDirection: ModelSortDirection
     $filter: ModelProgramFilterInput
     $limit: Int
@@ -163,9 +163,6 @@ export const programsByUserID = /* GraphQL */ `
     ) {
       items {
         id
-        enrollmentDate
-        completionDate
-        complete
         userID
         sessions {
           nextToken
@@ -183,6 +180,9 @@ export const programsByUserID = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
         createdAt
         updatedAt
         _version
@@ -200,18 +200,13 @@ export const getSession = /* GraphQL */ `
   query GetSession($id: ID!) {
     getSession(id: $id) {
       id
-      programID
-      datetime
-      booked
-      booking
-      complete
-      meetingUUID
-      sessionTemplate {
+      program {
         id
-        name
-        description
-        length
-        type
+        userID
+        sessions {
+          nextToken
+          startedAt
+        }
         programTemplate {
           id
           name
@@ -224,6 +219,36 @@ export const getSession = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+        owner
+      }
+      sessionTemplate {
+        id
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -232,11 +257,17 @@ export const getSession = /* GraphQL */ `
         programTemplateSessionTemplatesId
         owner
       }
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programSessionsId
       sessionSessionTemplateId
       owner
     }
@@ -251,17 +282,26 @@ export const listSessions = /* GraphQL */ `
     listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        programID
-        datetime
-        booked
-        booking
-        complete
-        meetingUUID
+        program {
+          id
+          userID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+          owner
+        }
         sessionTemplate {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -271,11 +311,17 @@ export const listSessions = /* GraphQL */ `
           programTemplateSessionTemplatesId
           owner
         }
+        datetime
+        booked
+        booking
+        complete
+        meetingUUID
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        programSessionsId
         sessionSessionTemplateId
         owner
       }
@@ -299,17 +345,26 @@ export const syncSessions = /* GraphQL */ `
     ) {
       items {
         id
-        programID
-        datetime
-        booked
-        booking
-        complete
-        meetingUUID
+        program {
+          id
+          userID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+          owner
+        }
         sessionTemplate {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -319,61 +374,17 @@ export const syncSessions = /* GraphQL */ `
           programTemplateSessionTemplatesId
           owner
         }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        sessionSessionTemplateId
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const sessionsByProgramID = /* GraphQL */ `
-  query SessionsByProgramID(
-    $programID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelSessionFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    sessionsByProgramID(
-      programID: $programID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        programID
         datetime
         booked
         booking
         complete
         meetingUUID
-        sessionTemplate {
-          id
-          name
-          description
-          length
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          programTemplateSessionTemplatesId
-          owner
-        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        programSessionsId
         sessionSessionTemplateId
         owner
       }
@@ -386,19 +397,15 @@ export const getSessionTemplate = /* GraphQL */ `
   query GetSessionTemplate($id: ID!) {
     getSessionTemplate(id: $id) {
       id
-      name
-      description
-      length
-      type
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -406,6 +413,11 @@ export const getSessionTemplate = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      name
+      description
+      length
+      precedence
+      type
       createdAt
       updatedAt
       _version
@@ -429,10 +441,6 @@ export const listSessionTemplates = /* GraphQL */ `
     ) {
       items {
         id
-        name
-        description
-        length
-        type
         programTemplate {
           id
           name
@@ -445,6 +453,11 @@ export const listSessionTemplates = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -473,10 +486,6 @@ export const syncSessionTemplates = /* GraphQL */ `
     ) {
       items {
         id
-        name
-        description
-        length
-        type
         programTemplate {
           id
           name
@@ -489,6 +498,11 @@ export const syncSessionTemplates = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -506,15 +520,13 @@ export const getProgramTemplate = /* GraphQL */ `
   query GetProgramTemplate($id: ID!) {
     getProgramTemplate(id: $id) {
       id
-      name
-      description
-      version
       sessionTemplates {
         items {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -527,6 +539,9 @@ export const getProgramTemplate = /* GraphQL */ `
         nextToken
         startedAt
       }
+      name
+      description
+      version
       createdAt
       updatedAt
       _version
@@ -549,13 +564,13 @@ export const listProgramTemplates = /* GraphQL */ `
     ) {
       items {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -583,13 +598,13 @@ export const syncProgramTemplates = /* GraphQL */ `
     ) {
       items {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -606,19 +621,14 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      firstName
-      lastName
-      email
-      phone
-      onboarded
-      screened
+      sub
       programs {
         items {
           id
+          userID
           enrollmentDate
           completionDate
           complete
-          userID
           createdAt
           updatedAt
           _version
@@ -630,6 +640,12 @@ export const getUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      firstName
+      lastName
+      email
+      phone
+      onboarded
+      screened
       createdAt
       updatedAt
       _version
@@ -648,16 +664,17 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        sub
+        programs {
+          nextToken
+          startedAt
+        }
         firstName
         lastName
         email
         phone
         onboarded
         screened
-        programs {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version
@@ -685,16 +702,17 @@ export const syncUsers = /* GraphQL */ `
     ) {
       items {
         id
+        sub
+        programs {
+          nextToken
+          startedAt
+        }
         firstName
         lastName
         email
         phone
         onboarded
         screened
-        programs {
-          nextToken
-          startedAt
-        }
         createdAt
         updatedAt
         _version

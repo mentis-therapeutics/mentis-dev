@@ -12,6 +12,12 @@ import { NavManager } from "./src/components/NavManager";
 import {Amplify, AuthModeStrategyType} from "aws-amplify";
 import awsmobile from "./src/aws-exports";
 import { getSession } from "./src/auth/actions";
+import { LogBox } from "react-native";
+
+
+// Annoying amplify issue
+LogBox.ignoreLogs(['Require cycle: node_modules'])
+
 
 Amplify.configure({...awsmobile,
     DataStore: {

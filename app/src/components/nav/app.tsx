@@ -12,21 +12,42 @@ import SessionDetail from '../../screens/SessionDetail'
 import VideoCall from "../../screens/VideoCall";
 
 import { stackScreenOptions, tabScreenOptions } from "./navOptions";
+import { SessionNavigatorParamList } from "./types";
+import { getFocusedRouteNameFromRoute, useRoute } from "@react-navigation/core";
 
-const SessionStackNavigator = createNativeStackNavigator()
-const SessionStack = () => {
+
+
+const SessionStackNavigator = createNativeStackNavigator<SessionNavigatorParamList>()
+const SessionStack = ({ navigation, route }) => {
+    const tabHiddenRoutes = ["VideoCall","Calendly"];
+
+    if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
+        navigation.setOptions({tabBarStyle: {display: 'none'}});
+    } else {
+        // This is shit
+        navigation.setOptions({tabBarStyle: {display: 'flex', backgroundColor: "#334166", borderTopWidth: 0}});
+    }
+
     return (
     <SessionStackNavigator.Navigator
-            initialRouteName="OnboardingRoute"
+            initialRouteName="Session"
             screenOptions={stackScreenOptions}>
         <SessionStackNavigator.Screen
-            name="SessionsPage"
+            name="Session"
             component={Sessions}
             options={{ headerShown: false }}/>
         <SessionStackNavigator.Screen
             name="SessionDetail"
             component={SessionDetail}
-            options={{}}/>
+            options={{ headerShown: true }}/>
+        <SessionStackNavigator.Screen
+            name="Calendly"
+            component={Calendly}
+            options={{ headerShown: true }}/>
+        <SessionStackNavigator.Screen
+            name="VideoCall"
+            component={VideoCall}
+            options={{ headerShown: false }}/>
     </SessionStackNavigator.Navigator>
     );
 }
@@ -34,22 +55,24 @@ const SessionStack = () => {
 
 const AppTabNavigator = createBottomTabNavigator();
 export function AppStack() {
-return (
-    <AppTabNavigator.Navigator
-    initialRouteName="AppRoute"
-    screenOptions={tabScreenOptions}>
-    <AppTabNavigator.Screen
-        name="Home"
-        component={Home}
-        options={{ headerShown: false }}/>
-    <AppTabNavigator.Screen
-        name="Progress"
-        component={Progress}
-        options={{ headerShown: false }}/>
-    <AppTabNavigator.Screen
-        name="Sessions"
-        component={Sessions}
-        options={{ headerShown: false }}/>
-    </AppTabNavigator.Navigator>
-);
+    return (
+        <AppTabNavigator.Navigator
+        initialRouteName="Home"
+        screenOptions={tabScreenOptions}>
+        <AppTabNavigator.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: true }}/>
+        <AppTabNavigator.Screen
+            name="Progress"
+            component={Progress}
+            options={{ headerShown: true }}/>
+        <AppTabNavigator.Screen
+            name="Sessions"
+            component={SessionStack}
+            options={{ 
+                headerShown: false,
+            }}/>
+        </AppTabNavigator.Navigator>
+    );
 }

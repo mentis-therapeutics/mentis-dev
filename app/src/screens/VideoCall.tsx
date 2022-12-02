@@ -17,16 +17,19 @@ import Daily, {
   DailyEventObject,
   DailyEventObjectAppMessage,
 } from '@daily-co/react-native-daily-js';
-import CallPanel from '../components/Daily/CallPanel';
-import Button from '../components/Daily/Button';
-import StartButton from '../components/Daily/StartButton';
-import { logDailyEvent } from '../components/Daily/utils';
+import CallPanel from '../components/daily/CallPanel';
+import Button from '../components/daily/Button';
+import StartButton from '../components/daily/StartButton';
+import { logDailyEvent } from '../components/daily/utils';
 //import api from '../../api';
-import Tray from '../components/Daily/Tray';
-import CallObjectContext from '../components/Daily/CallObjectContext';
-import CopyLinkButton from '../components/Daily/CopyLinkButton';
-import theme from '../components/Daily/theme';
-import { useOrientation, Orientation } from '../components/Daily/useOrientation';
+import Tray from '../components/daily/Tray';
+import CallObjectContext from '../components/daily/CallObjectContext';
+import CopyLinkButton from '../components/daily/CopyLinkButton';
+import theme from '../components/daily/theme';
+import { useOrientation, Orientation } from '../components/daily/useOrientation';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/core';
+import { SessionStack } from "../components/nav/types"
 
 declare const global: { HermesInternal: null | {} };
 
@@ -34,12 +37,12 @@ declare const global: { HermesInternal: null | {} };
 // fetch library.
 // See https://github.com/facebook/react-native/issues/23130.
 
-LogBox.ignoreLogs(['Require cycle: node_modules'])
-
 
 // Uncomment during development to temporarily intentionally ignore errors,
 // preventing the red screen from popping up
 // (console as any).reportErrorsAsExceptions = false;
+
+
 
 enum AppState {
   Idle,
@@ -50,7 +53,15 @@ enum AppState {
   Error,
 }
 
+interface IVideoCall {
+    url: string
+ }
+
 const VideoCall = () => {
+
+  const navigator = useNavigation<SessionStack.NavigatorProps>()  
+  const route = useRoute<SessionStack.VideoCallRouteProps>()
+
   const [appState, setAppState] = useState(AppState.Idle);
   const [roomUrl, setRoomUrl] = useState<string | undefined>(undefined);
   const [roomCreateError, setRoomCreateError] = useState<boolean>(false);
@@ -190,12 +201,14 @@ const VideoCall = () => {
   /**
    * Create a temporary room that will become available to join.
    */
+  /*
   const createRoom = () => {
+    
     setRoomCreateError(false);
     setAppState(AppState.Creating);
     setRoomUrlFieldValue("");
     setAppState(AppState.Idle);
-    /*
+    
     api
       .createRoom()
       .then((room) => {
@@ -207,15 +220,18 @@ const VideoCall = () => {
         setRoomUrlFieldValue(undefined);
         setAppState(AppState.Idle);
       });
-      */
+      8?
+    
   };
+  */
 
   /**
    * Join the room provided by the user or the temporary room created by createRoom
    */
-  const startCall = () => {
-    setRoomUrl(roomUrlFieldValue);
-  };
+  useEffect(() => {
+    setRoomUrl(route.params.url);
+    return () => {leaveCall}
+  }, [])
 
   /**
    * Leave the current call.
@@ -226,6 +242,7 @@ const VideoCall = () => {
     if (!callObject) {
       return;
     }
+    console.log(appState)
     if (appState === AppState.Error) {
       callObject.destroy().then(() => {
         setRoomUrl(undefined);
@@ -236,6 +253,8 @@ const VideoCall = () => {
     } else {
       setAppState(AppState.Leaving);
       callObject.leave();
+
+      navigator.goBack()
     }
   }, [callObject, appState]);
 
@@ -332,7 +351,7 @@ const VideoCall = () => {
                 ) : (
                   <Button
                     type="secondary"
-                    onPress={createRoom}
+                    onPress={() => {}}
                     label={
                       appState === AppState.Creating
                         ? 'Creating room...'
@@ -341,7 +360,7 @@ const VideoCall = () => {
                   />
                 )}
                 <StartButton
-                  onPress={startCall}
+                  onPress={() => {}}
                   disabled={startButtonDisabled}
                   starting={appState === AppState.Joining}
                 />

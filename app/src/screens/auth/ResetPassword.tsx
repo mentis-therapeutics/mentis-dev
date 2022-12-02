@@ -12,6 +12,7 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { useAuthDispatch, useAuthState } from "../../auth/context";
 
 import { confirmPassword, login } from "../../auth/actions";
+import { AuthStack } from "../../components/nav/types";
 
 type FormError = {
     codeError: string,
@@ -24,7 +25,7 @@ const ResetPassword = () => {
     const dispatch = useAuthDispatch();
     const { user } = useAuthState();
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<AuthStack.NavigatorProps>();
 
     const [code, setCode] = useState('');
     const [password, setPassword] = useState('');

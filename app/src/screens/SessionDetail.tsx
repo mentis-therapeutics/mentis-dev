@@ -1,12 +1,10 @@
 import * as React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
-import Header from "../components/Header";
-import SessionTab from "../components/SessionTab";
+import SessionTab from "../components/SessionDetailTab";
 
 const SessionDetail = () => {
   return (
     <View style={styles.sessionDetailClient}>
-      <Header />
       <View style={styles.fillerView}>
         <View style={styles.sessionInfoView}>
           <Text style={styles.bookedText}>Booked</Text>

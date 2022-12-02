@@ -24,14 +24,11 @@ export const NavManager = () => {
 
         let data = await DataStore.query(User);
 
-        console.log(data[0])
-
         if (data.length == 0) return;
 
         if (data[0].onboarded) {dispatch({type:'ONBOARDED'})};
     }
 
-    
 
     useEffect(() => {
         // Check onboarded state

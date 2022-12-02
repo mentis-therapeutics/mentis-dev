@@ -1,7 +1,9 @@
+import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 
 
 export type IAuth = {
-    user: string | null;
+    // Amplify returns any type !!! Woo
+    user: any | null;
 	session: boolean;
 	loading: boolean;
 	errorMessage: string | null,
@@ -10,7 +12,7 @@ export type IAuth = {
 
 export type IAction = {
     type: 'LOGIN_NEWPASS' | 'REQUEST_LOGIN' | 'LOGIN_SUCCESS' | 'LOGOUT' | 'LOGIN_ERROR' | "ONBOARDED";
-    payload?: {user?: string | null; session?: boolean;}
+    payload?: {user?: any | null; session?: boolean;}
     error?: string | null
 }
 
@@ -37,8 +39,10 @@ export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
 				loading: true,
 			};
 		case 'LOGIN_SUCCESS':
+            console.log(typeof action.payload!.user!)
 			return {
 				...initialState,
+                user: action.payload!.user!,
 				session: true,
 				loading: false,
 			};

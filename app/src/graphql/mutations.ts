@@ -9,14 +9,10 @@ export const createProgram = /* GraphQL */ `
   ) {
     createProgram(input: $input, condition: $condition) {
       id
-      enrollmentDate
-      completionDate
-      complete
       userID
       sessions {
         items {
           id
-          programID
           datetime
           booked
           booking
@@ -27,6 +23,7 @@ export const createProgram = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          programSessionsId
           sessionSessionTemplateId
           owner
         }
@@ -35,13 +32,13 @@ export const createProgram = /* GraphQL */ `
       }
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -49,6 +46,9 @@ export const createProgram = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      enrollmentDate
+      completionDate
+      complete
       createdAt
       updatedAt
       _version
@@ -66,14 +66,10 @@ export const updateProgram = /* GraphQL */ `
   ) {
     updateProgram(input: $input, condition: $condition) {
       id
-      enrollmentDate
-      completionDate
-      complete
       userID
       sessions {
         items {
           id
-          programID
           datetime
           booked
           booking
@@ -84,6 +80,7 @@ export const updateProgram = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          programSessionsId
           sessionSessionTemplateId
           owner
         }
@@ -92,13 +89,13 @@ export const updateProgram = /* GraphQL */ `
       }
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -106,6 +103,9 @@ export const updateProgram = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      enrollmentDate
+      completionDate
+      complete
       createdAt
       updatedAt
       _version
@@ -123,14 +123,10 @@ export const deleteProgram = /* GraphQL */ `
   ) {
     deleteProgram(input: $input, condition: $condition) {
       id
-      enrollmentDate
-      completionDate
-      complete
       userID
       sessions {
         items {
           id
-          programID
           datetime
           booked
           booking
@@ -141,6 +137,7 @@ export const deleteProgram = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          programSessionsId
           sessionSessionTemplateId
           owner
         }
@@ -149,13 +146,13 @@ export const deleteProgram = /* GraphQL */ `
       }
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -163,6 +160,9 @@ export const deleteProgram = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      enrollmentDate
+      completionDate
+      complete
       createdAt
       updatedAt
       _version
@@ -180,18 +180,13 @@ export const createSession = /* GraphQL */ `
   ) {
     createSession(input: $input, condition: $condition) {
       id
-      programID
-      datetime
-      booked
-      booking
-      complete
-      meetingUUID
-      sessionTemplate {
+      program {
         id
-        name
-        description
-        length
-        type
+        userID
+        sessions {
+          nextToken
+          startedAt
+        }
         programTemplate {
           id
           name
@@ -204,6 +199,36 @@ export const createSession = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+        owner
+      }
+      sessionTemplate {
+        id
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -212,11 +237,17 @@ export const createSession = /* GraphQL */ `
         programTemplateSessionTemplatesId
         owner
       }
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programSessionsId
       sessionSessionTemplateId
       owner
     }
@@ -229,18 +260,13 @@ export const updateSession = /* GraphQL */ `
   ) {
     updateSession(input: $input, condition: $condition) {
       id
-      programID
-      datetime
-      booked
-      booking
-      complete
-      meetingUUID
-      sessionTemplate {
+      program {
         id
-        name
-        description
-        length
-        type
+        userID
+        sessions {
+          nextToken
+          startedAt
+        }
         programTemplate {
           id
           name
@@ -253,6 +279,36 @@ export const updateSession = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+        owner
+      }
+      sessionTemplate {
+        id
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -261,11 +317,17 @@ export const updateSession = /* GraphQL */ `
         programTemplateSessionTemplatesId
         owner
       }
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programSessionsId
       sessionSessionTemplateId
       owner
     }
@@ -278,18 +340,13 @@ export const deleteSession = /* GraphQL */ `
   ) {
     deleteSession(input: $input, condition: $condition) {
       id
-      programID
-      datetime
-      booked
-      booking
-      complete
-      meetingUUID
-      sessionTemplate {
+      program {
         id
-        name
-        description
-        length
-        type
+        userID
+        sessions {
+          nextToken
+          startedAt
+        }
         programTemplate {
           id
           name
@@ -302,6 +359,36 @@ export const deleteSession = /* GraphQL */ `
           _lastChangedAt
           owner
         }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+        owner
+      }
+      sessionTemplate {
+        id
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        name
+        description
+        length
+        precedence
+        type
         createdAt
         updatedAt
         _version
@@ -310,11 +397,17 @@ export const deleteSession = /* GraphQL */ `
         programTemplateSessionTemplatesId
         owner
       }
+      datetime
+      booked
+      booking
+      complete
+      meetingUUID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      programSessionsId
       sessionSessionTemplateId
       owner
     }
@@ -327,19 +420,15 @@ export const createSessionTemplate = /* GraphQL */ `
   ) {
     createSessionTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      length
-      type
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -347,6 +436,11 @@ export const createSessionTemplate = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      name
+      description
+      length
+      precedence
+      type
       createdAt
       updatedAt
       _version
@@ -364,19 +458,15 @@ export const updateSessionTemplate = /* GraphQL */ `
   ) {
     updateSessionTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      length
-      type
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -384,6 +474,11 @@ export const updateSessionTemplate = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      name
+      description
+      length
+      precedence
+      type
       createdAt
       updatedAt
       _version
@@ -401,19 +496,15 @@ export const deleteSessionTemplate = /* GraphQL */ `
   ) {
     deleteSessionTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      length
-      type
       programTemplate {
         id
-        name
-        description
-        version
         sessionTemplates {
           nextToken
           startedAt
         }
+        name
+        description
+        version
         createdAt
         updatedAt
         _version
@@ -421,6 +512,11 @@ export const deleteSessionTemplate = /* GraphQL */ `
         _lastChangedAt
         owner
       }
+      name
+      description
+      length
+      precedence
+      type
       createdAt
       updatedAt
       _version
@@ -438,15 +534,13 @@ export const createProgramTemplate = /* GraphQL */ `
   ) {
     createProgramTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      version
       sessionTemplates {
         items {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -459,6 +553,9 @@ export const createProgramTemplate = /* GraphQL */ `
         nextToken
         startedAt
       }
+      name
+      description
+      version
       createdAt
       updatedAt
       _version
@@ -475,15 +572,13 @@ export const updateProgramTemplate = /* GraphQL */ `
   ) {
     updateProgramTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      version
       sessionTemplates {
         items {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -496,6 +591,9 @@ export const updateProgramTemplate = /* GraphQL */ `
         nextToken
         startedAt
       }
+      name
+      description
+      version
       createdAt
       updatedAt
       _version
@@ -512,15 +610,13 @@ export const deleteProgramTemplate = /* GraphQL */ `
   ) {
     deleteProgramTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
-      version
       sessionTemplates {
         items {
           id
           name
           description
           length
+          precedence
           type
           createdAt
           updatedAt
@@ -533,6 +629,9 @@ export const deleteProgramTemplate = /* GraphQL */ `
         nextToken
         startedAt
       }
+      name
+      description
+      version
       createdAt
       updatedAt
       _version
@@ -549,19 +648,14 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      email
-      phone
-      onboarded
-      screened
+      sub
       programs {
         items {
           id
+          userID
           enrollmentDate
           completionDate
           complete
-          userID
           createdAt
           updatedAt
           _version
@@ -573,6 +667,12 @@ export const createUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      firstName
+      lastName
+      email
+      phone
+      onboarded
+      screened
       createdAt
       updatedAt
       _version
@@ -589,19 +689,14 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      email
-      phone
-      onboarded
-      screened
+      sub
       programs {
         items {
           id
+          userID
           enrollmentDate
           completionDate
           complete
-          userID
           createdAt
           updatedAt
           _version
@@ -613,6 +708,12 @@ export const updateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      firstName
+      lastName
+      email
+      phone
+      onboarded
+      screened
       createdAt
       updatedAt
       _version
@@ -629,19 +730,14 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      email
-      phone
-      onboarded
-      screened
+      sub
       programs {
         items {
           id
+          userID
           enrollmentDate
           completionDate
           complete
-          userID
           createdAt
           updatedAt
           _version
@@ -653,6 +749,12 @@ export const deleteUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      firstName
+      lastName
+      email
+      phone
+      onboarded
+      screened
       createdAt
       updatedAt
       _version
