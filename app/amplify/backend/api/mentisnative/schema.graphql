@@ -1,4 +1,4 @@
-type Program @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+type Program @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   userID: String! @index(name: "byUser")
   sessions: [Session] @hasMany
@@ -8,9 +8,9 @@ type Program @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admi
   complete: Boolean
 }
 
-type Session @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+type Session @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
-  program: Program! @belongsTo
+  program: Program @belongsTo
   sessionTemplate: SessionTemplate! @hasOne
   datetime: AWSDateTime
   booked: Boolean
@@ -24,7 +24,7 @@ enum SessionType {
   GROUP
 }
 
-type SessionTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+type SessionTemplate @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   programTemplate: ProgramTemplate! @belongsTo
   name: String
@@ -34,7 +34,7 @@ type SessionTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups
   type: SessionType
 }
 
-type ProgramTemplate @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+type ProgramTemplate @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   sessionTemplates: [SessionTemplate] @hasMany
   name: String

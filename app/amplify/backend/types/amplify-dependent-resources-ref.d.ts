@@ -6,7 +6,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "calendlyHook": {
+        "googleCalendar": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

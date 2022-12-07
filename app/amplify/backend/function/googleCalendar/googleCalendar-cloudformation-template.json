@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "calendlyHook",
+            "googleCalendar",
             {
               "Fn::Join": [
                 "",
                 [
-                  "calendlyHook",
+                  "googleCalendar",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mentisnativeLambdaRole0bbb0b93",
+            "mentisnativeLambdaRole84dcc4c7",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mentisnativeLambdaRole0bbb0b93",
+                  "mentisnativeLambdaRole84dcc4c7",
                   "-",
                   {
                     "Ref": "env"

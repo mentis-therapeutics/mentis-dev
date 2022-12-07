@@ -48,7 +48,7 @@
           "EMAIL"
         ]
       },
-      "lastPushTimeStamp": "2022-12-02T13:21:57.835Z"
+      "lastPushTimeStamp": "2022-12-02T16:44:30.750Z"
     }
   },
   "api": {
@@ -81,39 +81,40 @@
         "GraphQLAPIIdOutput": "h2hdsy3k2jgdvki463u5nkjmcu",
         "GraphQLAPIEndpointOutput": "https://qz62k56vr5aatmikcl6csghjea.appsync-api.us-east-1.amazonaws.com/graphql"
       },
-      "lastPushTimeStamp": "2022-12-02T13:21:57.835Z",
+      "lastPushTimeStamp": "2022-12-07T16:20:04.195Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentisnative-staging-233538-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apimentisnative"
       },
-      "lastPushDirHash": "urpqxCv/SnWo4tv0WsTrCJvffp4="
+      "lastPushDirHash": "sOFUCYj8/TLwoZjnhRj2ZQKrDUg="
     }
   },
   "function": {
-    "calendlyHook": {
+    "googleCalendar": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "output": {
-        "Region": "us-east-1",
-        "Arn": "arn:aws:lambda:us-east-1:190956789893:function:calendlyHook-staging",
-        "Name": "calendlyHook-staging",
-        "LambdaExecutionRole": "mentisnativeLambdaRole0bbb0b93-staging"
-      },
-      "lastPushTimeStamp": "2022-12-02T13:21:57.835Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentisnative-staging-233538-deployment/amplify-cfn-templates/function/calendlyHook-cloudformation-template.json",
-        "logicalId": "functioncalendlyHook"
-      },
+      "lastDevBuildTimeStamp": "2022-12-07T17:46:34.650Z",
+      "lastBuildType": "DEV",
+      "lastBuildTimeStamp": "2022-12-07T16:17:39.659Z",
+      "lastPackageTimeStamp": "2022-12-07T16:17:45.457Z",
+      "distZipFilename": "googleCalendar-726631676f43356a676c-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-mentisnative-staging-233538-deployment",
-        "s3Key": "amplify-builds/calendlyHook-45537a54543134787479-build.zip"
+        "s3Key": "amplify-builds/googleCalendar-726631676f43356a676c-build.zip"
       },
-      "lastBuildTimeStamp": "2022-12-02T13:13:54.295Z",
-      "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2022-12-02T13:13:57.812Z",
-      "distZipFilename": "calendlyHook-45537a54543134787479-build.zip",
-      "lastPushDirHash": "RB6RBcTv/cXnHodzVGsfVtHlvr4="
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-mentisnative-staging-233538-deployment/amplify-cfn-templates/function/googleCalendar-cloudformation-template.json",
+        "logicalId": "functiongoogleCalendar"
+      },
+      "lastPushTimeStamp": "2022-12-07T16:20:04.804Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:190956789893:function:googleCalendar-staging",
+        "Name": "googleCalendar-staging",
+        "LambdaExecutionRole": "mentisnativeLambdaRole84dcc4c7-staging"
+      },
+      "lastPushDirHash": "7D+hhBlC/k5ui9VY8Uw8e6AF7Bk="
     }
   }
 }

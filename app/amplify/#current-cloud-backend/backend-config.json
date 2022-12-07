@@ -39,7 +39,7 @@
     }
   },
   "function": {
-    "calendlyHook": {
+    "googleCalendar": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
