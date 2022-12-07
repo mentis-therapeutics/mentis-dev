@@ -1,0 +1,10 @@
+{
+    "httpMethod": "PUT",
+    "path": "/event",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"subject\": \"hello@getmentis.com\", \"payload\" : {\"summary\" : \"Test Event\",\"attendees\": [\"hello@getmentis.com\", \"sam@getmentis.com\", \"theo@getmentis.com\", \"samuelconlancoleman@hotmail.co.uk\"],\"start\": \"2022-12-08T17:00:00Z\",\"end\": \"2022-12-09T08:00:00Z\"}}"
+}
+
+   

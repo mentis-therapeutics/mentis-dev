@@ -12,124 +12,91 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const middleware_1 = __importDefault(require("aws-serverless-express/middleware"));
 const googleapis_1 = require("googleapis");
 const key_1 = __importDefault(require("./key"));
-/*
-const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-const {google} = require("googleapis");
-const key = require('./key.json')
-*/
+const busytimes_1 = require("./googleapi/busytimes");
+const createEvent_1 = require("./googleapi/createEvent");
+const deleteEvent_1 = require("./googleapi/deleteEvent");
 var calendar = googleapis_1.google.calendar('v3');
 var scopes = ['https://www.googleapis.com/auth/calendar'];
-var jwtClient;
-async function auth() {
-    jwtClient = new googleapis_1.google.auth.JWT(key_1.default.client_email, null, key_1.default.private_key, scopes, 'hello@getmentis.com');
-    await jwtClient.authorize();
+var client;
+async function auth(subject) {
+    client = new googleapis_1.google.auth.JWT(key_1.default.client_email, null, key_1.default.private_key, scopes, subject);
+    await client.authorize();
     console.log("Calendar Service Authorized");
 }
 // declare a new express app
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
-//a.use(awsServerlessExpressMiddleware.eventContext())
+app.use(middleware_1.default.eventContext());
 // Enable CORS & auth for all methods
 app.use(async function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
-    await auth();
-    next();
+    try {
+        await auth(req.body.subject);
+        next();
+    }
+    catch (error) {
+        res.status(400).send({
+            msg: error.message
+        });
+    }
 });
-async function listEvents() {
-    const res = await calendar.events.list({
-        calendarId: 'primary',
-        timeMin: new Date().toISOString(),
-        maxResults: 10,
-        singleEvents: true,
-        orderBy: 'startTime',
-        auth: jwtClient,
-    });
-    console.log(res.data);
-}
-async function calendarList() {
-    const res = await calendar.calendarList.list({
-        maxResults: 100,
-        auth: jwtClient
-    });
-    //console.log(res)
-    console.log(res.data);
-}
-async function getBusytimes(calendarId, fromDate, toDate) {
-    const res = await calendar.freebusy.query({
-        requestBody: {
-            calendarExpansionMax: 1,
-            groupExpansionMax: 1,
-            items: [{ id: calendarId }],
-            timeMin: fromDate.toISOString(),
-            timeMax: toDate.toISOString()
-        },
-        auth: jwtClient
-    });
-    return res.data.calendars[calendarId].busy;
-}
-async function createEvent() {
-}
-async function updateEvent() {
-}
-async function deleteEvent() {
-}
 /**********************
  * Example get method *
  **********************/
-app.get('/item', function (req, res) {
-    // Add your code here
-    res.json({ success: 'get call succeed!', url: req.url });
-});
-app.get('/item/*', function (req, res) {
-    // Add your code here
-    res.json({ success: 'get call succeed!', url: req.url });
+app.get('/busytimes', async function (req, res) {
+    try {
+        const data = await (0, busytimes_1.getBusytimes)(client, calendar, req.body.payload);
+        res.json({ busy: data });
+    }
+    catch (error) {
+        res.status(400).send({
+            msg: error.message
+        });
+    }
 });
 /****************************
 * Example post method *
 ****************************/
-app.post('/item', async function (req, res) {
-    // Add your code here
-    //await calendarList();
-    const now = new Date();
-    const later = new Date(Date.now() + 10 * 1000 * 60 * 60 * 24);
-    console.log("hello");
-    const times = await getBusytimes("hello@getmentis.com", now, later);
-    console.log(times);
-    res.json({ success: 'post call succeed!', url: req.url, body: req.body });
+//TODO: UPDATE METHOD
+/*
+app.post('/event', async function(req: Request, res: Response) {
+    //const data = await createEvent(client, calendar, req.body.payload)
+    //res.json({data})
 });
-app.post('/item/*', async function (req, res) {
-    // Add your code here
-    res.json({ success: 'post call succeed!', url: req.url, body: req.body });
-});
+*/
 /****************************
 * Example put method *
 ****************************/
-app.put('/item', function (req, res) {
-    // Add your code here
-    res.json({ success: 'put call succeed!', url: req.url, body: req.body });
-});
-app.put('/item/*', function (req, res) {
-    // Add your code here
-    res.json({ success: 'put call succeed!', url: req.url, body: req.body });
+app.put('/event', async function (req, res) {
+    try {
+        const data = await (0, createEvent_1.createEvent)(client, calendar, req.body.payload);
+        res.json(data);
+    }
+    catch (error) {
+        res.status(400).send({
+            msg: error.message
+        });
+    }
 });
 /****************************
 * Example delete method *
 ****************************/
-app.delete('/item', function (req, res) {
-    // Add your code here
-    res.json({ success: 'delete call succeed!', url: req.url });
-});
-app.delete('/item/*', function (req, res) {
-    // Add your code here
-    res.json({ success: 'delete call succeed!', url: req.url });
+app.delete('/event', async function (req, res) {
+    try {
+        await (0, deleteEvent_1.deleteEvent)(client, calendar, req.body.payload);
+        res.json({});
+    }
+    catch (error) {
+        res.status(400).send({
+            msg: error.message
+        });
+    }
 });
 app.listen(3000, function () {
     console.log("App started");
 });
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
 module.exports = app;
