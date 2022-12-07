@@ -7,8 +7,12 @@ import SessionModal from "../components/SessionModal";
 import { DataStore } from "aws-amplify";
 import { LazySession, Program, Session } from "../models";
 import { SessionStack } from "../components/nav/types";
+import { useAuthState } from "../auth/context";
+import { CALENDLY_KEY } from "../.env";
 
 const Sessions = () => {
+    const {user} = useAuthState()
+
     const navigation = useNavigation<SessionStack.NavigatorProps>()
 
     const [sessions, setSessions] = useState<LazySession[]>()
@@ -17,17 +21,24 @@ const Sessions = () => {
         navigation.navigate('SessionDetail')
     }
 
+    //async function loadSessions() {
+    //    const program = DataStore.query(Program, (c) => {c.userID.eq(user.attributes.sub)} )
+
+    //}
+
+
+
     useEffect(() => {
-        const sub = DataStore.observeQuery(Session, (c) =>
-            c.programSessionsId.eq("")
+        // Session data
+        const sub = DataStore.observeQuery(Program, 
+            (c) => c.userID.eq(user.attributes.sub)
         ).subscribe(async ({ items }) => {
-            setSessions(items)
-            console.log(items)
+            const s = await items[0].sessions.toArray()
+            setSessions(s)
         });
-  
         return () => {
             sub.unsubscribe();
-        };
+        };  
     }, [])
      
 

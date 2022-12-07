@@ -101,7 +101,6 @@ export type Program = {
   _deleted?: boolean | null,
   _lastChangedAt: number,
   programProgramTemplateId: string,
-  owner?: string | null,
 };
 
 export type ModelSessionConnection = {
@@ -114,7 +113,7 @@ export type ModelSessionConnection = {
 export type Session = {
   __typename: "Session",
   id: string,
-  program: Program,
+  program?: Program | null,
   sessionTemplate: SessionTemplate,
   datetime?: string | null,
   booked?: boolean | null,
@@ -128,7 +127,6 @@ export type Session = {
   _lastChangedAt: number,
   programSessionsId?: string | null,
   sessionSessionTemplateId: string,
-  owner?: string | null,
 };
 
 export type SessionTemplate = {
@@ -146,7 +144,6 @@ export type SessionTemplate = {
   _deleted?: boolean | null,
   _lastChangedAt: number,
   programTemplateSessionTemplatesId?: string | null,
-  owner?: string | null,
 };
 
 export type ProgramTemplate = {
@@ -161,7 +158,6 @@ export type ProgramTemplate = {
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  owner?: string | null,
 };
 
 export type ModelSessionTemplateConnection = {
@@ -599,7 +595,6 @@ export type CreateProgramMutation = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -620,7 +615,6 @@ export type CreateProgramMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -631,7 +625,6 @@ export type CreateProgramMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -662,7 +655,6 @@ export type UpdateProgramMutation = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -683,7 +675,6 @@ export type UpdateProgramMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -694,7 +685,6 @@ export type UpdateProgramMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -725,7 +715,6 @@ export type DeleteProgramMutation = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -746,7 +735,6 @@ export type DeleteProgramMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -757,7 +745,6 @@ export type DeleteProgramMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -770,7 +757,7 @@ export type CreateSessionMutation = {
   createSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -790,7 +777,6 @@ export type CreateSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -801,8 +787,7 @@ export type CreateSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -817,7 +802,6 @@ export type CreateSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -830,7 +814,6 @@ export type CreateSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -844,7 +827,6 @@ export type CreateSessionMutation = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -857,7 +839,7 @@ export type UpdateSessionMutation = {
   updateSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -877,7 +859,6 @@ export type UpdateSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -888,8 +869,7 @@ export type UpdateSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -904,7 +884,6 @@ export type UpdateSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -917,7 +896,6 @@ export type UpdateSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -931,7 +909,6 @@ export type UpdateSessionMutation = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -944,7 +921,7 @@ export type DeleteSessionMutation = {
   deleteSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -964,7 +941,6 @@ export type DeleteSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -975,8 +951,7 @@ export type DeleteSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -991,7 +966,6 @@ export type DeleteSessionMutation = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -1004,7 +978,6 @@ export type DeleteSessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -1018,7 +991,6 @@ export type DeleteSessionMutation = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1047,7 +1019,6 @@ export type CreateSessionTemplateMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -1060,7 +1031,6 @@ export type CreateSessionTemplateMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -1089,7 +1059,6 @@ export type UpdateSessionTemplateMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -1102,7 +1071,6 @@ export type UpdateSessionTemplateMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -1131,7 +1099,6 @@ export type DeleteSessionTemplateMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -1144,7 +1111,6 @@ export type DeleteSessionTemplateMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -1173,7 +1139,6 @@ export type CreateProgramTemplateMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1186,7 +1151,6 @@ export type CreateProgramTemplateMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -1215,7 +1179,6 @@ export type UpdateProgramTemplateMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1228,7 +1191,6 @@ export type UpdateProgramTemplateMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -1257,7 +1219,6 @@ export type DeleteProgramTemplateMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1270,7 +1231,6 @@ export type DeleteProgramTemplateMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -1299,7 +1259,6 @@ export type CreateUserMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1344,7 +1303,6 @@ export type UpdateUserMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1389,7 +1347,6 @@ export type DeleteUserMutation = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1435,7 +1392,6 @@ export type GetProgramQuery = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1456,7 +1412,6 @@ export type GetProgramQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -1467,7 +1422,6 @@ export type GetProgramQuery = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1500,7 +1454,6 @@ export type ListProgramsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -1511,7 +1464,6 @@ export type ListProgramsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1548,7 +1500,6 @@ export type SyncProgramsQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -1559,7 +1510,6 @@ export type SyncProgramsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1597,7 +1547,6 @@ export type ProgramsByUserIDQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -1608,7 +1557,6 @@ export type ProgramsByUserIDQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1623,7 +1571,7 @@ export type GetSessionQuery = {
   getSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -1643,7 +1591,6 @@ export type GetSessionQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -1654,8 +1601,7 @@ export type GetSessionQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -1670,7 +1616,6 @@ export type GetSessionQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -1683,7 +1628,6 @@ export type GetSessionQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -1697,7 +1641,6 @@ export type GetSessionQuery = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1713,7 +1656,7 @@ export type ListSessionsQuery = {
     items:  Array< {
       __typename: "Session",
       id: string,
-      program:  {
+      program?:  {
         __typename: "Program",
         id: string,
         userID: string,
@@ -1726,8 +1669,7 @@ export type ListSessionsQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
-      },
+      } | null,
       sessionTemplate:  {
         __typename: "SessionTemplate",
         id: string,
@@ -1742,7 +1684,6 @@ export type ListSessionsQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       },
       datetime?: string | null,
       booked?: boolean | null,
@@ -1756,7 +1697,6 @@ export type ListSessionsQuery = {
       _lastChangedAt: number,
       programSessionsId?: string | null,
       sessionSessionTemplateId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1776,7 +1716,7 @@ export type SyncSessionsQuery = {
     items:  Array< {
       __typename: "Session",
       id: string,
-      program:  {
+      program?:  {
         __typename: "Program",
         id: string,
         userID: string,
@@ -1789,8 +1729,7 @@ export type SyncSessionsQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
-      },
+      } | null,
       sessionTemplate:  {
         __typename: "SessionTemplate",
         id: string,
@@ -1805,7 +1744,6 @@ export type SyncSessionsQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       },
       datetime?: string | null,
       booked?: boolean | null,
@@ -1819,7 +1757,6 @@ export type SyncSessionsQuery = {
       _lastChangedAt: number,
       programSessionsId?: string | null,
       sessionSessionTemplateId: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1850,7 +1787,6 @@ export type GetSessionTemplateQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -1863,7 +1799,6 @@ export type GetSessionTemplateQuery = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
@@ -1890,7 +1825,6 @@ export type ListSessionTemplatesQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -1903,7 +1837,6 @@ export type ListSessionTemplatesQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1934,7 +1867,6 @@ export type SyncSessionTemplatesQuery = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -1947,7 +1879,6 @@ export type SyncSessionTemplatesQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -1978,7 +1909,6 @@ export type GetProgramTemplateQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -1991,7 +1921,6 @@ export type GetProgramTemplateQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -2020,7 +1949,6 @@ export type ListProgramTemplatesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -2053,7 +1981,6 @@ export type SyncProgramTemplatesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -2084,7 +2011,6 @@ export type GetUserQuery = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2179,7 +2105,6 @@ export type SyncUsersQuery = {
 
 export type OnCreateProgramSubscriptionVariables = {
   filter?: ModelSubscriptionProgramFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateProgramSubscription = {
@@ -2204,7 +2129,6 @@ export type OnCreateProgramSubscription = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2225,7 +2149,6 @@ export type OnCreateProgramSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -2236,13 +2159,11 @@ export type OnCreateProgramSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateProgramSubscriptionVariables = {
   filter?: ModelSubscriptionProgramFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateProgramSubscription = {
@@ -2267,7 +2188,6 @@ export type OnUpdateProgramSubscription = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2288,7 +2208,6 @@ export type OnUpdateProgramSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -2299,13 +2218,11 @@ export type OnUpdateProgramSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteProgramSubscriptionVariables = {
   filter?: ModelSubscriptionProgramFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteProgramSubscription = {
@@ -2330,7 +2247,6 @@ export type OnDeleteProgramSubscription = {
         _lastChangedAt: number,
         programSessionsId?: string | null,
         sessionSessionTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2351,7 +2267,6 @@ export type OnDeleteProgramSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     enrollmentDate?: string | null,
     completionDate?: string | null,
@@ -2362,20 +2277,18 @@ export type OnDeleteProgramSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programProgramTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnCreateSessionSubscriptionVariables = {
   filter?: ModelSubscriptionSessionFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateSessionSubscription = {
   onCreateSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -2395,7 +2308,6 @@ export type OnCreateSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -2406,8 +2318,7 @@ export type OnCreateSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -2422,7 +2333,6 @@ export type OnCreateSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -2435,7 +2345,6 @@ export type OnCreateSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -2449,20 +2358,18 @@ export type OnCreateSessionSubscription = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateSessionSubscriptionVariables = {
   filter?: ModelSubscriptionSessionFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateSessionSubscription = {
   onUpdateSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -2482,7 +2389,6 @@ export type OnUpdateSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -2493,8 +2399,7 @@ export type OnUpdateSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -2509,7 +2414,6 @@ export type OnUpdateSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -2522,7 +2426,6 @@ export type OnUpdateSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -2536,20 +2439,18 @@ export type OnUpdateSessionSubscription = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteSessionSubscriptionVariables = {
   filter?: ModelSubscriptionSessionFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteSessionSubscription = {
   onDeleteSession?:  {
     __typename: "Session",
     id: string,
-    program:  {
+    program?:  {
       __typename: "Program",
       id: string,
       userID: string,
@@ -2569,7 +2470,6 @@ export type OnDeleteSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       enrollmentDate?: string | null,
       completionDate?: string | null,
@@ -2580,8 +2480,7 @@ export type OnDeleteSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programProgramTemplateId: string,
-      owner?: string | null,
-    },
+    } | null,
     sessionTemplate:  {
       __typename: "SessionTemplate",
       id: string,
@@ -2596,7 +2495,6 @@ export type OnDeleteSessionSubscription = {
         _version: number,
         _deleted?: boolean | null,
         _lastChangedAt: number,
-        owner?: string | null,
       },
       name?: string | null,
       description?: string | null,
@@ -2609,7 +2507,6 @@ export type OnDeleteSessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       programTemplateSessionTemplatesId?: string | null,
-      owner?: string | null,
     },
     datetime?: string | null,
     booked?: boolean | null,
@@ -2623,13 +2520,11 @@ export type OnDeleteSessionSubscription = {
     _lastChangedAt: number,
     programSessionsId?: string | null,
     sessionSessionTemplateId: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnCreateSessionTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionSessionTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateSessionTemplateSubscription = {
@@ -2652,7 +2547,6 @@ export type OnCreateSessionTemplateSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -2665,13 +2559,11 @@ export type OnCreateSessionTemplateSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateSessionTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionSessionTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateSessionTemplateSubscription = {
@@ -2694,7 +2586,6 @@ export type OnUpdateSessionTemplateSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -2707,13 +2598,11 @@ export type OnUpdateSessionTemplateSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteSessionTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionSessionTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteSessionTemplateSubscription = {
@@ -2736,7 +2625,6 @@ export type OnDeleteSessionTemplateSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     },
     name?: string | null,
     description?: string | null,
@@ -2749,13 +2637,11 @@ export type OnDeleteSessionTemplateSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     programTemplateSessionTemplatesId?: string | null,
-    owner?: string | null,
   } | null,
 };
 
 export type OnCreateProgramTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionProgramTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateProgramTemplateSubscription = {
@@ -2778,7 +2664,6 @@ export type OnCreateProgramTemplateSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2791,13 +2676,11 @@ export type OnCreateProgramTemplateSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateProgramTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionProgramTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateProgramTemplateSubscription = {
@@ -2820,7 +2703,6 @@ export type OnUpdateProgramTemplateSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2833,13 +2715,11 @@ export type OnUpdateProgramTemplateSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteProgramTemplateSubscriptionVariables = {
   filter?: ModelSubscriptionProgramTemplateFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteProgramTemplateSubscription = {
@@ -2862,7 +2742,6 @@ export type OnDeleteProgramTemplateSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programTemplateSessionTemplatesId?: string | null,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2875,7 +2754,6 @@ export type OnDeleteProgramTemplateSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -2904,7 +2782,6 @@ export type OnCreateUserSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2949,7 +2826,6 @@ export type OnUpdateUserSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,
@@ -2994,7 +2870,6 @@ export type OnDeleteUserSubscription = {
         _deleted?: boolean | null,
         _lastChangedAt: number,
         programProgramTemplateId: string,
-        owner?: string | null,
       } | null >,
       nextToken?: string | null,
       startedAt?: number | null,

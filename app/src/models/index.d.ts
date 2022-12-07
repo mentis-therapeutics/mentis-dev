@@ -62,7 +62,7 @@ type EagerSession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly program: Program;
+  readonly program?: Program | null;
   readonly sessionTemplate: SessionTemplate;
   readonly datetime?: string | null;
   readonly booked?: boolean | null;
@@ -81,7 +81,7 @@ type LazySession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly program: AsyncItem<Program>;
+  readonly program: AsyncItem<Program | undefined>;
   readonly sessionTemplate: AsyncItem<SessionTemplate>;
   readonly datetime?: string | null;
   readonly booked?: boolean | null;

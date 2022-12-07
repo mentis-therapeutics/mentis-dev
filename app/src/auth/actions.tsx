@@ -94,7 +94,6 @@ export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAc
 }
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
-
     await DataStore.clear()
     
     await Auth.signOut();

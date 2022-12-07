@@ -22,7 +22,6 @@ export const getProgram = /* GraphQL */ `
           _lastChangedAt
           programSessionsId
           sessionSessionTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -41,7 +40,6 @@ export const getProgram = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       enrollmentDate
       completionDate
@@ -52,7 +50,6 @@ export const getProgram = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programProgramTemplateId
-      owner
     }
   }
 `;
@@ -80,7 +77,6 @@ export const listPrograms = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -91,7 +87,6 @@ export const listPrograms = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       nextToken
       startedAt
@@ -128,7 +123,6 @@ export const syncPrograms = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -139,7 +133,6 @@ export const syncPrograms = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       nextToken
       startedAt
@@ -178,7 +171,6 @@ export const programsByUserID = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -189,7 +181,6 @@ export const programsByUserID = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       nextToken
       startedAt
@@ -217,7 +208,6 @@ export const getSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -228,7 +218,6 @@ export const getSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       sessionTemplate {
         id
@@ -242,7 +231,6 @@ export const getSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -255,7 +243,6 @@ export const getSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       datetime
       booked
@@ -269,7 +256,6 @@ export const getSession = /* GraphQL */ `
       _lastChangedAt
       programSessionsId
       sessionSessionTemplateId
-      owner
     }
   }
 `;
@@ -294,7 +280,6 @@ export const listSessions = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         sessionTemplate {
           id
@@ -309,7 +294,6 @@ export const listSessions = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         datetime
         booked
@@ -323,7 +307,6 @@ export const listSessions = /* GraphQL */ `
         _lastChangedAt
         programSessionsId
         sessionSessionTemplateId
-        owner
       }
       nextToken
       startedAt
@@ -357,7 +340,6 @@ export const syncSessions = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         sessionTemplate {
           id
@@ -372,7 +354,6 @@ export const syncSessions = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         datetime
         booked
@@ -386,7 +367,6 @@ export const syncSessions = /* GraphQL */ `
         _lastChangedAt
         programSessionsId
         sessionSessionTemplateId
-        owner
       }
       nextToken
       startedAt
@@ -411,7 +391,6 @@ export const getSessionTemplate = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       name
       description
@@ -424,7 +403,6 @@ export const getSessionTemplate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programTemplateSessionTemplatesId
-      owner
     }
   }
 `;
@@ -451,7 +429,6 @@ export const listSessionTemplates = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -464,7 +441,6 @@ export const listSessionTemplates = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       nextToken
       startedAt
@@ -496,7 +472,6 @@ export const syncSessionTemplates = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -509,7 +484,6 @@ export const syncSessionTemplates = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       nextToken
       startedAt
@@ -534,7 +508,6 @@ export const getProgramTemplate = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         nextToken
         startedAt
@@ -547,7 +520,6 @@ export const getProgramTemplate = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -576,7 +548,6 @@ export const listProgramTemplates = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -610,7 +581,6 @@ export const syncProgramTemplates = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -635,7 +605,6 @@ export const getUser = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         nextToken
         startedAt

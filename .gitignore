@@ -1,10 +1,13 @@
 node_modules/
 .env
+.env.tsx
 .vscode/
 env-vars.tsx
 
 .vscode
 
+key.json
+key.js
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

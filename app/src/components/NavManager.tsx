@@ -22,11 +22,13 @@ export const NavManager = () => {
     async function fetchOnboardedState() {   
         if (!session) return;
 
-        let data = await DataStore.query(User);
+        let user = await DataStore.query(User);
 
-        if (data.length == 0) return;
+        if (user.length == 0) return;
 
-        if (data[0].onboarded) {dispatch({type:'ONBOARDED'})};
+        dispatch({type:'UPDATE_USER_ATR', payload:{userAtr:user[0]}});
+
+        if (user[0].onboarded) {dispatch({type:'ONBOARDED'})};
     }
 
 

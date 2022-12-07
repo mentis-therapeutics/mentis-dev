@@ -25,7 +25,6 @@ export const createProgram = /* GraphQL */ `
           _lastChangedAt
           programSessionsId
           sessionSessionTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -44,7 +43,6 @@ export const createProgram = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       enrollmentDate
       completionDate
@@ -55,7 +53,6 @@ export const createProgram = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programProgramTemplateId
-      owner
     }
   }
 `;
@@ -82,7 +79,6 @@ export const updateProgram = /* GraphQL */ `
           _lastChangedAt
           programSessionsId
           sessionSessionTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -101,7 +97,6 @@ export const updateProgram = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       enrollmentDate
       completionDate
@@ -112,7 +107,6 @@ export const updateProgram = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programProgramTemplateId
-      owner
     }
   }
 `;
@@ -139,7 +133,6 @@ export const deleteProgram = /* GraphQL */ `
           _lastChangedAt
           programSessionsId
           sessionSessionTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -158,7 +151,6 @@ export const deleteProgram = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       enrollmentDate
       completionDate
@@ -169,7 +161,6 @@ export const deleteProgram = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programProgramTemplateId
-      owner
     }
   }
 `;
@@ -197,7 +188,6 @@ export const createSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -208,7 +198,6 @@ export const createSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       sessionTemplate {
         id
@@ -222,7 +211,6 @@ export const createSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -235,7 +223,6 @@ export const createSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       datetime
       booked
@@ -249,7 +236,6 @@ export const createSession = /* GraphQL */ `
       _lastChangedAt
       programSessionsId
       sessionSessionTemplateId
-      owner
     }
   }
 `;
@@ -277,7 +263,6 @@ export const updateSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -288,7 +273,6 @@ export const updateSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       sessionTemplate {
         id
@@ -302,7 +286,6 @@ export const updateSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -315,7 +298,6 @@ export const updateSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       datetime
       booked
@@ -329,7 +311,6 @@ export const updateSession = /* GraphQL */ `
       _lastChangedAt
       programSessionsId
       sessionSessionTemplateId
-      owner
     }
   }
 `;
@@ -357,7 +338,6 @@ export const deleteSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         enrollmentDate
         completionDate
@@ -368,7 +348,6 @@ export const deleteSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programProgramTemplateId
-        owner
       }
       sessionTemplate {
         id
@@ -382,7 +361,6 @@ export const deleteSession = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
-          owner
         }
         name
         description
@@ -395,7 +373,6 @@ export const deleteSession = /* GraphQL */ `
         _deleted
         _lastChangedAt
         programTemplateSessionTemplatesId
-        owner
       }
       datetime
       booked
@@ -409,7 +386,6 @@ export const deleteSession = /* GraphQL */ `
       _lastChangedAt
       programSessionsId
       sessionSessionTemplateId
-      owner
     }
   }
 `;
@@ -434,7 +410,6 @@ export const createSessionTemplate = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       name
       description
@@ -447,7 +422,6 @@ export const createSessionTemplate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programTemplateSessionTemplatesId
-      owner
     }
   }
 `;
@@ -472,7 +446,6 @@ export const updateSessionTemplate = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       name
       description
@@ -485,7 +458,6 @@ export const updateSessionTemplate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programTemplateSessionTemplatesId
-      owner
     }
   }
 `;
@@ -510,7 +482,6 @@ export const deleteSessionTemplate = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       name
       description
@@ -523,7 +494,6 @@ export const deleteSessionTemplate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       programTemplateSessionTemplatesId
-      owner
     }
   }
 `;
@@ -548,7 +518,6 @@ export const createProgramTemplate = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         nextToken
         startedAt
@@ -561,7 +530,6 @@ export const createProgramTemplate = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -586,7 +554,6 @@ export const updateProgramTemplate = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         nextToken
         startedAt
@@ -599,7 +566,6 @@ export const updateProgramTemplate = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -624,7 +590,6 @@ export const deleteProgramTemplate = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programTemplateSessionTemplatesId
-          owner
         }
         nextToken
         startedAt
@@ -637,7 +602,6 @@ export const deleteProgramTemplate = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -662,7 +626,6 @@ export const createUser = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -703,7 +666,6 @@ export const updateUser = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         nextToken
         startedAt
@@ -744,7 +706,6 @@ export const deleteUser = /* GraphQL */ `
           _deleted
           _lastChangedAt
           programProgramTemplateId
-          owner
         }
         nextToken
         startedAt

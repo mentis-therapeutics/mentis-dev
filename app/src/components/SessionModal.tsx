@@ -3,13 +3,14 @@ import { Text, StyleSheet, Image, View, ImageSourcePropType, Pressable } from "r
 import SessionModalRender, { ModalState } from "./render/SessionModalRender";
 import { Session } from "../models"
 import { useNavigation } from "@react-navigation/core";
+import { SessionStack } from "./nav/types";
 
 type ISessionModal = {
     session: Session
 };
 
 const SessionModal = ({session} : ISessionModal) => {
-    const navigator = useNavigation()
+    const navigator = useNavigation<SessionStack.NavigatorProps>()
     
     const [state, setState]                 = useState(ModalState.UNBOOKED)
     const [sessionName, setSessionName]     = useState("")
@@ -20,13 +21,13 @@ const SessionModal = ({session} : ISessionModal) => {
     const onPress = () => {
         switch(state) {
             case ModalState.UNBOOKED:
-                navigator.navigate("Calendly")
+                navigator.navigate("Calendly", {session})
                 break
             case ModalState.BOOKED:
                 navigator.navigate("SessionDetail")
                 break
             case ModalState.LIVE:
-                navigator.navigate("VideoCall")
+                navigator.navigate("VideoCall", { url:`https://mentis-therapeutics.daily.co/${session.meetingUUID}` })
                 break
         }
     }
@@ -89,7 +90,7 @@ const SessionModal = ({session} : ISessionModal) => {
 
 
     return (
-        <Pressable onPress={onPress}>
+        <Pressable style={{alignSelf: "stretch"}} onPress={onPress}>
             <SessionModalRender {...{ state, sessionName, sessionDate, therapist}}  />
         </Pressable>
     );

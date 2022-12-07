@@ -12,12 +12,12 @@ import SessionDetail from '../../screens/SessionDetail'
 import VideoCall from "../../screens/VideoCall";
 
 import { stackScreenOptions, tabScreenOptions } from "./navOptions";
-import { SessionNavigatorParamList } from "./types";
+import { SessionStack as SessionStackType } from "./types";
 import { getFocusedRouteNameFromRoute, useRoute } from "@react-navigation/core";
 
 
 
-const SessionStackNavigator = createNativeStackNavigator<SessionNavigatorParamList>()
+const SessionStackNavigator = createNativeStackNavigator<SessionStackType.ParamList>()
 const SessionStack = ({ navigation, route }) => {
     const tabHiddenRoutes = ["VideoCall","Calendly"];
 
