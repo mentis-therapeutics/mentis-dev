@@ -8,6 +8,7 @@ env-vars.tsx
 
 key.json
 key.js
+key.ts
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

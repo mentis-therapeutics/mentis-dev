@@ -7,15 +7,21 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-const express = require('express')
-const bodyParser = require('body-parser')
+import express from 'express'
+import bodyParser from 'body-parser'
+import awsServerlessExpressMiddleware from 'aws-serverless-express'
+import { google } from 'googleapis'
+import key from './key'
+/*
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 const {google} = require("googleapis");
 const key = require('./key.json')
-
+*/
 var calendar = google.calendar('v3');
 var scopes = ['https://www.googleapis.com/auth/calendar'];
 var jwtClient : any;
+
+
 
 async function auth(){
     jwtClient = new google.auth.JWT(
@@ -31,12 +37,12 @@ async function auth(){
 }
 
 // declare a new express app
-const a = express()
-a.use(bodyParser.json())
-a.use(awsServerlessExpressMiddleware.eventContext())
+const app = express()
+app.use(bodyParser.json())
+//a.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS & auth for all methods
-a.use(async function(req, res, next) {
+app.use(async function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "*")
   await auth()
@@ -96,12 +102,12 @@ async function deleteEvent() {
  * Example get method *
  **********************/
 
-a.get('/item', function(req: any, res: any) {
+app.get('/item', function(req: any, res: any) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
 });
 
-a.get('/item/*', function(req: any, res: any) {
+app.get('/item/*', function(req: any, res: any) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
 });
@@ -110,18 +116,19 @@ a.get('/item/*', function(req: any, res: any) {
 * Example post method *
 ****************************/
 
-a.post('/item', async function(req: any, res: any) {
+app.post('/item', async function(req: any, res: any) {
   // Add your code here
   //await calendarList();
 
     const now      = new Date()
     const later = new Date(Date.now() + 10 * 1000 * 60 * 60 * 24)
     console.log("hello")
-    await getBusytimes("hello@getmentis.com", now, later)
+    const times = await getBusytimes("hello@getmentis.com", now, later)
+    console.log(times)
     res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-a.post('/item/*', async function(req: any, res: any) {
+app.post('/item/*', async function(req: any, res: any) {
   // Add your code here
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
@@ -130,12 +137,12 @@ a.post('/item/*', async function(req: any, res: any) {
 * Example put method *
 ****************************/
 
-a.put('/item', function(req : any, res : any) {
+app.put('/item', function(req : any, res : any) {
   // Add your code here
   res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-a.put('/item/*', function(req : any, res : any) {
+app.put('/item/*', function(req : any, res : any) {
   // Add your code here
   res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
@@ -144,21 +151,21 @@ a.put('/item/*', function(req : any, res : any) {
 * Example delete method *
 ****************************/
 
-a.delete('/item', function(req : any, res : any) {
+app.delete('/item', function(req : any, res : any) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-a.delete('/item/*', function(req: any, res : any) {
+app.delete('/item/*', function(req: any, res : any) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-a.listen(3000, function() {
+app.listen(3000, function() {
     console.log("App started")
 });
 
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
-module.exports = a
+module.exports = app

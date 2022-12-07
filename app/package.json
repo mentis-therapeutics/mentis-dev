@@ -8,7 +8,8 @@
     "start": "react-native start",
     "apple": "cd ios && arch -x86_64 pod install && cd ..",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "amplify:googleCalendar": "cd amplify/backend/function/googleCalendar/src && npm run tsc && cd -"
   },
   "dependencies": {
     "@daily-co/react-native-daily-js": "^0.32.0",
