@@ -12,21 +12,9 @@ type ICreateEvent = {
     recurrence?: string[]
 }
 
-export async function createEvent(
-    client: Auth.JWT,
-    calendar: calendar_v3.Calendar,
-    {   
-        summary,
-        attendees,
-        start,
-        end,
-
-        location,
-        description,
-        timezone,
-        recurrence
-    } : ICreateEvent
-) {
+export async function createEvent(client: Auth.JWT, calendar: calendar_v3.Calendar,
+    {summary, attendees, start, end, location, description, timezone, recurrence} : ICreateEvent
+    ){
     const event : calendar_v3.Schema$Event = {
         summary,
         location,

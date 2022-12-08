@@ -4,14 +4,16 @@ import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import FilledButton from "../components/FilledButton";
 import SessionModal from "../components/SessionModal";
 
-import { DataStore } from "aws-amplify";
+import { Auth, DataStore } from "aws-amplify";
 import { LazySession, Program, Session } from "../models";
 import { SessionStack } from "../components/nav/types";
 import { useAuthState } from "../auth/context";
-import { CALENDLY_KEY } from "../.env";
+
+import Lambda from 'aws-sdk/clients/lambda'
+import { invokeExpress } from "../utils/lambda";
 
 const Sessions = () => {
-    const {user} = useAuthState()
+    const { userAtr } = useAuthState()
 
     const navigation = useNavigation<SessionStack.NavigatorProps>()
 
@@ -26,12 +28,25 @@ const Sessions = () => {
 
     //}
 
+    async function lambda(){
+        const input =  {
+            subject: "hello@getmentis.com", 
+            payload :{
+                fromDate: "2022-12-07T19:17:04Z", 
+                toDate: "2022-12-17T19:17:04Z", 
+                timezone: "America/New_York"
+            }
+        }
 
+        const data = await invokeExpress("googleCalendar", "GET", "/busytimes", input)
+        console.log(data)
+        
+    }
 
     useEffect(() => {
         // Session data
         const sub = DataStore.observeQuery(Program, 
-            (c) => c.userID.eq(user.attributes.sub)
+            (c) => c.userID.eq(userAtr!.sub)
         ).subscribe(async ({ items }) => {
             const s = await items[0].sessions.toArray()
             setSessions(s)
@@ -58,6 +73,7 @@ const Sessions = () => {
             <View style={[styles.fillerView, styles.mt25]} />
 
             <FilledButton label="Join Call" onPress={() => {navigation.navigate("VideoCall", {url: "https://mentis-therapeutics.daily.co/QNmdsVJrwP0zELnHvOU7"})}} />
+            <FilledButton label="Create Event" onPress={lambda} />
         </ScrollView>
         </View>
     );

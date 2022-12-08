@@ -20,23 +20,19 @@ import { createUser } from "../../graphql/mutations"
 
 const UserInput = () => {
 
-    const { session, user } = useAuthState()
+    const { user, username } = useAuthState()
     const dispatch = useAuthDispatch();
 
     async function setUserData() {
         const original = await DataStore.query(User);
-
-
         
-        // Create or Update
-        console.log(original)
         if (original.length > 0){
             await DataStore.save(
                 User.copyOf(original[0], (updated) => {
-                    updated.sub = user.attributes.sub
+                    updated.sub = user!.getUsername()
                     updated.firstName = ""
                     updated.lastName = ""
-                    updated.email = user.attributes.email
+                    updated.email = username
                     //phone: AWSPhone
                     updated.onboarded = true
                     updated.screened = false
@@ -46,10 +42,10 @@ const UserInput = () => {
            try{
             await DataStore.save(
                 new User({
-                    sub: user.attributes.sub,
+                    sub: user!.getUsername(),
                     firstName: "",
                     lastName: "",
-                    email: user.attributes.email,
+                    email: username,
                     //phone: AWSPhone
                     onboarded: true,
                     screened: false,

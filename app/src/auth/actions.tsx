@@ -1,57 +1,47 @@
-import { useNavigation } from "@react-navigation/core";
-import { AuthenticationDetails, CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { resolvePath } from "react-native-reanimated/lib/types/lib/reanimated2/animation/styleAnimation";
-
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { IAction } from "./reducer";
+import { DataStore, Auth } from 'aws-amplify'
+import { authLambda } from "../utils/lambda";
 
-import {DataStore, Hub, Auth} from 'aws-amplify'
+import { AUTH_CONFIG } from '../.env'
+import { getAuthData, waitForDataStoreLoad } from "./helpers";
 
-export const getSession = async (dispatch : React.Dispatch<IAction>) : Promise<void> => {
+
+const loginSuccess = async (dispatch: React.Dispatch<IAction>, u? : CognitoUser, uname?: string) => {
+    const authData = await getAuthData(u, uname)
+    //FIXME: this will break with different environments - needs to auto update
+    authLambda(authData.credentials, AUTH_CONFIG.region, "staging")
+    dispatch({type: 'LOGIN_SUCCESS', payload:{...authData}})
+}
+
+export const getSession = async (dispatch : React.Dispatch<IAction>) => {
     try {
         const user = await Auth.currentAuthenticatedUser();
         if (user) {
-            dispatch({type: 'LOGIN_SUCCESS', payload:{user}})
+            loginSuccess(dispatch, user)
         }   
     }catch (err) {
         dispatch({ type: 'LOGIN_ERROR', error:err});
         console.log(err)
     }
-        //console.log('No one logged in')
 }
 
-const waitForDataStoreLoad = async () => {
-	await new Promise<void>((resolve) => {
-		Hub.listen('datastore', async (hubData) => {
-			const { event } = hubData.payload;
-			if (event === 'ready') {
-				resolve();
-			}
-		});
-	});
-};
-
 export const login = async (authDetails: {email: string, password: string}, dispatch : React.Dispatch<IAction>, navigation) : Promise<void>  => {
-
         dispatch({type: 'REQUEST_LOGIN'});
         try {
             const user = await Auth.signIn(authDetails.email, authDetails.password);
             
             if (user) {
                 if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                    dispatch({ type: 'LOGIN_NEWPASS', payload:{user}});
-                    navigation.navigate("CreatePassword");
+                    dispatch({ type: 'LOGIN_NEWPASS', payload:{user, username: authDetails.email}});
+                    navigation.navigate("CreatePassword")
                     return
                 }
-
-                /* Once the user successfully signs in, update the form state to show the signed in state */
 
                 await DataStore.clear();
                 await DataStore.start();
                 await waitForDataStoreLoad()
-            
-
-                dispatch({ type: 'LOGIN_SUCCESS', payload:{user}});
-                return
+                loginSuccess(dispatch, user, authDetails.email)
             }
             return
           } catch (err) { 
@@ -61,11 +51,11 @@ export const login = async (authDetails: {email: string, password: string}, disp
 
 }
 
-export const createPassword = async (user: string, password: string, dispatch : React.Dispatch<IAction>) => {
+export const createPassword = async (user: CognitoUser, password: string, dispatch : React.Dispatch<IAction>) => {
     dispatch({type: 'REQUEST_LOGIN'});
-    Auth.completeNewPassword( user, password, [])
-    .then( (data) => {
-        dispatch({ type: 'LOGIN_SUCCESS'});
+    Auth.completeNewPassword(user, password, [])
+    .then( async (data) => {
+        loginSuccess(dispatch, user)
     })
     .catch( (err) => {
         dispatch({ type: 'LOGIN_ERROR', error:err});
@@ -73,17 +63,18 @@ export const createPassword = async (user: string, password: string, dispatch : 
     })
 }
 
-export const confirmPassword = async (user: string, code: string, password: string, dispatch : React.Dispatch<IAction>) => {
-    Auth.forgotPasswordSubmit(user, code, password)
+export const confirmPassword = async (username: string, code: string, password: string, dispatch : React.Dispatch<IAction>) => {
+    Auth.forgotPasswordSubmit(username, code, password)
     .then(data => console.log(data))
     .catch(err => console.log(err));
 }
 
-export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAction>, navigation) => {
+
+export const forgotPassword = async (username: string, dispatch : React.Dispatch<IAction>, navigation) => {
     //dispatch({type: 'REQUEST_LOGIN'});
-    Auth.forgotPassword(user)
+    Auth.forgotPassword(username)
     .then( (res) => {
-        dispatch({ type: 'LOGIN_NEWPASS', payload:{user}});
+        dispatch({ type: 'LOGIN_NEWPASS', payload:{username}});
         navigation.navigate("ResetPassword")
     })
     .catch( (err) => {
@@ -95,7 +86,6 @@ export const forgotPassword = async (user: string, dispatch : React.Dispatch<IAc
 
 export async function logout(user: CognitoUser, dispatch: React.Dispatch<IAction>) {
     await DataStore.clear()
-    
     await Auth.signOut();
 	dispatch({ type: 'LOGOUT' });
 }

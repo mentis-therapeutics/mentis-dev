@@ -10,99 +10,33 @@ import { AuthProvider } from "./src/auth/context";
 import { NavManager } from "./src/components/NavManager";
 
 import {Amplify, AuthModeStrategyType} from "aws-amplify";
+
 import awsmobile from "./src/aws-exports";
 import { getSession } from "./src/auth/actions";
 import { LogBox } from "react-native";
+
+import { AUTH_CONFIG } from "./src/.env";
 
 
 // Annoying amplify issue
 LogBox.ignoreLogs(['Require cycle: node_modules'])
 
-
 Amplify.configure({...awsmobile,
+    Auth: AUTH_CONFIG,
     DataStore: {
         authModeStrategyType: AuthModeStrategyType.DEFAULT
-      }
+    }
 })
 
 
 const App = () => {
-
-
-
   return (
-    <>
-     <AuthProvider>
+    <AuthProvider>
         <ApplicationProvider {...eva} theme={eva.light}>
             <NavManager/>
         </ApplicationProvider>
-      </AuthProvider>
-    </>
+    </AuthProvider>
   );
 };
 
-/*
-<Stack.Navigator screenOptions={{ headerShown: false }}>
-<Stack.Screen
-name="Login"
-component={Login}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="ForgotPassword"
-component={ForgotPassword}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Signup"
-component={Signup}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Disclaimer"
-component={Disclaimer}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="CreatePassword"
-component={CreatePassword}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="ResetPassword"
-component={ResetPassword}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Home"
-component={Home}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Sessions"
-component={Sessions}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="SessionDetail"
-component={SessionDetail}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="UserInput"
-component={UserInput}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Progress"
-component={Progress}
-options={{ headerShown: false }}
-/>
-<Stack.Screen
-name="Call"
-component={Call}
-options={{ headerShown: false }}
-/>
-</Stack.Navigator>
-*/
 export default App;

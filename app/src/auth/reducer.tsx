@@ -1,12 +1,15 @@
+import { ICredentials } from "@aws-amplify/core";
 import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
+import { Auth } from "aws-amplify";
 import { User } from "../models";
 
 
 export type IAuth = {
-    // Amplify returns any type !!! Woo
-    user: any | null;
-    userAtr: User | null;
-	session: boolean;
+    user: CognitoUser | null,
+    username: string | null,
+    session: CognitoUserSession | null,
+    credentials: ICredentials | null,
+    userAtr: User | null,
 	loading: boolean;
 	errorMessage: string | null,
     onboarded: boolean,
@@ -14,14 +17,16 @@ export type IAuth = {
 
 export type IAction = {
     type: 'LOGIN_NEWPASS' | 'REQUEST_LOGIN' | 'LOGIN_SUCCESS' | 'LOGOUT' | 'LOGIN_ERROR' | "ONBOARDED" | "UPDATE_USER_ATR";
-    payload?: {user?: any | null; session?: boolean; userAtr?: User}
+    payload?: {user?: CognitoUser; username?: string, session?: CognitoUserSession; credentials?: ICredentials, userAtr?: User}
     error?: string | null
 }
 
 export const initialState : IAuth = {
 	user: null,
+    username: null,
+    session: null,
+    credentials: null,
     userAtr: null,
-	session: false,
 	loading: false,
 	errorMessage: null,
     onboarded: false,
@@ -34,6 +39,7 @@ export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
                 ...initialState,
                 loading: false,
                 user: action.payload!.user!,
+                username: action.payload!.username!,
                 errorMessage: 'LOGIN_NEWPASS',
             }
 		case 'REQUEST_LOGIN':
@@ -42,18 +48,23 @@ export const AuthReducer = (initialState : IAuth, action: IAction) : IAuth => {
 				loading: true,
 			};
 		case 'LOGIN_SUCCESS':
-            console.log(typeof action.payload!.user!)
 			return {
 				...initialState,
                 user: action.payload!.user!,
-				session: true,
+                username: action.payload!.username!,
+				session: action.payload!.session!,
+                credentials: action.payload!.credentials!,
 				loading: false,
 			};
 		case 'LOGOUT':
 			return {
 				...initialState,
 				user: null,
-				session: false,
+                username: null,
+                session: null,
+                credentials: null,
+                userAtr: null,
+                loading: false,
                 errorMessage: null,
                 onboarded: false,
 			};

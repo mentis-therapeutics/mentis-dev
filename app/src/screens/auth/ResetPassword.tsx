@@ -23,7 +23,7 @@ type FormError = {
 const ResetPassword = () => {
 
     const dispatch = useAuthDispatch();
-    const { user } = useAuthState();
+    const { username } = useAuthState();
 
     const navigation = useNavigation<AuthStack.NavigatorProps>();
 
@@ -49,10 +49,10 @@ const ResetPassword = () => {
 
         if (errorRaised) {setFormError(fError); return;}
 
-        if (!user) return
+        if (!username) return
 
-        await confirmPassword(user, code, password, dispatch)
-        await login({email: user, password}, dispatch, navigation)
+        await confirmPassword(username, code, password, dispatch)
+        await login({email: username, password}, dispatch, navigation)
     }
 
     return (

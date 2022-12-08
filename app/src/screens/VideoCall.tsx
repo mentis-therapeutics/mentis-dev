@@ -42,8 +42,6 @@ declare const global: { HermesInternal: null | {} };
 // preventing the red screen from popping up
 // (console as any).reportErrorsAsExceptions = false;
 
-
-
 enum AppState {
   Idle,
   Creating,

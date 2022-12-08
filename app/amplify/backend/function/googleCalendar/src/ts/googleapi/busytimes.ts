@@ -6,7 +6,10 @@ type IBusytimes = {
     timezone? : string
 }
 
-export async function getBusytimes(client: Auth.JWT, calendar: calendar_v3.Calendar, {fromDate, toDate, timezone}: IBusytimes) {
+export async function getBusytimes(client: Auth.JWT, calendar: calendar_v3.Calendar,
+    {fromDate, toDate, timezone}: IBusytimes
+    ){
+
     const res = await calendar.freebusy.query({
         requestBody: {
             calendarExpansionMax: 1,
