@@ -4,5 +4,5 @@
     "headers": {
       "Content-Type": "application/json"
     },
-    "body": "{\"subject\": \"hello@getmentis.com\", \"payload\" :{\"fromDate\": \"2022-12-07T19:17:04Z\", \"toDate\": \"2022-12-17T19:17:04Z\", \"timezone\": \"America/New_York\"}}"
+    "body": "{\"subject\": \"hello@getmentis.com\", \"fromDate\": \"2022-12-07T19:17:04Z\", \"toDate\": \"2022-12-17T19:17:04Z\", \"timezone\": \"America/New_York\"}"
 }

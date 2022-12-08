@@ -27,7 +27,7 @@
         "mentisLambda": {},
         "googleCalendar": {
           "deploymentBucketName": "amplify-mentisnative-staging-233538-deployment",
-          "s3Key": "amplify-builds/googleCalendar-334f6176557859535447-build.zip"
+          "s3Key": "amplify-builds/googleCalendar-416f697442796b62372b-build.zip"
         }
       }
     }

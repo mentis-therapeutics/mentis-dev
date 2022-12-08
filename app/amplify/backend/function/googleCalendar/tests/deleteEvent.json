@@ -4,5 +4,5 @@
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"subject\": \"hello@getmentis.com\", \"payload\" :{\"eventId\": \"rr1rs15v0i61cc35nn6fj49o1s\"}}"
+  "body": "{\"subject\": \"hello@getmentis.com\", \"eventId\": \"rr1rs15v0i61cc35nn6fj49o1s\"}"
 }

@@ -35,7 +35,7 @@ export const NavManager = () => {
     useEffect(() => {
         // Check onboarded state
         fetchOnboardedState()
-    }, [session])
+    }, [session, onboarded])
 
     return (
         //<SafeAreaView>

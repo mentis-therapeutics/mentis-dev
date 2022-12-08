@@ -1,14 +1,18 @@
 import {Auth, calendar_v3 } from 'googleapis'
-
-type IBusytimes = {
-    fromDate : string
-    toDate : string
-    timezone? : string
+import { expressRequest } from 'ts/expressRequest'
+export interface IBusytimes extends expressRequest {
+    req: {
+        subject: string,
+        fromDate : string
+        toDate : string
+        timezone? : string
+    }
+    res: calendar_v3.Schema$TimePeriod[]
 }
 
 export async function getBusytimes(client: Auth.JWT, calendar: calendar_v3.Calendar,
-    {fromDate, toDate, timezone}: IBusytimes
-    ){
+    {fromDate, toDate, timezone}: IBusytimes["req"]
+    ) : Promise<IBusytimes["res"]>{
 
     const res = await calendar.freebusy.query({
         requestBody: {

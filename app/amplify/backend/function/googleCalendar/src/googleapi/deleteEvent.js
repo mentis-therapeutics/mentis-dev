@@ -8,5 +8,6 @@ async function deleteEvent(client, calendar, { eventId }) {
         auth: client,
         sendUpdates: "all"
     });
+    return null;
 }
 exports.deleteEvent = deleteEvent;

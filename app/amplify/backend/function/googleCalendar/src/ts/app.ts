@@ -59,8 +59,8 @@ app.use(async function(req, res, next) {
 
 app.get('/busytimes', async function(req: Request, res: Response) {
     try {
-        const data = await getBusytimes(client, calendar, req.body.payload)
-        res.json({busy:data});
+        const data = await getBusytimes(client, calendar, req.body)
+        res.json(data);
     }catch(error){
         res.status(400).send({
             msg: error.message
@@ -86,7 +86,7 @@ app.post('/event', async function(req: Request, res: Response) {
 
 app.put('/event', async function(req : Request, res : Response) {
     try {
-        const data = await createEvent(client, calendar, req.body.payload)
+        const data = await createEvent(client, calendar, req.body)
         res.json(data)
     }catch(error){
         res.status(400).send({
@@ -102,8 +102,8 @@ app.put('/event', async function(req : Request, res : Response) {
 
 app.delete('/event', async function(req : Request, res : Response) {
     try {
-        await deleteEvent(client, calendar, req.body.payload)
-        res.json({});
+        await deleteEvent(client, calendar, req.body)
+        res.json(null);
     }catch(error){
         res.status(400).send({
             msg: error.message

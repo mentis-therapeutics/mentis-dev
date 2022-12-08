@@ -1,7 +1,4 @@
-/* Amplify Params - DO NOT EDIT
-	ENV
-	REGION
-Amplify Params - DO NOT EDIT */"use strict";
+"use strict";
 /*
 Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
@@ -52,8 +49,8 @@ app.use(async function (req, res, next) {
  **********************/
 app.get('/busytimes', async function (req, res) {
     try {
-        const data = await (0, busytimes_1.getBusytimes)(client, calendar, req.body.payload);
-        res.json({ busy: data });
+        const data = await (0, busytimes_1.getBusytimes)(client, calendar, req.body);
+        res.json(data);
     }
     catch (error) {
         res.status(400).send({
@@ -76,7 +73,7 @@ app.post('/event', async function(req: Request, res: Response) {
 ****************************/
 app.put('/event', async function (req, res) {
     try {
-        const data = await (0, createEvent_1.createEvent)(client, calendar, req.body.payload);
+        const data = await (0, createEvent_1.createEvent)(client, calendar, req.body);
         res.json(data);
     }
     catch (error) {
@@ -90,8 +87,8 @@ app.put('/event', async function (req, res) {
 ****************************/
 app.delete('/event', async function (req, res) {
     try {
-        await (0, deleteEvent_1.deleteEvent)(client, calendar, req.body.payload);
-        res.json({});
+        await (0, deleteEvent_1.deleteEvent)(client, calendar, req.body);
+        res.json(null);
     }
     catch (error) {
         res.status(400).send({

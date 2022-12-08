@@ -1,20 +1,24 @@
 import { Auth , calendar_v3} from 'googleapis'
+import { expressRequest } from 'ts/expressRequest'
+export interface ICreateEvent extends expressRequest {
+    req: {
+        subject: string,
+        summary : string
+        attendees: string[]
+        start: string,
+        end: string
 
-type ICreateEvent = {
-    summary : string
-    attendees: string[]
-    start: string,
-    end: string
-
-    location?: string
-    description? : string
-    timezone? : string
-    recurrence?: string[]
+        location?: string
+        description? : string
+        timezone? : string
+        recurrence?: string[]
+    },
+    res: calendar_v3.Schema$Event
 }
 
 export async function createEvent(client: Auth.JWT, calendar: calendar_v3.Calendar,
-    {summary, attendees, start, end, location, description, timezone, recurrence} : ICreateEvent
-    ){
+    {summary, attendees, start, end, location, description, timezone, recurrence} : ICreateEvent["req"]
+    ) : Promise<ICreateEvent["res"]> {
     const event : calendar_v3.Schema$Event = {
         summary,
         location,

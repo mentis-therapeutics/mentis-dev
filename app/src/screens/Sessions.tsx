@@ -12,6 +12,8 @@ import { useAuthState } from "../auth/context";
 import Lambda from 'aws-sdk/clients/lambda'
 import { invokeExpress } from "../utils/lambda";
 
+import { IBusytimes, ICreateEvent } from "../../amplify/backend/types/functionTypes";
+
 const Sessions = () => {
     const { userAtr } = useAuthState()
 
@@ -29,18 +31,33 @@ const Sessions = () => {
     //}
 
     async function lambda(){
+        /*
         const input =  {
             subject: "hello@getmentis.com", 
-            payload :{
-                fromDate: "2022-12-07T19:17:04Z", 
-                toDate: "2022-12-17T19:17:04Z", 
-                timezone: "America/New_York"
-            }
-        }
+            fromDate: "2022-12-07T19:17:04Z", 
+            toDate: "2022-12-17T19:17:04Z", 
+            timezone: "America/New_York"
+        } as IBusytimes['req']
 
-        const data = await invokeExpress("googleCalendar", "GET", "/busytimes", input)
-        console.log(data)
+        const data = await invokeExpress<IBusytimes>("googleCalendar", "GET", "/busytimes", input)
+
+        console.log(typeof data)
+        console.log(data[0].start)
+        */
+
+        const input = {
+            subject: "hello@getmentis.com", 
+            summary: "Mentis Therapeutics",
+            attendees: ["hello@getmentis.com", 'sam@getmentis.com'],
+            start: "2022-12-07T19:17:04Z",
+            end: "2022-12-07T19:47:04Z",
+        } as ICreateEvent['req']
         
+        const data = await invokeExpress<ICreateEvent>("googleCalendar", "PUT", "/event", input)
+
+        console.log(data.id)
+        console.log(data.start)
+
     }
 
     useEffect(() => {
@@ -48,6 +65,7 @@ const Sessions = () => {
         const sub = DataStore.observeQuery(Program, 
             (c) => c.userID.eq(userAtr!.sub)
         ).subscribe(async ({ items }) => {
+            if (items.length == 0) return;
             const s = await items[0].sessions.toArray()
             setSessions(s)
         });

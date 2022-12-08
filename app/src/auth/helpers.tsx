@@ -8,13 +8,16 @@ export const getEmail = async (user: CognitoUser) => {
             if (error || !attributes){
                 console.log(error)
                 reject()
+                return
             }
             else{
                 const email = attributes.find(o => o.Name === 'email');
                 if (!email) {
                     reject()
+                    return
                 }else{
                     resolve(email.Value)
+                    return
                 }
             }
         })
@@ -37,6 +40,7 @@ export const waitForDataStoreLoad = async () => {
 			const { event } = hubData.payload;
 			if (event === 'ready') {
 				resolve();
+                return
 			}
 		});
 	});
