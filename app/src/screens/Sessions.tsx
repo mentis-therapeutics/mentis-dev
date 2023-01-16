@@ -44,20 +44,6 @@ const Sessions = () => {
         console.log(typeof data)
         console.log(data[0].start)
         */
-
-        const input = {
-            subject: "hello@getmentis.com", 
-            summary: "Mentis Therapeutics",
-            attendees: ["hello@getmentis.com", 'sam@getmentis.com'],
-            start: "2022-12-07T19:17:04Z",
-            end: "2022-12-07T19:47:04Z",
-        } as ICreateEvent['req']
-        
-        const data = await invokeExpress<ICreateEvent>("googleCalendar", "PUT", "/event", input)
-
-        console.log(data.id)
-        console.log(data.start)
-
     }
 
     useEffect(() => {

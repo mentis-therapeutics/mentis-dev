@@ -13,15 +13,29 @@ export const schema = {
                 "userID": {
                     "name": "userID",
                     "isArray": false,
-                    "type": "String",
+                    "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "facilitatorID": {
+                    "name": "facilitatorID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "cohortID": {
+                    "name": "cohortID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "sessions": {
                     "name": "sessions",
                     "isArray": true,
                     "type": {
-                        "model": "Session"
+                        "model": "ProgramSessions"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -29,7 +43,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "programSessionsId"
+                            "program"
                         ]
                     }
                 },
@@ -55,7 +69,7 @@ export const schema = {
                     "name": "enrollmentDate",
                     "isArray": false,
                     "type": "AWSDateTime",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "completionDate": {
@@ -69,7 +83,7 @@ export const schema = {
                     "name": "complete",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -109,6 +123,24 @@ export const schema = {
                         "name": "byUser",
                         "fields": [
                             "userID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byFacilitator",
+                        "fields": [
+                            "facilitatorID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCohort",
+                        "fields": [
+                            "cohortID"
                         ]
                     }
                 },
@@ -156,16 +188,17 @@ export const schema = {
                 },
                 "program": {
                     "name": "program",
-                    "isArray": false,
+                    "isArray": true,
                     "type": {
-                        "model": "Program"
+                        "model": "ProgramSessions"
                     },
                     "isRequired": false,
                     "attributes": [],
+                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "programSessionsId"
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "session"
                         ]
                     }
                 },
@@ -187,8 +220,15 @@ export const schema = {
                         ]
                     }
                 },
-                "datetime": {
-                    "name": "datetime",
+                "start": {
+                    "name": "start",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "end": {
+                    "name": "end",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,
@@ -198,21 +238,14 @@ export const schema = {
                     "name": "booked",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "booking": {
-                    "name": "booking",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "complete": {
                     "name": "complete",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "meetingUUID": {
@@ -237,13 +270,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "programSessionsId": {
-                    "name": "programSessionsId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "sessionSessionTemplateId": {
                     "name": "sessionSessionTemplateId",
@@ -321,28 +347,28 @@ export const schema = {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "description": {
                     "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "length": {
                     "name": "length",
                     "isArray": false,
                     "type": "AWSTime",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "precedence": {
                     "name": "precedence",
                     "isArray": false,
                     "type": "Int",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "type": {
@@ -351,7 +377,16 @@ export const schema = {
                     "type": {
                         "enum": "SessionType"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "group": {
+                    "name": "group",
+                    "isArray": false,
+                    "type": {
+                        "enum": "SessionGroup"
+                    },
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -447,21 +482,21 @@ export const schema = {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "description": {
                     "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "version": {
                     "name": "version",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -533,7 +568,7 @@ export const schema = {
                 "sub": {
                     "name": "sub",
                     "isArray": false,
-                    "type": "String",
+                    "type": "ID",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -653,6 +688,316 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "Facilitator": {
+            "name": "Facilitator",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sub": {
+                    "name": "sub",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "programs": {
+                    "name": "programs",
+                    "isArray": true,
+                    "type": {
+                        "model": "Program"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "facilitatorID"
+                        ]
+                    }
+                },
+                "firstName": {
+                    "name": "firstName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastName": {
+                    "name": "lastName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "AWSPhone",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Facilitators",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Cohort": {
+            "name": "Cohort",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "programs": {
+                    "name": "programs",
+                    "isArray": true,
+                    "type": {
+                        "model": "Program"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "cohortID"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Cohorts",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ProgramSessions": {
+            "name": "ProgramSessions",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "programId": {
+                    "name": "programId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sessionId": {
+                    "name": "sessionId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "program": {
+                    "name": "program",
+                    "isArray": false,
+                    "type": {
+                        "model": "Program"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "programId"
+                        ]
+                    }
+                },
+                "session": {
+                    "name": "session",
+                    "isArray": false,
+                    "type": {
+                        "model": "Session"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "sessionId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "ProgramSessions",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProgram",
+                        "fields": [
+                            "programId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "bySession",
+                        "fields": [
+                            "sessionId"
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {
@@ -661,6 +1006,15 @@ export const schema = {
             "values": [
                 "ONE",
                 "GROUP"
+            ]
+        },
+        "SessionGroup": {
+            "name": "SessionGroup",
+            "values": [
+                "SCREENING",
+                "PREPARATION",
+                "TRIP",
+                "INTEGRATION"
             ]
         },
         "AccountType": {
@@ -675,5 +1029,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "caee15a36719902c0d0ca444334726b8"
+    "version": "e40a6361f46de93dd6ee9a11a56ddf2b"
 };

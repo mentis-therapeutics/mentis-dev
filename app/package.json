@@ -5,12 +5,15 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "iphone": "arch -x86_64 react-native run-ios --simulator='iPhone 14'",
     "start": "react-native start",
-    "apple": "cd ios && arch -x86_64 pod install && cd ..",
     "test": "jest",
     "lint": "eslint .",
     "tsc": "tsc",
-    "amplify:googleCalendar": "cd amplify/backend/function/googleCalendar/src && npm run tsc && cd -"
+    "amplify:googleCalendar": "cd amplify/backend/function/googleCalendar/src && npm run tsc && cd -",
+    "auth" : "cd .. && sudo chown -R samcoleman app && cd app",
+    "pod": "cd ios && arch -x86_64 pod install && cd .."
+
   },
   "dependencies": {
     "@daily-co/react-native-daily-js": "^0.32.0",

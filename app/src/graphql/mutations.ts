@@ -10,21 +10,18 @@ export const createProgram = /* GraphQL */ `
     createProgram(input: $input, condition: $condition) {
       id
       userID
+      facilitatorID
+      cohortID
       sessions {
         items {
           id
-          datetime
-          booked
-          booking
-          complete
-          meetingUUID
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          programSessionsId
-          sessionSessionTemplateId
         }
         nextToken
         startedAt
@@ -64,21 +61,18 @@ export const updateProgram = /* GraphQL */ `
     updateProgram(input: $input, condition: $condition) {
       id
       userID
+      facilitatorID
+      cohortID
       sessions {
         items {
           id
-          datetime
-          booked
-          booking
-          complete
-          meetingUUID
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          programSessionsId
-          sessionSessionTemplateId
         }
         nextToken
         startedAt
@@ -118,21 +112,18 @@ export const deleteProgram = /* GraphQL */ `
     deleteProgram(input: $input, condition: $condition) {
       id
       userID
+      facilitatorID
+      cohortID
       sessions {
         items {
           id
-          datetime
-          booked
-          booking
-          complete
-          meetingUUID
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          programSessionsId
-          sessionSessionTemplateId
         }
         nextToken
         startedAt
@@ -172,32 +163,18 @@ export const createSession = /* GraphQL */ `
     createSession(input: $input, condition: $condition) {
       id
       program {
-        id
-        userID
-        sessions {
-          nextToken
-          startedAt
-        }
-        programTemplate {
+        items {
           id
-          name
-          description
-          version
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
         }
-        enrollmentDate
-        completionDate
-        complete
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        programProgramTemplateId
+        nextToken
+        startedAt
       }
       sessionTemplate {
         id
@@ -217,6 +194,7 @@ export const createSession = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -224,9 +202,9 @@ export const createSession = /* GraphQL */ `
         _lastChangedAt
         programTemplateSessionTemplatesId
       }
-      datetime
+      start
+      end
       booked
-      booking
       complete
       meetingUUID
       createdAt
@@ -234,7 +212,6 @@ export const createSession = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      programSessionsId
       sessionSessionTemplateId
     }
   }
@@ -247,32 +224,18 @@ export const updateSession = /* GraphQL */ `
     updateSession(input: $input, condition: $condition) {
       id
       program {
-        id
-        userID
-        sessions {
-          nextToken
-          startedAt
-        }
-        programTemplate {
+        items {
           id
-          name
-          description
-          version
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
         }
-        enrollmentDate
-        completionDate
-        complete
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        programProgramTemplateId
+        nextToken
+        startedAt
       }
       sessionTemplate {
         id
@@ -292,6 +255,7 @@ export const updateSession = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -299,9 +263,9 @@ export const updateSession = /* GraphQL */ `
         _lastChangedAt
         programTemplateSessionTemplatesId
       }
-      datetime
+      start
+      end
       booked
-      booking
       complete
       meetingUUID
       createdAt
@@ -309,7 +273,6 @@ export const updateSession = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      programSessionsId
       sessionSessionTemplateId
     }
   }
@@ -322,32 +285,18 @@ export const deleteSession = /* GraphQL */ `
     deleteSession(input: $input, condition: $condition) {
       id
       program {
-        id
-        userID
-        sessions {
-          nextToken
-          startedAt
-        }
-        programTemplate {
+        items {
           id
-          name
-          description
-          version
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
         }
-        enrollmentDate
-        completionDate
-        complete
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        programProgramTemplateId
+        nextToken
+        startedAt
       }
       sessionTemplate {
         id
@@ -367,6 +316,7 @@ export const deleteSession = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -374,9 +324,9 @@ export const deleteSession = /* GraphQL */ `
         _lastChangedAt
         programTemplateSessionTemplatesId
       }
-      datetime
+      start
+      end
       booked
-      booking
       complete
       meetingUUID
       createdAt
@@ -384,7 +334,6 @@ export const deleteSession = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      programSessionsId
       sessionSessionTemplateId
     }
   }
@@ -416,6 +365,7 @@ export const createSessionTemplate = /* GraphQL */ `
       length
       precedence
       type
+      group
       createdAt
       updatedAt
       _version
@@ -452,6 +402,7 @@ export const updateSessionTemplate = /* GraphQL */ `
       length
       precedence
       type
+      group
       createdAt
       updatedAt
       _version
@@ -488,6 +439,7 @@ export const deleteSessionTemplate = /* GraphQL */ `
       length
       precedence
       type
+      group
       createdAt
       updatedAt
       _version
@@ -512,6 +464,7 @@ export const createProgramTemplate = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -548,6 +501,7 @@ export const updateProgramTemplate = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -584,6 +538,7 @@ export const deleteProgramTemplate = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -617,6 +572,8 @@ export const createUser = /* GraphQL */ `
         items {
           id
           userID
+          facilitatorID
+          cohortID
           enrollmentDate
           completionDate
           complete
@@ -657,6 +614,8 @@ export const updateUser = /* GraphQL */ `
         items {
           id
           userID
+          facilitatorID
+          cohortID
           enrollmentDate
           completionDate
           complete
@@ -697,6 +656,8 @@ export const deleteUser = /* GraphQL */ `
         items {
           id
           userID
+          facilitatorID
+          cohortID
           enrollmentDate
           completionDate
           complete
@@ -722,6 +683,474 @@ export const deleteUser = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+    }
+  }
+`;
+export const createFacilitator = /* GraphQL */ `
+  mutation CreateFacilitator(
+    $input: CreateFacilitatorInput!
+    $condition: ModelFacilitatorConditionInput
+  ) {
+    createFacilitator(input: $input, condition: $condition) {
+      id
+      sub
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      firstName
+      lastName
+      email
+      phone
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const updateFacilitator = /* GraphQL */ `
+  mutation UpdateFacilitator(
+    $input: UpdateFacilitatorInput!
+    $condition: ModelFacilitatorConditionInput
+  ) {
+    updateFacilitator(input: $input, condition: $condition) {
+      id
+      sub
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      firstName
+      lastName
+      email
+      phone
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const deleteFacilitator = /* GraphQL */ `
+  mutation DeleteFacilitator(
+    $input: DeleteFacilitatorInput!
+    $condition: ModelFacilitatorConditionInput
+  ) {
+    deleteFacilitator(input: $input, condition: $condition) {
+      id
+      sub
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      firstName
+      lastName
+      email
+      phone
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const createCohort = /* GraphQL */ `
+  mutation CreateCohort(
+    $input: CreateCohortInput!
+    $condition: ModelCohortConditionInput
+  ) {
+    createCohort(input: $input, condition: $condition) {
+      id
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const updateCohort = /* GraphQL */ `
+  mutation UpdateCohort(
+    $input: UpdateCohortInput!
+    $condition: ModelCohortConditionInput
+  ) {
+    updateCohort(input: $input, condition: $condition) {
+      id
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const deleteCohort = /* GraphQL */ `
+  mutation DeleteCohort(
+    $input: DeleteCohortInput!
+    $condition: ModelCohortConditionInput
+  ) {
+    deleteCohort(input: $input, condition: $condition) {
+      id
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const createProgramSessions = /* GraphQL */ `
+  mutation CreateProgramSessions(
+    $input: CreateProgramSessionsInput!
+    $condition: ModelProgramSessionsConditionInput
+  ) {
+    createProgramSessions(input: $input, condition: $condition) {
+      id
+      programId
+      sessionId
+      program {
+        id
+        userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      session {
+        id
+        program {
+          nextToken
+          startedAt
+        }
+        sessionTemplate {
+          id
+          name
+          description
+          length
+          precedence
+          type
+          group
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+        }
+        start
+        end
+        booked
+        complete
+        meetingUUID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateProgramSessions = /* GraphQL */ `
+  mutation UpdateProgramSessions(
+    $input: UpdateProgramSessionsInput!
+    $condition: ModelProgramSessionsConditionInput
+  ) {
+    updateProgramSessions(input: $input, condition: $condition) {
+      id
+      programId
+      sessionId
+      program {
+        id
+        userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      session {
+        id
+        program {
+          nextToken
+          startedAt
+        }
+        sessionTemplate {
+          id
+          name
+          description
+          length
+          precedence
+          type
+          group
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+        }
+        start
+        end
+        booked
+        complete
+        meetingUUID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteProgramSessions = /* GraphQL */ `
+  mutation DeleteProgramSessions(
+    $input: DeleteProgramSessionsInput!
+    $condition: ModelProgramSessionsConditionInput
+  ) {
+    deleteProgramSessions(input: $input, condition: $condition) {
+      id
+      programId
+      sessionId
+      program {
+        id
+        userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      session {
+        id
+        program {
+          nextToken
+          startedAt
+        }
+        sessionTemplate {
+          id
+          name
+          description
+          length
+          precedence
+          type
+          group
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+        }
+        start
+        end
+        booked
+        complete
+        meetingUUID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

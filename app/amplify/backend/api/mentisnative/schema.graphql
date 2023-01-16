@@ -1,63 +1,87 @@
 type Program @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  userID: String! @index(name: "byUser")
-  sessions: [Session] @hasMany
-  programTemplate: ProgramTemplate! @hasOne
-  enrollmentDate: AWSDateTime
-  completionDate: AWSDateTime
-  complete: Boolean
+    id: ID!
+    userID: ID! @index(name: "byUser")
+    facilitatorID: ID! @index(name: "byFacilitator")
+    cohortID: ID @index(name: "byCohort")
+    sessions: [Session] @manyToMany(relationName: "ProgramSessions")
+    programTemplate: ProgramTemplate! @hasOne
+    enrollmentDate: AWSDateTime!
+    completionDate: AWSDateTime
+    complete: Boolean!
 }
 
 type Session @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  program: Program @belongsTo
-  sessionTemplate: SessionTemplate! @hasOne
-  datetime: AWSDateTime
-  booked: Boolean
-  booking: Boolean
-  complete: Boolean
-  meetingUUID: String!
+    id: ID!
+    program: [Program] @manyToMany(relationName: "ProgramSessions")
+    sessionTemplate: SessionTemplate! @hasOne
+    start: AWSDateTime
+    end: AWSDateTime
+    booked: Boolean!
+    complete: Boolean!
+    meetingUUID: String!
 }
 
 enum SessionType {
-  ONE
-  GROUP
+    ONE
+    GROUP
+}
+
+enum SessionGroup {
+    SCREENING
+    PREPARATION
+    TRIP
+    INTEGRATION
 }
 
 type SessionTemplate @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  programTemplate: ProgramTemplate! @belongsTo
-  name: String
-  description: String
-  length: AWSTime
-  precedence: Int
-  type: SessionType
+    id: ID!
+    programTemplate: ProgramTemplate! @belongsTo
+    name: String!
+    description: String!
+    length: AWSTime!
+    precedence: Int!
+    type: SessionType!
+    group: SessionGroup!
 }
 
 type ProgramTemplate @model @auth(rules: [{allow: private}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  sessionTemplates: [SessionTemplate] @hasMany
-  name: String
-  description: String
-  version: String
+    id: ID!
+    sessionTemplates: [SessionTemplate] @hasMany
+    name: String!
+    description: String!
+    version: String!
 }
 
 enum AccountType {
-  SUPER_ADMIN
-  USER
-  SUPERVISOR
-  THERAPIST
+    SUPER_ADMIN
+    USER
+    SUPERVISOR
+    THERAPIST
 }
 
 type User @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  sub: String!
-  programs: [Program] @hasMany(indexName: "byUser", fields: ["sub"])
-  firstName: String
-  lastName: String
-  email: AWSEmail
-  phone: AWSPhone
-  onboarded: Boolean
-  screened: Boolean
+    id: ID!
+    programs: [Program] @hasMany(indexName: "byUser", fields: ["id"])
+    firstName: String
+    lastName: String
+    email: AWSEmail
+    phone: AWSPhone
+    onboarded: Boolean
+    screened: Boolean
+}
+
+type Facilitator @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+    id: ID!
+    programs: [Program] @hasMany(indexName: "byFacilitator", fields: ["id"])
+    firstName: String
+    lastName: String
+    email: AWSEmail
+    phone: AWSPhone
+    description: String
+}
+
+type Cohort  @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
+    id: ID!
+    programs: [Program] @hasMany(indexName: "byCohort", fields: ["id"])
 }
  

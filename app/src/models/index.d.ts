@@ -7,6 +7,13 @@ export enum SessionType {
   GROUP = "GROUP"
 }
 
+export enum SessionGroup {
+  SCREENING = "SCREENING",
+  PREPARATION = "PREPARATION",
+  TRIP = "TRIP",
+  INTEGRATION = "INTEGRATION"
+}
+
 export enum AccountType {
   SUPER_ADMIN = "SUPER_ADMIN",
   USER = "USER",
@@ -23,11 +30,13 @@ type EagerProgram = {
   };
   readonly id: string;
   readonly userID: string;
-  readonly sessions?: (Session | null)[] | null;
+  readonly facilitatorID: string;
+  readonly cohortID?: string | null;
+  readonly sessions?: (ProgramSessions | null)[] | null;
   readonly programTemplate: ProgramTemplate;
-  readonly enrollmentDate?: string | null;
+  readonly enrollmentDate: string;
   readonly completionDate?: string | null;
-  readonly complete?: boolean | null;
+  readonly complete: boolean;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly programProgramTemplateId: string;
@@ -40,11 +49,13 @@ type LazyProgram = {
   };
   readonly id: string;
   readonly userID: string;
-  readonly sessions: AsyncCollection<Session>;
+  readonly facilitatorID: string;
+  readonly cohortID?: string | null;
+  readonly sessions: AsyncCollection<ProgramSessions>;
   readonly programTemplate: AsyncItem<ProgramTemplate>;
-  readonly enrollmentDate?: string | null;
+  readonly enrollmentDate: string;
   readonly completionDate?: string | null;
-  readonly complete?: boolean | null;
+  readonly complete: boolean;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly programProgramTemplateId: string;
@@ -62,16 +73,15 @@ type EagerSession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly program?: Program | null;
+  readonly program?: (ProgramSessions | null)[] | null;
   readonly sessionTemplate: SessionTemplate;
-  readonly datetime?: string | null;
-  readonly booked?: boolean | null;
-  readonly booking?: boolean | null;
-  readonly complete?: boolean | null;
+  readonly start?: string | null;
+  readonly end?: string | null;
+  readonly booked: boolean;
+  readonly complete: boolean;
   readonly meetingUUID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programSessionsId?: string | null;
   readonly sessionSessionTemplateId: string;
 }
 
@@ -81,16 +91,15 @@ type LazySession = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly program: AsyncItem<Program | undefined>;
+  readonly program: AsyncCollection<ProgramSessions>;
   readonly sessionTemplate: AsyncItem<SessionTemplate>;
-  readonly datetime?: string | null;
-  readonly booked?: boolean | null;
-  readonly booking?: boolean | null;
-  readonly complete?: boolean | null;
+  readonly start?: string | null;
+  readonly end?: string | null;
+  readonly booked: boolean;
+  readonly complete: boolean;
   readonly meetingUUID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly programSessionsId?: string | null;
   readonly sessionSessionTemplateId: string;
 }
 
@@ -107,11 +116,12 @@ type EagerSessionTemplate = {
   };
   readonly id: string;
   readonly programTemplate: ProgramTemplate;
-  readonly name?: string | null;
-  readonly description?: string | null;
-  readonly length?: string | null;
-  readonly precedence?: number | null;
-  readonly type?: SessionType | keyof typeof SessionType | null;
+  readonly name: string;
+  readonly description: string;
+  readonly length: string;
+  readonly precedence: number;
+  readonly type: SessionType | keyof typeof SessionType;
+  readonly group: SessionGroup | keyof typeof SessionGroup;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly programTemplateSessionTemplatesId: string;
@@ -124,11 +134,12 @@ type LazySessionTemplate = {
   };
   readonly id: string;
   readonly programTemplate: AsyncItem<ProgramTemplate>;
-  readonly name?: string | null;
-  readonly description?: string | null;
-  readonly length?: string | null;
-  readonly precedence?: number | null;
-  readonly type?: SessionType | keyof typeof SessionType | null;
+  readonly name: string;
+  readonly description: string;
+  readonly length: string;
+  readonly precedence: number;
+  readonly type: SessionType | keyof typeof SessionType;
+  readonly group: SessionGroup | keyof typeof SessionGroup;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly programTemplateSessionTemplatesId: string;
@@ -147,9 +158,9 @@ type EagerProgramTemplate = {
   };
   readonly id: string;
   readonly sessionTemplates?: (SessionTemplate | null)[] | null;
-  readonly name?: string | null;
-  readonly description?: string | null;
-  readonly version?: string | null;
+  readonly name: string;
+  readonly description: string;
+  readonly version: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -161,9 +172,9 @@ type LazyProgramTemplate = {
   };
   readonly id: string;
   readonly sessionTemplates: AsyncCollection<SessionTemplate>;
-  readonly name?: string | null;
-  readonly description?: string | null;
-  readonly version?: string | null;
+  readonly name: string;
+  readonly description: string;
+  readonly version: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -214,4 +225,106 @@ export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser :
 
 export declare const User: (new (init: ModelInit<User>) => User) & {
   copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+}
+
+type EagerFacilitator = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Facilitator, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly sub: string;
+  readonly programs?: (Program | null)[] | null;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly email?: string | null;
+  readonly phone?: string | null;
+  readonly description?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyFacilitator = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Facilitator, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly sub: string;
+  readonly programs: AsyncCollection<Program>;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly email?: string | null;
+  readonly phone?: string | null;
+  readonly description?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Facilitator = LazyLoading extends LazyLoadingDisabled ? EagerFacilitator : LazyFacilitator
+
+export declare const Facilitator: (new (init: ModelInit<Facilitator>) => Facilitator) & {
+  copyOf(source: Facilitator, mutator: (draft: MutableModel<Facilitator>) => MutableModel<Facilitator> | void): Facilitator;
+}
+
+type EagerCohort = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Cohort, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programs?: (Program | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyCohort = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Cohort, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programs: AsyncCollection<Program>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Cohort = LazyLoading extends LazyLoadingDisabled ? EagerCohort : LazyCohort
+
+export declare const Cohort: (new (init: ModelInit<Cohort>) => Cohort) & {
+  copyOf(source: Cohort, mutator: (draft: MutableModel<Cohort>) => MutableModel<Cohort> | void): Cohort;
+}
+
+type EagerProgramSessions = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ProgramSessions, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programId?: string | null;
+  readonly sessionId?: string | null;
+  readonly program: Program;
+  readonly session: Session;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyProgramSessions = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ProgramSessions, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly programId?: string | null;
+  readonly sessionId?: string | null;
+  readonly program: AsyncItem<Program>;
+  readonly session: AsyncItem<Session>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type ProgramSessions = LazyLoading extends LazyLoadingDisabled ? EagerProgramSessions : LazyProgramSessions
+
+export declare const ProgramSessions: (new (init: ModelInit<ProgramSessions>) => ProgramSessions) & {
+  copyOf(source: ProgramSessions, mutator: (draft: MutableModel<ProgramSessions>) => MutableModel<ProgramSessions> | void): ProgramSessions;
 }

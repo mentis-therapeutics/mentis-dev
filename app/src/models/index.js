@@ -7,6 +7,13 @@ const SessionType = {
   "GROUP": "GROUP"
 };
 
+const SessionGroup = {
+  "SCREENING": "SCREENING",
+  "PREPARATION": "PREPARATION",
+  "TRIP": "TRIP",
+  "INTEGRATION": "INTEGRATION"
+};
+
 const AccountType = {
   "SUPER_ADMIN": "SUPER_ADMIN",
   "USER": "USER",
@@ -14,7 +21,7 @@ const AccountType = {
   "THERAPIST": "THERAPIST"
 };
 
-const { Program, Session, SessionTemplate, ProgramTemplate, User } = initSchema(schema);
+const { Program, Session, SessionTemplate, ProgramTemplate, User, Facilitator, Cohort, ProgramSessions } = initSchema(schema);
 
 export {
   Program,
@@ -22,6 +29,10 @@ export {
   SessionTemplate,
   ProgramTemplate,
   User,
+  Facilitator,
+  Cohort,
+  ProgramSessions,
   SessionType,
+  SessionGroup,
   AccountType
 };

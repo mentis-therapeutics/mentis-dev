@@ -7,21 +7,18 @@ export const getProgram = /* GraphQL */ `
     getProgram(id: $id) {
       id
       userID
+      facilitatorID
+      cohortID
       sessions {
         items {
           id
-          datetime
-          booked
-          booking
-          complete
-          meetingUUID
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          programSessionsId
-          sessionSessionTemplateId
         }
         nextToken
         startedAt
@@ -63,6 +60,8 @@ export const listPrograms = /* GraphQL */ `
       items {
         id
         userID
+        facilitatorID
+        cohortID
         sessions {
           nextToken
           startedAt
@@ -109,6 +108,8 @@ export const syncPrograms = /* GraphQL */ `
       items {
         id
         userID
+        facilitatorID
+        cohortID
         sessions {
           nextToken
           startedAt
@@ -141,7 +142,7 @@ export const syncPrograms = /* GraphQL */ `
 `;
 export const programsByUserID = /* GraphQL */ `
   query ProgramsByUserID(
-    $userID: String!
+    $userID: ID!
     $sortDirection: ModelSortDirection
     $filter: ModelProgramFilterInput
     $limit: Int
@@ -157,6 +158,108 @@ export const programsByUserID = /* GraphQL */ `
       items {
         id
         userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const programsByFacilitatorID = /* GraphQL */ `
+  query ProgramsByFacilitatorID(
+    $facilitatorID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProgramFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    programsByFacilitatorID(
+      facilitatorID: $facilitatorID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const programsByCohortID = /* GraphQL */ `
+  query ProgramsByCohortID(
+    $cohortID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProgramFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    programsByCohortID(
+      cohortID: $cohortID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        facilitatorID
+        cohortID
         sessions {
           nextToken
           startedAt
@@ -192,32 +295,18 @@ export const getSession = /* GraphQL */ `
     getSession(id: $id) {
       id
       program {
-        id
-        userID
-        sessions {
-          nextToken
-          startedAt
-        }
-        programTemplate {
+        items {
           id
-          name
-          description
-          version
+          programId
+          sessionId
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
         }
-        enrollmentDate
-        completionDate
-        complete
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        programProgramTemplateId
+        nextToken
+        startedAt
       }
       sessionTemplate {
         id
@@ -237,6 +326,7 @@ export const getSession = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -244,9 +334,9 @@ export const getSession = /* GraphQL */ `
         _lastChangedAt
         programTemplateSessionTemplatesId
       }
-      datetime
+      start
+      end
       booked
-      booking
       complete
       meetingUUID
       createdAt
@@ -254,7 +344,6 @@ export const getSession = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      programSessionsId
       sessionSessionTemplateId
     }
   }
@@ -269,17 +358,8 @@ export const listSessions = /* GraphQL */ `
       items {
         id
         program {
-          id
-          userID
-          enrollmentDate
-          completionDate
-          complete
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          programProgramTemplateId
+          nextToken
+          startedAt
         }
         sessionTemplate {
           id
@@ -288,6 +368,7 @@ export const listSessions = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -295,9 +376,9 @@ export const listSessions = /* GraphQL */ `
           _lastChangedAt
           programTemplateSessionTemplatesId
         }
-        datetime
+        start
+        end
         booked
-        booking
         complete
         meetingUUID
         createdAt
@@ -305,7 +386,6 @@ export const listSessions = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        programSessionsId
         sessionSessionTemplateId
       }
       nextToken
@@ -329,17 +409,8 @@ export const syncSessions = /* GraphQL */ `
       items {
         id
         program {
-          id
-          userID
-          enrollmentDate
-          completionDate
-          complete
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          programProgramTemplateId
+          nextToken
+          startedAt
         }
         sessionTemplate {
           id
@@ -348,6 +419,7 @@ export const syncSessions = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -355,9 +427,9 @@ export const syncSessions = /* GraphQL */ `
           _lastChangedAt
           programTemplateSessionTemplatesId
         }
-        datetime
+        start
+        end
         booked
-        booking
         complete
         meetingUUID
         createdAt
@@ -365,7 +437,6 @@ export const syncSessions = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        programSessionsId
         sessionSessionTemplateId
       }
       nextToken
@@ -397,6 +468,7 @@ export const getSessionTemplate = /* GraphQL */ `
       length
       precedence
       type
+      group
       createdAt
       updatedAt
       _version
@@ -435,6 +507,7 @@ export const listSessionTemplates = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -478,6 +551,7 @@ export const syncSessionTemplates = /* GraphQL */ `
         length
         precedence
         type
+        group
         createdAt
         updatedAt
         _version
@@ -502,6 +576,7 @@ export const getProgramTemplate = /* GraphQL */ `
           length
           precedence
           type
+          group
           createdAt
           updatedAt
           _version
@@ -596,6 +671,8 @@ export const getUser = /* GraphQL */ `
         items {
           id
           userID
+          facilitatorID
+          cohortID
           enrollmentDate
           completionDate
           complete
@@ -688,6 +765,503 @@ export const syncUsers = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getFacilitator = /* GraphQL */ `
+  query GetFacilitator($id: ID!) {
+    getFacilitator(id: $id) {
+      id
+      sub
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      firstName
+      lastName
+      email
+      phone
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const listFacilitators = /* GraphQL */ `
+  query ListFacilitators(
+    $filter: ModelFacilitatorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFacilitators(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sub
+        programs {
+          nextToken
+          startedAt
+        }
+        firstName
+        lastName
+        email
+        phone
+        description
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncFacilitators = /* GraphQL */ `
+  query SyncFacilitators(
+    $filter: ModelFacilitatorFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncFacilitators(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        sub
+        programs {
+          nextToken
+          startedAt
+        }
+        firstName
+        lastName
+        email
+        phone
+        description
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getCohort = /* GraphQL */ `
+  query GetCohort($id: ID!) {
+    getCohort(id: $id) {
+      id
+      programs {
+        items {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const listCohorts = /* GraphQL */ `
+  query ListCohorts(
+    $filter: ModelCohortFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCohorts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        programs {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCohorts = /* GraphQL */ `
+  query SyncCohorts(
+    $filter: ModelCohortFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCohorts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        programs {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getProgramSessions = /* GraphQL */ `
+  query GetProgramSessions($id: ID!) {
+    getProgramSessions(id: $id) {
+      id
+      programId
+      sessionId
+      program {
+        id
+        userID
+        facilitatorID
+        cohortID
+        sessions {
+          nextToken
+          startedAt
+        }
+        programTemplate {
+          id
+          name
+          description
+          version
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        enrollmentDate
+        completionDate
+        complete
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        programProgramTemplateId
+      }
+      session {
+        id
+        program {
+          nextToken
+          startedAt
+        }
+        sessionTemplate {
+          id
+          name
+          description
+          length
+          precedence
+          type
+          group
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programTemplateSessionTemplatesId
+        }
+        start
+        end
+        booked
+        complete
+        meetingUUID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        sessionSessionTemplateId
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listProgramSessions = /* GraphQL */ `
+  query ListProgramSessions(
+    $filter: ModelProgramSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProgramSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        programId
+        sessionId
+        program {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        session {
+          id
+          start
+          end
+          booked
+          complete
+          meetingUUID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          sessionSessionTemplateId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncProgramSessions = /* GraphQL */ `
+  query SyncProgramSessions(
+    $filter: ModelProgramSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncProgramSessions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        programId
+        sessionId
+        program {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        session {
+          id
+          start
+          end
+          booked
+          complete
+          meetingUUID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          sessionSessionTemplateId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const programSessionsByProgramId = /* GraphQL */ `
+  query ProgramSessionsByProgramId(
+    $programId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProgramSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    programSessionsByProgramId(
+      programId: $programId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        programId
+        sessionId
+        program {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        session {
+          id
+          start
+          end
+          booked
+          complete
+          meetingUUID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          sessionSessionTemplateId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const programSessionsBySessionId = /* GraphQL */ `
+  query ProgramSessionsBySessionId(
+    $sessionId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProgramSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    programSessionsBySessionId(
+      sessionId: $sessionId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        programId
+        sessionId
+        program {
+          id
+          userID
+          facilitatorID
+          cohortID
+          enrollmentDate
+          completionDate
+          complete
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          programProgramTemplateId
+        }
+        session {
+          id
+          start
+          end
+          booked
+          complete
+          meetingUUID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          sessionSessionTemplateId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
